@@ -51,7 +51,7 @@ export const productsApi = api.injectEndpoints({
         credentials: 'include',
       }),
       invalidatesTags: () => {
-        [{ type: 'Products', id: 'LIST' }];
+        return [{ type: 'Products', id: 'LIST' }];
       },
     }),
     updateProduct: build.mutation({
