@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -56,6 +57,12 @@ const LoginForm = () => {
             Login
           </Button>
         </FormProvider>
+
+        <Box sx={{ marginTop: '20px', textAlign: 'center' }}>
+          <Typography variant='body2'>
+            Don&apos;t have an account? <Link to='/register'>Register</Link>
+          </Typography>
+        </Box>
 
         <Box sx={{ marginTop: '20px', textAlign: 'right' }}>
           <Button color='warning' onClick={() => handleShowForgotModal(true)}>

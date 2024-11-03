@@ -8,6 +8,7 @@ import FormProvider from '../../../../providers/form/FormProvider';
 import { useForm } from '../../../../providers/form/hooks/useForm';
 import TextFieldAdapter from '../../../../providers/form/formFields/TextFieldAdapter';
 import PasswordTextFieldAdapter from '../../../../providers/form/formFields/PasswordTextFieldAdapter';
+import CheckboxAdapter from '../../../../providers/form/formFields/CheckboxAdapter';
 import { EmailIcon, FaceIcon } from '../../../mui/Icons';
 import { formConfig } from './registerForm.schema';
 
@@ -18,8 +19,13 @@ const RegisterForm = () => {
   const { formState, reset } = formMethods;
 
   const handleFormSubmit = (values) => {
-    const { username, email, password } = values;
-    register({ username, email, password });
+    const { username, email, password, isSeller } = values;
+    register({
+      username,
+      email,
+      password,
+      role: isSeller ? 'seller' : 'buyer',
+    });
   };
 
   return (
@@ -50,6 +56,8 @@ const RegisterForm = () => {
             name='confirmPassword'
             label='Confirm Password'
           />
+
+          <CheckboxAdapter name='isSeller' label='Register as a seller?' />
 
           <Box
             sx={{
