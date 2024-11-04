@@ -7,20 +7,24 @@ import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
 
 import {
   useGetCategoriesQuery,
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
   useDeleteCategoryMutation,
-} from '../../providers/store/services/categories';
-import { useDispatch } from '../../providers/store/store';
-import { showNotification } from '../../providers/store/features/notification/notificationSlice';
-import FormProvider from '../../providers/form/FormProvider';
-import { useForm } from '../../providers/form/hooks/useForm';
-import TextFieldAdapter from '../../providers/form/formFields/TextFieldAdapter';
-import { useConfirmDialog } from '../../contexts/useConfirmDialogContext';
-import { useIsApiRequestPending } from '../../hooks/useIsApiRequestPending';
+} from '@/providers/store/services/categories';
+import { useDispatch } from '@/providers/store/store';
+import { showNotification } from '@/providers/store/features/notification/notificationSlice';
+import FormProvider from '@/providers/form/FormProvider';
+import { useForm } from '@/providers/form/hooks/useForm';
+import TextFieldAdapter from '@/providers/form/formFields/TextFieldAdapter';
+import ImagesFieldAdapter from '@/providers/form/formFields/ImagesFieldAdapter';
+import { useConfirmDialog } from '@/contexts/useConfirmDialogContext';
+import { useIsApiRequestPending } from '@/hooks/useIsApiRequestPending';
+import PreviewImageAvatar from '@/components/common/imagePreview/PreviewImageAvatar';
 import { formConfig } from './manageCategoryForm.schema';
 
 const ManageCategory = () => {
@@ -42,17 +46,23 @@ const ManageCategory = () => {
   const isLoading = useIsApiRequestPending();
 
   const formMethods = useForm(formConfig);
-  const { formState, reset, setValue } = formMethods;
+  const { formState, reset, setValue, clearErrors, watch } = formMethods;
 
-  const handleCategorySubmit = async ({ category }) => {
+  const handleCategorySubmit = async (values) => {
+    const formData = new FormData();
+    formData.append('categoryName', values.categoryName);
+    if (values.categoryImage[0] instanceof File) {
+      formData.append('categoryImage', values.categoryImage[0]);
+    }
+
     let result;
     if (selectedCategory) {
       result = await updateCategory({
         id: selectedCategory._id,
-        name: category,
+        formData,
       });
     } else {
-      result = await createCategory({ name: category });
+      result = await createCategory(formData);
     }
 
     if (!('error' in result)) {
@@ -79,6 +89,11 @@ const ManageCategory = () => {
     setSelectedCategory(null);
   };
 
+  const selectedFormImage = watch('categoryImage');
+  const removeImage = () => {
+    setValue('categoryImage', []);
+  };
+
   return (
     <Box sx={{ padding: (theme) => theme.spacing(1) }}>
       <Typography variant='h5'>Manage Categories</Typography>
@@ -86,7 +101,22 @@ const ManageCategory = () => {
       <Box>
         <FormProvider onSubmit={handleCategorySubmit} methods={formMethods}>
           <Box my={1}>
-            <TextFieldAdapter name='category' label='Category Name' />
+            <TextFieldAdapter name='categoryName' label='Category Name' />
+
+            <ImagesFieldAdapter name='categoryImage' maxFiles={1} />
+
+            <Stack sx={{ marginTop: 3 }} spacing={2} direction='row'>
+              {selectedFormImage.map((formImage) => {
+                return (
+                  <PreviewImageAvatar
+                    // for exisiting images we will have publicId, for newly uploaded files, we will use the path
+                    key={formImage.publicId || formImage.path}
+                    image={formImage}
+                    handleRemoveImage={removeImage}
+                  />
+                );
+              })}
+            </Stack>
           </Box>
 
           <Box mt={2} ml={1}>
@@ -133,14 +163,19 @@ const ManageCategory = () => {
             .filter(({ name }) =>
               name.toLowerCase().includes(filterCategoryText.toLowerCase())
             )
-            .map(({ _id, name }) => {
+            .map(({ _id, name, image }) => {
               return (
                 <Chip
                   key={_id}
                   label={name}
+                  avatar={
+                    <Avatar alt='Category preview' src={image.imageUrl} />
+                  }
                   sx={{ margin: '4px' }}
                   onClick={() => {
-                    setValue('category', name);
+                    clearErrors('categoryImage');
+                    setValue('categoryName', name);
+                    setValue('categoryImage', [image]);
                     setSelectedCategory({ _id, name });
                   }}
                   onDelete={() =>

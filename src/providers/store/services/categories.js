@@ -45,12 +45,12 @@ export const categoriesApi = api.injectEndpoints({
     }),
     updateCategory: build.mutation({
       query: (data) => {
-        const { id, ...body } = data;
+        const { id, formData } = data;
 
         return {
           url: `/categories/${id}`,
           method: 'PATCH',
-          body,
+          body: formData,
           credentials: 'include',
         };
       },
