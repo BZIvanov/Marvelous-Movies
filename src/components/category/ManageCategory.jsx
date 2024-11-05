@@ -25,6 +25,7 @@ import ImagesFieldAdapter from '@/providers/form/formFields/ImagesFieldAdapter';
 import { useConfirmDialog } from '@/contexts/useConfirmDialogContext';
 import { useIsApiRequestPending } from '@/hooks/useIsApiRequestPending';
 import PreviewImageAvatar from '@/components/common/imagePreview/PreviewImageAvatar';
+import { resizeImage } from '@/utils/resizeImage';
 import { formConfig } from './manageCategoryForm.schema';
 
 const ManageCategory = () => {
@@ -46,13 +47,21 @@ const ManageCategory = () => {
   const isLoading = useIsApiRequestPending();
 
   const formMethods = useForm(formConfig);
-  const { formState, reset, setValue, clearErrors, watch } = formMethods;
+  const { formState, reset, setValue, watch } = formMethods;
 
   const handleCategorySubmit = async (values) => {
     const formData = new FormData();
     formData.append('categoryName', values.categoryName);
+
     if (values.categoryImage[0] instanceof File) {
-      formData.append('categoryImage', values.categoryImage[0]);
+      const resizedImage = await resizeImage(values.categoryImage[0], {
+        maxWidth: 300,
+        maxHeight: 300,
+        compressFormat: 'png',
+        outputType: 'file',
+      });
+
+      formData.append('categoryImage', resizedImage);
     }
 
     let result;
@@ -173,9 +182,10 @@ const ManageCategory = () => {
                   }
                   sx={{ margin: '4px' }}
                   onClick={() => {
-                    clearErrors('categoryImage');
-                    setValue('categoryName', name);
-                    setValue('categoryImage', [image]);
+                    reset({
+                      categoryName: name,
+                      categoryImage: [image],
+                    });
                     setSelectedCategory({ _id, name });
                   }}
                   onDelete={() =>
