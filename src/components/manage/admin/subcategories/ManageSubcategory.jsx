@@ -8,21 +8,21 @@ import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
 
-import { useGetCategoriesQuery } from '../../providers/store/services/categories';
+import { useGetCategoriesQuery } from '@/providers/store/services/categories';
 import {
   useGetGroupedSubcategoriesQuery,
   useCreateSubcategoryMutation,
   useUpdateSubcategoryMutation,
   useDeleteSubcategoryMutation,
-} from '../../providers/store/services/subcategories';
-import { useDispatch } from '../../providers/store/store';
-import { showNotification } from '../../providers/store/features/notification/notificationSlice';
-import FormProvider from '../../providers/form/FormProvider';
-import { useForm } from '../../providers/form/hooks/useForm';
-import TextFieldAdapter from '../../providers/form/formFields/TextFieldAdapter';
-import SelectDropdownAdapter from '../../providers/form/formFields/SelectDropdownAdapter';
-import { useConfirmDialog } from '../../contexts/useConfirmDialogContext';
-import { useIsApiRequestPending } from '../../hooks/useIsApiRequestPending';
+} from '@/providers/store/services/subcategories';
+import { useDispatch } from '@/providers/store/store';
+import { showNotification } from '@/providers/store/features/notification/notificationSlice';
+import FormProvider from '@/providers/form/FormProvider';
+import { useForm } from '@/providers/form/hooks/useForm';
+import TextFieldAdapter from '@/providers/form/formFields/TextFieldAdapter';
+import SelectDropdownAdapter from '@/providers/form/formFields/SelectDropdownAdapter';
+import { useConfirmDialog } from '@/contexts/useConfirmDialogContext';
+import { useIsApiRequestPending } from '@/hooks/useIsApiRequestPending';
 import { formConfig } from './manageSubcategoryForm.schema';
 
 const ManageSubcategory = () => {

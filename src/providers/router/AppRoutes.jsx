@@ -12,8 +12,8 @@ import NavigationLayout from '../../components/user/navigation/NavigationLayout'
 import OrdersList from '../../components/order/OrdersList';
 import WishList from '../../components/wishlist/WishList';
 import PasswordUpdateForm from '../../components/user/auth/PasswordUpdateForm';
-import ManageCategory from '../../components/category/ManageCategory';
-import ManageSubcategory from '../../components/subcategory/ManageSubcategory';
+import ManageCategory from '@/components/manage/admin/categories/ManageCategory';
+import ManageSubcategory from '@/components/manage/admin/subcategories/ManageSubcategory';
 import ManageProduct from '../../components/product/ManageProduct';
 import ManageProducts from '../../components/product/ManageProducts';
 import ProductDetailed from '../../components/product/detailed/ProductDetailed';
