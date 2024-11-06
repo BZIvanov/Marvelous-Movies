@@ -17,7 +17,7 @@ import ManageSubcategory from '@/components/manage/admin/subcategories/ManageSub
 import ManageProduct from '../../components/product/ManageProduct';
 import ManageProducts from '../../components/product/ManageProducts';
 import ProductDetailed from '../../components/product/detailed/ProductDetailed';
-import ManageCoupon from '../../components/coupon/ManageCoupon';
+import ManageCoupon from '@/components/manage/admin/coupons/ManageCoupon';
 import CategoryProducts from '../../components/category/CategoryProducts';
 import SubcategoryProducts from '../../components/subcategory/SubcategoryProducts';
 import Checkout from '../../components/checkout/Checkout';

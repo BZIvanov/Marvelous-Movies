@@ -14,18 +14,18 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { format, parseISO } from 'date-fns';
 
-import FormProvider from '../../providers/form/FormProvider';
-import { useForm } from '../../providers/form/hooks/useForm';
-import TextFieldAdapter from '../../providers/form/formFields/TextFieldAdapter';
-import DatePickerFieldAdapter from '../../providers/form/formFields/DatePickerFieldAdapter';
+import FormProvider from '@/providers/form/FormProvider';
+import { useForm } from '@/providers/form/hooks/useForm';
+import TextFieldAdapter from '@/providers/form/formFields/TextFieldAdapter';
+import DatePickerFieldAdapter from '@/providers/form/formFields/DatePickerFieldAdapter';
 import {
   useGetCouponsQuery,
   useCreateCouponMutation,
   useDeleteCouponMutation,
-} from '../../providers/store/services/coupons';
-import { useConfirmDialog } from '../../contexts/useConfirmDialogContext';
-import { useIsApiRequestPending } from '../../hooks/useIsApiRequestPending';
-import { DeleteIcon } from '../mui/Icons';
+} from '@/providers/store/services/coupons';
+import { useConfirmDialog } from '@/contexts/useConfirmDialogContext';
+import { useIsApiRequestPending } from '@/hooks/useIsApiRequestPending';
+import { DeleteIcon } from '@/components/mui/Icons';
 import { formConfig } from './manageCouponForm.schema';
 
 const ROWS_PER_PAGE_OPTIONS = [10, 25, 50];
@@ -59,7 +59,7 @@ const ManageCoupon = () => {
 
   return (
     <Box sx={{ padding: (theme) => theme.spacing(1) }}>
-      <Typography variant='h5'>Coupons</Typography>
+      <Typography variant='h5'>Manage Coupons</Typography>
 
       <Divider sx={{ marginBlock: 2 }} />
 
@@ -98,6 +98,8 @@ const ManageCoupon = () => {
       <Divider sx={{ marginBlock: 2 }} />
 
       <Box>
+        <Typography variant='h5'>Coupons List</Typography>
+
         <Paper sx={{ margin: 1 }}>
           <TableContainer>
             <Table size='small'>
