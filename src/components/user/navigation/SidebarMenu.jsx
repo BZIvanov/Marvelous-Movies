@@ -26,9 +26,9 @@ const userLinks = [
     linkText: 'Wishlist',
   },
   {
-    toLink: 'password',
+    toLink: 'profile',
     icon: <PasswordIcon fontSize='small' />,
-    linkText: 'Update Password',
+    linkText: 'Update Profile',
   },
 ];
 
@@ -64,9 +64,9 @@ const adminLinks = [
     linkText: 'Manage Coupons',
   },
   {
-    toLink: 'password',
+    toLink: 'profile',
     icon: <PasswordIcon fontSize='small' />,
-    linkText: 'Update Password',
+    linkText: 'Update Profile',
   },
 ];
 

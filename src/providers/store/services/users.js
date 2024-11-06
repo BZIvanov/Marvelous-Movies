@@ -12,6 +12,9 @@ export const usersApi = api.injectEndpoints({
             credentials: 'include',
           };
         },
+        providesTags: () => {
+          return [{ type: 'User' }];
+        },
       }),
       login: build.mutation({
         query: (data) => {
@@ -21,6 +24,9 @@ export const usersApi = api.injectEndpoints({
             body: data,
             credentials: 'include',
           };
+        },
+        providesTags: () => {
+          return [{ type: 'User' }];
         },
       }),
       logout: build.mutation({
@@ -39,6 +45,9 @@ export const usersApi = api.injectEndpoints({
             method: 'GET',
             credentials: 'include', // this is needed for the cookies to be set and sent to the backend
           };
+        },
+        providesTags: () => {
+          return [{ type: 'User' }];
         },
       }),
       forgotPassword: build.mutation({
@@ -69,6 +78,19 @@ export const usersApi = api.injectEndpoints({
           };
         },
       }),
+      updateAvatar: build.mutation({
+        query: (data) => {
+          return {
+            url: '/users/update-avatar',
+            method: 'PATCH',
+            body: data,
+            credentials: 'include',
+          };
+        },
+        invalidatesTags: () => {
+          return [{ type: 'User' }];
+        },
+      }),
     };
   },
 });
@@ -81,4 +103,5 @@ export const {
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useUpdatePasswordMutation,
+  useUpdateAvatarMutation,
 } = usersApi;

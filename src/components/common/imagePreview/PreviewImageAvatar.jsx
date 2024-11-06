@@ -5,7 +5,7 @@ import Avatar from '@mui/material/Avatar';
 
 import { CloseOutlinedIcon } from '../../mui/Icons';
 
-const PreviewImageAvatar = ({ image, handleRemoveImage }) => {
+const PreviewImageAvatar = ({ image, removeImage }) => {
   const [preview, setPreview] = useState();
 
   useEffect(() => {
@@ -27,16 +27,20 @@ const PreviewImageAvatar = ({ image, handleRemoveImage }) => {
     };
   }, [image]);
 
+  const handleRemoveImage = () => {
+    removeImage(image);
+  };
+
   return (
     <Badge
       badgeContent={
-        <CloseOutlinedIcon
-          sx={{ cursor: 'pointer' }}
-          htmlColor={'red'}
-          onClick={() => {
-            handleRemoveImage(image);
-          }}
-        />
+        removeImage && (
+          <CloseOutlinedIcon
+            sx={{ cursor: 'pointer' }}
+            htmlColor={'red'}
+            onClick={handleRemoveImage}
+          />
+        )
       }
     >
       <Avatar
@@ -50,7 +54,7 @@ const PreviewImageAvatar = ({ image, handleRemoveImage }) => {
 
 PreviewImageAvatar.propTypes = {
   image: PropTypes.object,
-  handleRemoveImage: PropTypes.func,
+  removeImage: PropTypes.func,
 };
 
 export default PreviewImageAvatar;

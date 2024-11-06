@@ -2,31 +2,17 @@ import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import Paper from '@mui/material/Paper';
-import TableContainer from '@mui/material/TableContainer';
-import Table from '@mui/material/Table';
-import TableHead from '@mui/material/TableHead';
-import TableBody from '@mui/material/TableBody';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
-import TablePagination from '@mui/material/TablePagination';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import { format, parseISO } from 'date-fns';
 
-import FormProvider from '@/providers/form/FormProvider';
 import { useForm } from '@/providers/form/hooks/useForm';
-import TextFieldAdapter from '@/providers/form/formFields/TextFieldAdapter';
-import DatePickerFieldAdapter from '@/providers/form/formFields/DatePickerFieldAdapter';
 import {
   useGetCouponsQuery,
   useCreateCouponMutation,
   useDeleteCouponMutation,
 } from '@/providers/store/services/coupons';
-import { useConfirmDialog } from '@/contexts/useConfirmDialogContext';
-import { useIsApiRequestPending } from '@/hooks/useIsApiRequestPending';
-import { DeleteIcon } from '@/components/mui/Icons';
-import { formConfig } from './manageCouponForm.schema';
+import { formConfig } from './couponForm.schema';
+import CouponForm from './CouponForm';
+import CouponsList from './CouponsList';
+import CouponsPagination from './CouponsPagination';
 
 const ROWS_PER_PAGE_OPTIONS = [10, 25, 50];
 
@@ -34,28 +20,20 @@ const ManageCoupon = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(ROWS_PER_PAGE_OPTIONS[0]);
 
-  const { openDialog, closeDialog } = useConfirmDialog();
-
   const { data } = useGetCouponsQuery({ page, perPage: rowsPerPage });
-  const { coupons = [], totalCount = 0 } = data || {};
   const [createCoupon] = useCreateCouponMutation();
   const [deleteCoupon] = useDeleteCouponMutation();
 
-  const formMethods = useForm(formConfig);
-  const { formState, reset } = formMethods;
+  const form = useForm(formConfig);
 
-  const handleCategorySubmit = (values) => {
+  const handleCreateCoupon = (values) => {
     createCoupon(values);
-    reset();
+    form.reset();
   };
 
-  const handleCouponDelete = (couponId) => () => {
-    closeDialog();
-
+  const handleDeleteCoupon = (couponId) => {
     deleteCoupon(couponId);
   };
-
-  const isApiLoading = useIsApiRequestPending();
 
   return (
     <Box sx={{ padding: (theme) => theme.spacing(1) }}>
@@ -63,105 +41,24 @@ const ManageCoupon = () => {
 
       <Divider sx={{ marginBlock: 2 }} />
 
-      <Box sx={{ margin: 1 }}>
-        <FormProvider onSubmit={handleCategorySubmit} methods={formMethods}>
-          <Box my={1}>
-            <TextFieldAdapter name='name' label='Coupon Name' />
-          </Box>
-
-          <Box my={1}>
-            <TextFieldAdapter
-              name='discount'
-              label='Discount %'
-              type='number'
-            />
-          </Box>
-
-          <Box my={1}>
-            <DatePickerFieldAdapter
-              name='expirationDate'
-              label='Expiration Date'
-              disablePast={true}
-            />
-          </Box>
-
-          <Button
-            variant='contained'
-            type='submit'
-            disabled={formState.isSubmitting || isApiLoading}
-          >
-            Create Coupon
-          </Button>
-        </FormProvider>
-      </Box>
+      <CouponForm form={form} createCoupon={handleCreateCoupon} />
 
       <Divider sx={{ marginBlock: 2 }} />
 
-      <Box>
-        <Typography variant='h5'>Coupons List</Typography>
-
-        <Paper sx={{ margin: 1 }}>
-          <TableContainer>
-            <Table size='small'>
-              <TableHead>
-                <TableRow>
-                  <TableCell align='center'>Name</TableCell>
-                  <TableCell align='center'>Discount</TableCell>
-                  <TableCell align='center'>Expiration Date</TableCell>
-                  <TableCell align='center'>Created At</TableCell>
-                  <TableCell align='center'>Remove</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {coupons.map(
-                  ({ _id, name, discount, expirationDate, createdAt }) => {
-                    return (
-                      <TableRow key={_id}>
-                        <TableCell align='center'>{name}</TableCell>
-                        <TableCell align='center'>
-                          - {discount.toFixed(2)} %
-                        </TableCell>
-                        <TableCell align='center'>
-                          {format(parseISO(expirationDate), 'dd-MMM-yyyy')}
-                        </TableCell>
-                        <TableCell align='center'>
-                          {format(parseISO(createdAt), 'dd-MMM-yyyy')}
-                        </TableCell>
-                        <TableCell align='center'>
-                          <IconButton
-                            size='small'
-                            onClick={() => {
-                              openDialog({
-                                text: 'Are you sure you want to delete this coupon?',
-                                onConfirm: handleCouponDelete(_id),
-                              });
-                            }}
-                          >
-                            <DeleteIcon fontSize='inherit' />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  }
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-
-          <TablePagination
+      <CouponsList
+        coupons={data?.coupons}
+        deleteCoupon={handleDeleteCoupon}
+        paginationComponent={
+          <CouponsPagination
             rowsPerPageOptions={ROWS_PER_PAGE_OPTIONS}
-            component='div'
-            count={totalCount}
-            rowsPerPage={rowsPerPage}
+            totalCount={data?.totalCount}
             page={page}
-            onPageChange={(event, newPage) => setPage(newPage)}
-            onRowsPerPageChange={(event) => {
-              setRowsPerPage(parseInt(event.target.value, 10));
-              setPage(0);
-            }}
+            setPage={setPage}
+            rowsPerPage={rowsPerPage}
+            setRowsPerPage={setRowsPerPage}
           />
-        </Paper>
-      </Box>
+        }
+      />
     </Box>
   );
 };

@@ -11,7 +11,7 @@ import PasswordResetForm from '../../components/user/auth/PasswordResetForm';
 import NavigationLayout from '../../components/user/navigation/NavigationLayout';
 import OrdersList from '../../components/order/OrdersList';
 import WishList from '../../components/wishlist/WishList';
-import PasswordUpdateForm from '../../components/user/auth/PasswordUpdateForm';
+import UserProfile from '@/components/manage/common/profile/UserProfile';
 import ManageCategory from '@/components/manage/admin/categories/ManageCategory';
 import ManageSubcategory from '@/components/manage/admin/subcategories/ManageSubcategory';
 import ManageProduct from '../../components/product/ManageProduct';
@@ -62,7 +62,7 @@ const AppRoutes = () => {
       >
         <Route path='orders' element={<OrdersList />} />
         <Route path='wishlist' element={<WishList />} />
-        <Route path='password' element={<PasswordUpdateForm />} />
+        <Route path='profile' element={<UserProfile />} />
       </Route>
       <Route
         path='/admin'
@@ -83,7 +83,7 @@ const AppRoutes = () => {
         <Route path='product/:productId' element={<ManageProduct />} />
         <Route path='products' element={<ManageProducts />} />
         <Route path='coupon' element={<ManageCoupon />} />
-        <Route path='password' element={<PasswordUpdateForm />} />
+        <Route path='profile' element={<UserProfile />} />
       </Route>
       <Route path='/product/:productId' element={<ProductDetailed />} />
       <Route path='/category/:categoryId' element={<CategoryProducts />} />

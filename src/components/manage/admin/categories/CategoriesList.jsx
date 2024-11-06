@@ -6,12 +6,14 @@ import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
 
-import { useDeleteCategoryMutation } from '@/providers/store/services/categories';
 import { useConfirmDialog } from '@/contexts/useConfirmDialogContext';
 import CategorySearch from './CategorySearch';
-import { formConfig } from './categoryForm.schema';
 
-const CategoriesList = ({ form, categories = [], handleSelectCategory }) => {
+const CategoriesList = ({
+  categories = [],
+  selectCategory,
+  deleteCategory,
+}) => {
   const [filterCategoryText, setFilterCategoryText] = useState('');
   const handleFilterCategoryText = (filterValue) => {
     setFilterCategoryText(filterValue);
@@ -19,16 +21,10 @@ const CategoriesList = ({ form, categories = [], handleSelectCategory }) => {
 
   const { openDialog, closeDialog } = useConfirmDialog();
 
-  const [deleteCategory] = useDeleteCategoryMutation();
-
   const handleCategoryDelete = (categoryId) => () => {
     closeDialog();
 
     deleteCategory(categoryId);
-
-    handleSelectCategory(null);
-
-    form.reset(formConfig.defaultValues);
   };
 
   return (
@@ -56,7 +52,7 @@ const CategoriesList = ({ form, categories = [], handleSelectCategory }) => {
                   }
                   sx={{ margin: '4px' }}
                   onClick={() => {
-                    handleSelectCategory({ _id, name, image });
+                    selectCategory({ _id, name, image });
                   }}
                   onDelete={() => {
                     openDialog({
@@ -78,9 +74,9 @@ const CategoriesList = ({ form, categories = [], handleSelectCategory }) => {
 };
 
 CategoriesList.propTypes = {
-  form: PropTypes.object,
   categories: PropTypes.array,
-  handleSelectCategory: PropTypes.func,
+  selectCategory: PropTypes.func,
+  deleteCategory: PropTypes.func,
 };
 
 export default CategoriesList;

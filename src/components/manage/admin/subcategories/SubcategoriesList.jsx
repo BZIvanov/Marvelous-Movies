@@ -5,15 +5,13 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
 
-import { useDeleteSubcategoryMutation } from '@/providers/store/services/subcategories';
 import { useConfirmDialog } from '@/contexts/useConfirmDialogContext';
 import SubcategorySearch from './SubcategorySearch';
-import { formConfig } from './subcategoryForm.schema';
 
 const SubcategoriesList = ({
-  form,
   groupedSubcategories = [],
   handleSelectSubcategory,
+  deleteSubcategory,
 }) => {
   const [filterCategoryText, setFilterCategoryText] = useState('');
   const handleFilterCategoryText = (filterValue) => {
@@ -27,16 +25,10 @@ const SubcategoriesList = ({
 
   const { openDialog, closeDialog } = useConfirmDialog();
 
-  const [deleteSubcategory] = useDeleteSubcategoryMutation();
-
   const handleSubcategoryDelete = (subcategoryId) => () => {
     closeDialog();
 
     deleteSubcategory(subcategoryId);
-
-    handleSelectSubcategory(null);
-
-    form.reset(formConfig.defaultValues);
   };
 
   return (
@@ -111,9 +103,9 @@ const SubcategoriesList = ({
 };
 
 SubcategoriesList.propTypes = {
-  form: PropTypes.object,
   groupedSubcategories: PropTypes.array,
   handleSelectSubcategory: PropTypes.func,
+  deleteSubcategory: PropTypes.func,
 };
 
 export default SubcategoriesList;

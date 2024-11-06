@@ -1,38 +1,16 @@
-import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-import {
-  useCreateCategoryMutation,
-  useUpdateCategoryMutation,
-} from '@/providers/store/services/categories';
-import { useDispatch } from '@/providers/store/store';
-import { showNotification } from '@/providers/store/features/notification/notificationSlice';
 import FormProvider from '@/providers/form/FormProvider';
 import TextFieldAdapter from '@/providers/form/formFields/TextFieldAdapter';
 import ImagesFieldAdapter from '@/providers/form/formFields/ImagesFieldAdapter';
 import { useIsApiRequestPending } from '@/hooks/useIsApiRequestPending';
 import PreviewImageAvatar from '@/components/common/imagePreview/PreviewImageAvatar';
 import { resizeImage } from '@/utils/resizeImage';
-import { formConfig } from './categoryForm.schema';
 
-const CategoryForm = ({ form, selectedCategory, handleSelectCategory }) => {
-  const dispatch = useDispatch();
-
-  const [createCategory] = useCreateCategoryMutation();
-  const [updateCategory] = useUpdateCategoryMutation();
-
-  useEffect(() => {
-    if (selectedCategory) {
-      form.reset({
-        categoryName: selectedCategory.name,
-        categoryImage: [selectedCategory.image],
-      });
-    }
-  }, [form, selectedCategory]);
-
+const CategoryForm = ({ form, resetForm, createCategory, buttonLabel }) => {
   const selectedFormImage = form.watch('categoryImage');
 
   const removeImage = () => {
@@ -56,30 +34,7 @@ const CategoryForm = ({ form, selectedCategory, handleSelectCategory }) => {
       formData.append('categoryImage', resizedImage);
     }
 
-    let result;
-    if (selectedCategory) {
-      result = await updateCategory({
-        id: selectedCategory._id,
-        formData,
-      });
-    } else {
-      result = await createCategory(formData);
-    }
-
-    if (!('error' in result)) {
-      dispatch(
-        showNotification({
-          type: 'success',
-          message: `Category ${
-            selectedCategory ? 'updated' : 'created'
-          } successfully`,
-        })
-      );
-
-      handleSelectCategory(null);
-
-      form.reset(formConfig.defaultValues);
-    }
+    createCategory(formData);
   };
 
   return (
@@ -97,7 +52,7 @@ const CategoryForm = ({ form, selectedCategory, handleSelectCategory }) => {
                   // for exisiting images we will have publicId, for newly uploaded files, we will use the path
                   key={formImage.publicId || formImage.path}
                   image={formImage}
-                  handleRemoveImage={removeImage}
+                  removeImage={removeImage}
                 />
               );
             })}
@@ -109,10 +64,7 @@ const CategoryForm = ({ form, selectedCategory, handleSelectCategory }) => {
             variant='contained'
             color='secondary'
             type='button'
-            onClick={() => {
-              handleSelectCategory(null);
-              form.reset(formConfig.defaultValues);
-            }}
+            onClick={resetForm}
             disabled={form.formState.isSubmitting || isLoading}
           >
             Reset form
@@ -123,7 +75,7 @@ const CategoryForm = ({ form, selectedCategory, handleSelectCategory }) => {
             type='submit'
             disabled={form.formState.isSubmitting || isLoading}
           >
-            {selectedCategory ? 'Update category' : 'Create category'}
+            {buttonLabel}
           </Button>
         </Box>
       </FormProvider>
@@ -133,8 +85,9 @@ const CategoryForm = ({ form, selectedCategory, handleSelectCategory }) => {
 
 CategoryForm.propTypes = {
   form: PropTypes.object,
-  selectedCategory: PropTypes.object,
-  handleSelectCategory: PropTypes.func,
+  resetForm: PropTypes.func,
+  createCategory: PropTypes.func,
+  buttonLabel: PropTypes.string,
 };
 
 export default CategoryForm;
