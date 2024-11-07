@@ -17,7 +17,6 @@ import {
   setDrawerOpen,
   removeFromCart,
 } from '../../providers/store/features/cart/cartSlice';
-import ProductImage from '../../assets/images/product.png';
 import { ClearIcon } from '../mui/Icons';
 
 const CartDrawer = () => {
@@ -77,7 +76,7 @@ const CartDrawer = () => {
               image={
                 product.images.length > 0
                   ? product.images[0].imageUrl
-                  : ProductImage
+                  : '/images/product.png'
               }
               alt={product.title}
             />

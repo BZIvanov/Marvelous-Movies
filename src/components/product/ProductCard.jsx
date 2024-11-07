@@ -22,7 +22,6 @@ import DeleteProduct from './actions/DeleteProduct';
 import AddToCart from './actions/AddToCart';
 import ViewDetailed from './actions/ViewDetailed';
 import LoadingCard from './LoadingCard';
-import ProductImage from '../../assets/images/product.png';
 
 const ProductCard = ({ product }) => {
   const { _id, title, price, description, images, ratings } = product;
@@ -57,7 +56,7 @@ const ProductCard = ({ product }) => {
         <CardMedia
           component='img'
           height='140'
-          image={images.length > 0 ? images[0].imageUrl : ProductImage}
+          image={images.length > 0 ? images[0].imageUrl : '/images/product.png'}
           alt='app product'
         />
 

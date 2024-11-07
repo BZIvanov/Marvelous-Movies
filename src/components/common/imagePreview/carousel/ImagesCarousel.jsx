@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 
 import Carousel from './Carousel';
-import ProductImage from '../../../../assets/images/product.png';
 
 const ImagesCarousel = ({ images = [] }) => {
   return (
@@ -11,7 +10,7 @@ const ImagesCarousel = ({ images = [] }) => {
           <img src={imageUrl} key={publicId} alt='product-preview' />
         ))
       ) : (
-        <img src={ProductImage} alt='product-preview' />
+        <img src='/images/product.png' alt='product-preview' />
       )}
     </Carousel>
   );

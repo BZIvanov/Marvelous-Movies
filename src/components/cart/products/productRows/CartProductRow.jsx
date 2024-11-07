@@ -12,7 +12,6 @@ import {
   removeFromCart,
 } from '../../../../providers/store/features/cart/cartSlice';
 import { CheckIcon, ClearIcon, DeleteIcon } from '../../../mui/Icons';
-import ProductImage from '../../../../assets/images/product.png';
 
 const CartProductRow = ({ product, count }) => {
   const {
@@ -44,8 +43,8 @@ const CartProductRow = ({ product, count }) => {
           />
         ) : (
           <ModalImage
-            small={ProductImage}
-            large={ProductImage}
+            small='/images/product.png'
+            large='/images/product.png'
             alt='Default preview'
           />
         )}
