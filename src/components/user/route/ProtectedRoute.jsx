@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
 
-import { useSelector } from '../../../providers/store/store';
-import { selectUser } from '../../../providers/store/features/user/userSlice';
+import { useSelector } from '@/providers/store/store';
+import {
+  selectUser,
+  selectUserInitialLoadingCompleted,
+} from '@/providers/store/features/user/userSlice';
 import CountdownProgress from '../../common/feedback/CountdownProgress';
 
 const ProtectedRoute = ({
@@ -11,6 +14,14 @@ const ProtectedRoute = ({
   roles,
 }) => {
   const user = useSelector(selectUser);
+  const userInitialLoadingCompleted = useSelector(
+    selectUserInitialLoadingCompleted
+  );
+
+  // check if the initial loading of the user completed, because before it is fetched initially it will be null and we don't want to be redirected
+  if (!userInitialLoadingCompleted) {
+    return <div>Loading</div>;
+  }
 
   if (!user) {
     return <CountdownProgress redirectTo={authRedirectTo} />;
