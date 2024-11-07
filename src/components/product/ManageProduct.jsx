@@ -10,24 +10,24 @@ import {
   useGetProductQuery,
   useCreateProductMutation,
   useUpdateProductMutation,
-} from '../../providers/store/services/products';
-import { useUploadImageMutation } from '../../providers/store/services/images';
+} from '@/providers/store/services/products';
+import { useUploadImageMutation } from '@/providers/store/services/images';
 import {
   useGetCategoriesQuery,
   useGetCategorySubcategoriesQuery,
-} from '../../providers/store/services/categories';
-import { useDispatch } from '../../providers/store/store';
-import { showNotification } from '../../providers/store/features/notification/notificationSlice';
-import FormProvider from '../../providers/form/FormProvider';
-import { useForm } from '../../providers/form/hooks/useForm';
-import TextFieldAdapter from '../../providers/form/formFields/TextFieldAdapter';
-import SelectDropdownAdapter from '../../providers/form/formFields/SelectDropdownAdapter';
-import SelectDropdownMultichipAdapter from '../../providers/form/formFields/SelectDropdownMultichipAdapter';
-import ImagesFieldAdapter from '../../providers/form/formFields/ImagesFieldAdapter';
-import PreviewNewImageAvatar from '../common/imagePreview/PreviewNewImageAvatar';
-import PreviewExistingImageAvatar from '../common/imagePreview/PreviewExistingImageAvatar';
-import { resizeImage } from '../../utils/resizeImage';
-import { useIsApiRequestPending } from '../../hooks/useIsApiRequestPending';
+} from '@/providers/store/services/categories';
+import { useDispatch } from '@/providers/store/store';
+import { showNotification } from '@/providers/store/features/notification/notificationSlice';
+import FormProvider from '@/providers/form/FormProvider';
+import { useForm } from '@/providers/form/hooks/useForm';
+import TextFieldAdapter from '@/providers/form/formFields/TextFieldAdapter';
+import SelectDropdownAdapter from '@/providers/form/formFields/SelectDropdownAdapter';
+import SelectDropdownMultichipAdapter from '@/providers/form/formFields/SelectDropdownMultichipAdapter';
+import ImagesFieldAdapter from '@/providers/form/formFields/ImagesFieldAdapter';
+import PreviewNewImageAvatar from '@/components/common/imagePreview/PreviewNewImageAvatar';
+import PreviewExistingImageAvatar from '@/components/common/imagePreview/PreviewExistingImageAvatar';
+import { resizeImage } from '@/utils/resizeImage';
+import { useIsApiRequestPending } from '@/hooks/useIsApiRequestPending';
 import { formConfig } from './manageProductForm.schema';
 
 const ManageProduct = () => {

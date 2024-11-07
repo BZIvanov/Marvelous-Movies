@@ -8,15 +8,15 @@ import CardActions from '@mui/material/CardActions';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-import { useDeleteProductMutation } from '../../providers/store/services/products';
-import { useSelector, useDispatch } from '../../providers/store/store';
-import { selectUser } from '../../providers/store/features/user/userSlice';
+import { useDeleteProductMutation } from '@/providers/store/services/products';
+import { useSelector, useDispatch } from '@/providers/store/store';
+import { selectUser } from '@/providers/store/features/user/userSlice';
 import {
   addToCart,
   setDrawerOpen,
-} from '../../providers/store/features/cart/cartSlice';
-import { useIsApiRequestPending } from '../../hooks/useIsApiRequestPending';
-import AverageRating from '../common/rating/AverageRating';
+} from '@/providers/store/features/cart/cartSlice';
+import { useIsApiRequestPending } from '@/hooks/useIsApiRequestPending';
+import AverageRating from '@/components/common/rating/AverageRating';
 import EditProduct from './actions/EditProduct';
 import DeleteProduct from './actions/DeleteProduct';
 import AddToCart from './actions/AddToCart';

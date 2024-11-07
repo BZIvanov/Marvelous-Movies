@@ -13,20 +13,20 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import LinearProgress from '@mui/material/LinearProgress';
 
-import { useSelector } from '../../providers/store/store';
-import { selectUser } from '../../providers/store/features/user/userSlice';
-import { selectCart } from '../../providers/store/features/cart/cartSlice';
-import { useLogoutMutation } from '../../providers/store/services/users';
+import { useSelector } from '@/providers/store/store';
+import { selectUser } from '@/providers/store/features/user/userSlice';
+import { selectCart } from '@/providers/store/features/cart/cartSlice';
+import { useLogoutMutation } from '@/providers/store/services/users';
 import {
   AddBusinessIcon,
   AddShoppingCartIcon,
   HomeIcon,
   LoginIcon,
   PersonAddIcon,
-} from '../mui/Icons';
+} from '@/components/mui/Icons';
 import HeaderNavLink from './HeaderNavLink';
 import HeaderSearch from './HeaderSearch';
-import { useIsApiRequestPending } from '../../hooks/useIsApiRequestPending';
+import { useIsApiRequestPending } from '@/hooks/useIsApiRequestPending';
 
 const Header = () => {
   const navigate = useNavigate();

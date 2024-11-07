@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-import { useGetProductsQuery } from '../../providers/store/services/products';
+import { useGetProductsQuery } from '@/providers/store/services/products';
 import ProductsList from '../product/ProductsList';
 
 const PRODUCTS_PER_PAGE = 6;

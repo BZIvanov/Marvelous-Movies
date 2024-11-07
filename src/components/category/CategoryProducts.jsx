@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import {
   useGetCategoryQuery,
   useGetCategoryProductsQuery,
-} from '../../providers/store/services/categories';
+} from '@/providers/store/services/categories';
 import ProductsList from '../product/ProductsList';
 
 const CategoryProducts = () => {

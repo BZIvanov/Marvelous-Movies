@@ -6,10 +6,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 
-import {
-  VisibilityIcon,
-  VisibilityOffIcon,
-} from '../../../components/mui/Icons';
+import { VisibilityIcon, VisibilityOffIcon } from '@/components/mui/Icons';
 import { useFormContext } from '../hooks/useFormContext';
 
 const PasswordTextFieldAdapter = ({ name, label, styles }) => {

@@ -4,10 +4,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-import { useResetPasswordMutation } from '../../../providers/store/services/users';
-import FormProvider from '../../../providers/form/FormProvider';
-import { useForm } from '../../../providers/form/hooks/useForm';
-import PasswordTextFieldAdapter from '../../../providers/form/formFields/PasswordTextFieldAdapter';
+import { useResetPasswordMutation } from '@/providers/store/services/users';
+import FormProvider from '@/providers/form/FormProvider';
+import { useForm } from '@/providers/form/hooks/useForm';
+import PasswordTextFieldAdapter from '@/providers/form/formFields/PasswordTextFieldAdapter';
 import { formConfig } from './passwordResetForm.schema';
 
 const PasswordResetForm = () => {

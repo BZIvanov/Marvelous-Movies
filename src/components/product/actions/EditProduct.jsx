@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import { EditIcon } from '../../mui/Icons';
+import { EditIcon } from '@/components/mui/Icons';
 
 const EditProduct = ({ productId }) => {
   return (

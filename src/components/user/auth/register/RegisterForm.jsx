@@ -3,13 +3,13 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-import { useRegisterMutation } from '../../../../providers/store/services/users';
-import FormProvider from '../../../../providers/form/FormProvider';
-import { useForm } from '../../../../providers/form/hooks/useForm';
-import TextFieldAdapter from '../../../../providers/form/formFields/TextFieldAdapter';
-import PasswordTextFieldAdapter from '../../../../providers/form/formFields/PasswordTextFieldAdapter';
-import CheckboxAdapter from '../../../../providers/form/formFields/CheckboxAdapter';
-import { EmailIcon, FaceIcon } from '../../../mui/Icons';
+import { useRegisterMutation } from '@/providers/store/services/users';
+import FormProvider from '@/providers/form/FormProvider';
+import { useForm } from '@/providers/form/hooks/useForm';
+import TextFieldAdapter from '@/providers/form/formFields/TextFieldAdapter';
+import PasswordTextFieldAdapter from '@/providers/form/formFields/PasswordTextFieldAdapter';
+import CheckboxAdapter from '@/providers/form/formFields/CheckboxAdapter';
+import { EmailIcon, FaceIcon } from '@/components/mui/Icons';
 import { formConfig } from './registerForm.schema';
 
 const RegisterForm = () => {

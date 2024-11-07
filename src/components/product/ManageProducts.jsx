@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useGetProductsQuery } from '../../providers/store/services/products';
+import { useGetProductsQuery } from '@/providers/store/services/products';
 import ProductsList from './ProductsList';
 
 const PRODUCTS_PER_PAGE = 12;

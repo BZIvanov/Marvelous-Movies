@@ -3,14 +3,14 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 
-import { useSelector, useDispatch } from '../../../providers/store/store';
-import { useGetProductsBrandsQuery } from '../../../providers/store/services/products';
+import { useSelector, useDispatch } from '@/providers/store/store';
+import { useGetProductsBrandsQuery } from '@/providers/store/services/products';
 import {
   selectBrandsFilter,
   changeFilter,
-} from '../../../providers/store/features/productsFilters/productsFiltersSlice';
+} from '@/providers/store/features/productsFilters/productsFiltersSlice';
 import FilterListItem from './FilterListItem';
-import { TokenIcon } from '../../mui/Icons';
+import { TokenIcon } from '@/components/mui/Icons';
 
 const BrandsFilter = () => {
   const dispatch = useDispatch();

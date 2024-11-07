@@ -11,17 +11,17 @@ import {
   useGetProductQuery,
   useGetSimilarProductsQuery,
   useRateProductMutation,
-} from '../../../providers/store/services/products';
-import { useDispatch } from '../../../providers/store/store';
+} from '@/providers/store/services/products';
+import { useDispatch } from '@/providers/store/store';
 import {
   addToCart,
   setDrawerOpen,
-} from '../../../providers/store/features/cart/cartSlice';
-import { useAddToWishlistMutation } from '../../../providers/store/services/wishlists';
-import { showNotification } from '../../../providers/store/features/notification/notificationSlice';
-import AverageRating from '../../common/rating/AverageRating';
+} from '@/providers/store/features/cart/cartSlice';
+import { useAddToWishlistMutation } from '@/providers/store/services/wishlists';
+import { showNotification } from '@/providers/store/features/notification/notificationSlice';
+import AverageRating from '@/components/common/rating/AverageRating';
 import ProductsList from '../ProductsList';
-import ImagesCarousel from '../../common/imagePreview/carousel/ImagesCarousel';
+import ImagesCarousel from '@/components/common/imagePreview/carousel/ImagesCarousel';
 import InfoTextListItem from './InfoTextListItem';
 import InfoChipsListItem from './InfoChipsListItem';
 import InfoTabs from './InfoTabs';

@@ -10,14 +10,14 @@ import IconButton from '@mui/material/IconButton';
 import Divider from '@mui/material/Divider';
 import Tooltip from '@mui/material/Tooltip';
 
-import { useSelector, useDispatch } from '../../providers/store/store';
+import { useSelector, useDispatch } from '@/providers/store/store';
 import {
   selectCart,
   selectIsDrawerOpen,
   setDrawerOpen,
   removeFromCart,
-} from '../../providers/store/features/cart/cartSlice';
-import { ClearIcon } from '../mui/Icons';
+} from '@/providers/store/features/cart/cartSlice';
+import { ClearIcon } from '@/components/mui/Icons';
 
 const CartDrawer = () => {
   const dispatch = useDispatch();

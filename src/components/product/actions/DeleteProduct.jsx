@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import { useConfirmDialog } from '../../../contexts/useConfirmDialogContext';
-import { DeleteIcon } from '../../mui/Icons';
+import { useConfirmDialog } from '@/contexts/useConfirmDialogContext';
+import { DeleteIcon } from '@/components/mui/Icons';
 
 const DeleteProduct = ({ onDeleteProduct }) => {
   const { openDialog, closeDialog } = useConfirmDialog();

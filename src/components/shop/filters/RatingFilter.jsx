@@ -1,14 +1,14 @@
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 
-import { useSelector, useDispatch } from '../../../providers/store/store';
+import { useSelector, useDispatch } from '@/providers/store/store';
 import {
   selectRatingFilter,
   changeFilter,
-} from '../../../providers/store/features/productsFilters/productsFiltersSlice';
+} from '@/providers/store/features/productsFilters/productsFiltersSlice';
 import FilterListItem from './FilterListItem';
-import { StarIcon } from '../../mui/Icons';
-import { MAX_RATING_VALUE } from '../../common/rating/constants';
+import { StarIcon } from '@/components/mui/Icons';
+import { MAX_RATING_VALUE } from '@/components/common/rating/constants';
 
 const RatingFilter = () => {
   const dispatch = useDispatch();

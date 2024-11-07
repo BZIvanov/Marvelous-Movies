@@ -6,7 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
 
-import { ExpandLessIcon, ExpandMoreIcon } from '../../mui/Icons';
+import { ExpandLessIcon, ExpandMoreIcon } from '@/components/mui/Icons';
 
 const FilterListItem = ({ title, icon, children }) => {
   const [open, setOpen] = useState(true);

@@ -2,13 +2,13 @@ import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
-import { useSelector, useDispatch } from '../../../providers/store/store';
+import { useSelector, useDispatch } from '@/providers/store/store';
 import {
   selectPriceFilter,
   changeFilter,
-} from '../../../providers/store/features/productsFilters/productsFiltersSlice';
+} from '@/providers/store/features/productsFilters/productsFiltersSlice';
 import FilterListItem from './FilterListItem';
-import { AttachMoneyIcon } from '../../mui/Icons';
+import { AttachMoneyIcon } from '@/components/mui/Icons';
 
 const PriceFilter = () => {
   const dispatch = useDispatch();

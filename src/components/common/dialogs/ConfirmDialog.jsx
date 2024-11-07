@@ -5,7 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 
-import { useConfirmDialog } from '../../../contexts/useConfirmDialogContext';
+import { useConfirmDialog } from '@/contexts/useConfirmDialogContext';
 
 const ConfirmDialog = () => {
   const { dialogConfig, closeDialog } = useConfirmDialog();

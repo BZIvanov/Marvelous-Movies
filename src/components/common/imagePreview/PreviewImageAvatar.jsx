@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
 
-import { CloseOutlinedIcon } from '../../mui/Icons';
+import { CloseOutlinedIcon } from '@/components/mui/Icons';
 
 const PreviewImageAvatar = ({ image, removeImage }) => {
   const [preview, setPreview] = useState();

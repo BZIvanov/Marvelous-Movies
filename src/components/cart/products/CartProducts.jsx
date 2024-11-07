@@ -11,12 +11,12 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 
-import { useSelector, useDispatch } from '../../../providers/store/store';
-import { selectUser } from '../../../providers/store/features/user/userSlice';
+import { useSelector, useDispatch } from '@/providers/store/store';
+import { selectUser } from '@/providers/store/features/user/userSlice';
 import {
   selectCart,
   clearCart,
-} from '../../../providers/store/features/cart/cartSlice';
+} from '@/providers/store/features/cart/cartSlice';
 import CartProductRow from './productRows/CartProductRow';
 import CartTotalRow from './productRows/CartTotalRow';
 

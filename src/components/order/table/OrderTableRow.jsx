@@ -15,17 +15,17 @@ import MenuItem from '@mui/material/MenuItem';
 import { format, parseISO } from 'date-fns';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 
-import { useDispatch } from '../../../providers/store/store';
-import { useUpdateOrderStatusMutation } from '../../../providers/store/services/orders';
-import { showNotification } from '../../../providers/store/features/notification/notificationSlice';
+import { useDispatch } from '@/providers/store/store';
+import { useUpdateOrderStatusMutation } from '@/providers/store/services/orders';
+import { showNotification } from '@/providers/store/features/notification/notificationSlice';
 import {
   KeyboardArrowDownIcon,
   KeyboardArrowUpIcon,
   DownloadIcon,
   DownloadingIcon,
-} from '../../mui/Icons';
+} from '@/components/mui/Icons';
 import PdfCell from './cell/PdfCell';
-import { currencyFormatter } from '../../../utils/currencyFormatter';
+import { currencyFormatter } from '@/utils/currencyFormatter';
 import { orderStatuses } from '../constants';
 
 const OrderTableRow = ({ order, isAdminCell }) => {

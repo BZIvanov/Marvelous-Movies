@@ -6,12 +6,12 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import ModalImage from 'react-modal-image';
 
-import { useDispatch } from '../../../../providers/store/store';
+import { useDispatch } from '@/providers/store/store';
 import {
   addToCart,
   removeFromCart,
-} from '../../../../providers/store/features/cart/cartSlice';
-import { CheckIcon, ClearIcon, DeleteIcon } from '../../../mui/Icons';
+} from '@/providers/store/features/cart/cartSlice';
+import { CheckIcon, ClearIcon, DeleteIcon } from '@/components/mui/Icons';
 
 const CartProductRow = ({ product, count }) => {
   const {

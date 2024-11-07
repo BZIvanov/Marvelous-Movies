@@ -11,9 +11,9 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TablePagination from '@mui/material/TablePagination';
 
-import { useSelector } from '../../providers/store/store';
-import { selectUser } from '../../providers/store/features/user/userSlice';
-import { useGetOrdersQuery } from '../../providers/store/services/orders';
+import { useSelector } from '@/providers/store/store';
+import { selectUser } from '@/providers/store/features/user/userSlice';
+import { useGetOrdersQuery } from '@/providers/store/services/orders';
 import OrderTableRow from './table/OrderTableRow';
 
 const ROWS_PER_PAGE_OPTIONS = [10, 25, 50];

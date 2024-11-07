@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import FormHelperText from '@mui/material/FormHelperText';
 
 import { useFormContext } from '../hooks/useFormContext';
-import { CloudUploadIcon } from '../../../components/mui/Icons';
+import { CloudUploadIcon } from '@/components/mui/Icons';
 
 const ImagesFieldAdapter = ({ name, maxFiles = 0 }) => {
   const { control, setError, clearErrors } = useFormContext();

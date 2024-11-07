@@ -1,7 +1,7 @@
-import { useGetCategoriesQuery } from '../../providers/store/services/categories';
-import { useGetSubcategoriesQuery } from '../../providers/store/services/subcategories';
-import ChipsList from '../common/lists/ChipsList';
-import TypeWriterText from '../common/visuals/TypeWriterText';
+import { useGetCategoriesQuery } from '@/providers/store/services/categories';
+import { useGetSubcategoriesQuery } from '@/providers/store/services/subcategories';
+import ChipsList from '@/components/common/lists/ChipsList';
+import TypeWriterText from '@/components/common/visuals/TypeWriterText';
 import ProductsSection from './ProductsSection';
 import { TYPEWRITER_TEXTS } from './constants';
 

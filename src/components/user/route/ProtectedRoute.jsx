@@ -5,7 +5,7 @@ import {
   selectUser,
   selectUserInitialLoadingCompleted,
 } from '@/providers/store/features/user/userSlice';
-import CountdownProgress from '../../common/feedback/CountdownProgress';
+import CountdownProgress from '@/components/common/feedback/CountdownProgress';
 
 const ProtectedRoute = ({
   children,

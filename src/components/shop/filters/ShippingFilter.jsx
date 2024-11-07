@@ -3,13 +3,13 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-import { useSelector, useDispatch } from '../../../providers/store/store';
+import { useSelector, useDispatch } from '@/providers/store/store';
 import {
   selectShippingFilter,
   changeFilter,
-} from '../../../providers/store/features/productsFilters/productsFiltersSlice';
+} from '@/providers/store/features/productsFilters/productsFiltersSlice';
 import FilterListItem from './FilterListItem';
-import { LocalShippingIcon } from '../../mui/Icons';
+import { LocalShippingIcon } from '@/components/mui/Icons';
 
 const ShippingFilter = () => {
   const dispatch = useDispatch();

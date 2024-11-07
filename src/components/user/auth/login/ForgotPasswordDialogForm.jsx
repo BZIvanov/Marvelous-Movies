@@ -7,13 +7,13 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 
-import { useDispatch } from '../../../../providers/store/store';
-import { useForgotPasswordMutation } from '../../../../providers/store/services/users';
-import { showNotification } from '../../../../providers/store/features/notification/notificationSlice';
-import FormProvider from '../../../../providers/form/FormProvider';
-import { useForm } from '../../../../providers/form/hooks/useForm';
-import TextFieldAdapter from '../../../../providers/form/formFields/TextFieldAdapter';
-import { EmailIcon } from '../../../mui/Icons';
+import { useDispatch } from '@/providers/store/store';
+import { useForgotPasswordMutation } from '@/providers/store/services/users';
+import { showNotification } from '@/providers/store/features/notification/notificationSlice';
+import FormProvider from '@/providers/form/FormProvider';
+import { useForm } from '@/providers/form/hooks/useForm';
+import TextFieldAdapter from '@/providers/form/formFields/TextFieldAdapter';
+import { EmailIcon } from '@/components/mui/Icons';
 import { formConfig } from './forgotPasswordDialogForm.schema';
 
 const ForgotPasswordDialog = ({

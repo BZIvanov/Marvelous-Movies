@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { format, parseISO } from 'date-fns';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
-import { currencyFormatter } from '../../../../utils/currencyFormatter';
+import { currencyFormatter } from '@/utils/currencyFormatter';
 
 const styles = StyleSheet.create({
   page: {

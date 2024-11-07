@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import {
   useGetSubcategoryQuery,
   useGetSubcategoryProductsQuery,
-} from '../../providers/store/services/subcategories';
+} from '@/providers/store/services/subcategories';
 import ProductsList from '../product/ProductsList';
 
 const SubcategoryProducts = () => {

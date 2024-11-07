@@ -2,9 +2,9 @@ import { useState, useEffect, useMemo } from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 
-import { useSelector } from '../../providers/store/store';
-import { useGetProductsQuery } from '../../providers/store/services/products';
-import { selectFilters } from '../../providers/store/features/productsFilters/productsFiltersSlice';
+import { useSelector } from '@/providers/store/store';
+import { useGetProductsQuery } from '@/providers/store/services/products';
+import { selectFilters } from '@/providers/store/features/productsFilters/productsFiltersSlice';
 import ProductsList from '../product/ProductsList';
 import PriceFilter from './filters/PriceFilter';
 import CategoryFilter from './filters/CategoryFilter';
