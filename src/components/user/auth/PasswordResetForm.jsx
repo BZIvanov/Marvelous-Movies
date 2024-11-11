@@ -26,7 +26,7 @@ const PasswordResetForm = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate('/login');
+      navigate('/auth/login');
     }
   }, [isSuccess, navigate]);
 

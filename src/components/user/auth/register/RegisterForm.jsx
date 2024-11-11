@@ -87,7 +87,7 @@ const RegisterForm = () => {
 
           <Box sx={{ marginTop: '20px', textAlign: 'center' }}>
             <Typography variant='body2'>
-              Already have an account? <Link to='/login'>Login</Link>
+              Already have an account? <Link to='/auth/login'>Login</Link>
             </Typography>
           </Box>
         </FormProvider>

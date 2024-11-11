@@ -12,7 +12,7 @@ import {
   PasswordIcon,
   PhoneAndroidIcon,
 } from '@/components/mui/Icons';
-import SidebarMenuLink from './SidebarMenuLink';
+import ManagementSidebarLink from './ManagementSidebarLink';
 
 const userLinks = [
   {
@@ -70,7 +70,7 @@ const adminLinks = [
   },
 ];
 
-const SidebarMenu = () => {
+const ManagementSidebar = () => {
   const user = useSelector(selectUser);
 
   const links = user.role === 'admin' ? adminLinks : userLinks;
@@ -78,10 +78,10 @@ const SidebarMenu = () => {
   return (
     <MenuList sx={{ width: 240, maxWidth: '100%', marginRight: 1 }}>
       {links.map((link) => {
-        return <SidebarMenuLink key={link.toLink} {...link} />;
+        return <ManagementSidebarLink key={link.toLink} {...link} />;
       })}
     </MenuList>
   );
 };
 
-export default SidebarMenu;
+export default ManagementSidebar;

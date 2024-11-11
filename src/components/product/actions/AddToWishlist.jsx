@@ -16,7 +16,7 @@ const AddToWishlist = ({ productId, onAddToWishlist }) => {
     <Button
       onClick={() => {
         if (!user) {
-          return navigate('/login', {
+          return navigate('/auth/login', {
             state: {
               customNavigateTo: `/product/${productId}`,
             },

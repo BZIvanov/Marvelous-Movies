@@ -6,7 +6,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import { useTheme } from '@mui/material/styles';
 
-const SidebarMenuLink = ({ toLink, icon, linkText }) => {
+const ManagementSidebarLink = ({ toLink, icon, linkText }) => {
   const theme = useTheme();
 
   return (
@@ -30,10 +30,10 @@ const SidebarMenuLink = ({ toLink, icon, linkText }) => {
   );
 };
 
-SidebarMenuLink.propTypes = {
+ManagementSidebarLink.propTypes = {
   toLink: PropTypes.string,
   icon: PropTypes.element,
   linkText: PropTypes.string,
 };
 
-export default SidebarMenuLink;
+export default ManagementSidebarLink;

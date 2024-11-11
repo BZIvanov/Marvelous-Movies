@@ -60,7 +60,8 @@ const LoginForm = () => {
 
         <Box sx={{ marginTop: '20px', textAlign: 'center' }}>
           <Typography variant='body2'>
-            Don&apos;t have an account? <Link to='/register'>Register</Link>
+            Don&apos;t have an account?{' '}
+            <Link to='/auth/register'>Register</Link>
           </Typography>
         </Box>
 

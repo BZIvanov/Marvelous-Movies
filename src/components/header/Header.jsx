@@ -136,12 +136,12 @@ const Header = () => {
                 ) : (
                   <>
                     <HeaderNavLink
-                      toLink='/register'
+                      toLink='/auth/register'
                       linkText='Register'
                       icon={<PersonAddIcon />}
                     />
                     <HeaderNavLink
-                      toLink='/login'
+                      toLink='/auth/login'
                       linkText='Login'
                       icon={<LoginIcon />}
                     />

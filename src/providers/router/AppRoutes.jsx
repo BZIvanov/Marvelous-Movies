@@ -1,10 +1,11 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import App from '@/App';
 import ErrorBoundary from './ErrorBoundary';
 import NotFound from './NotFound';
 import ProtectedRoute from '@/components/user/route/ProtectedRoute';
-import NavigationLayout from '@/components/user/navigation/NavigationLayout';
+import ShopLayout from '@/components/layouts/ShopLayout';
+import ManagementLayout from '@/components/layouts/ManagementLayout';
 import Home from '@/components/home/Home';
 import Shop from '@/components/shop/Shop';
 import CartProducts from '@/components/cart/products/CartProducts';
@@ -33,46 +34,50 @@ const router = createBrowserRouter([
     children: [
       {
         path: '',
-        index: true,
-        element: <Home />,
+        element: <ShopLayout />,
+        children: [{ path: '', element: <Home /> }],
       },
       {
         path: 'shop',
-        element: <Shop />,
+        element: <ShopLayout />,
+        children: [{ path: '', element: <Shop /> }],
       },
       {
         path: 'cart',
-        element: <CartProducts />,
+        element: <ShopLayout />,
+        children: [{ path: '', element: <CartProducts /> }],
       },
       {
-        path: 'register',
+        path: 'auth',
         element: (
           <NonUserRoute>
-            <RegisterForm />
+            <ShopLayout />
           </NonUserRoute>
         ),
-      },
-      {
-        path: 'login',
-        element: (
-          <NonUserRoute>
-            <LoginForm />
-          </NonUserRoute>
-        ),
-      },
-      {
-        path: 'reset-password/:token',
-        element: (
-          <NonUserRoute>
-            <PasswordResetForm />
-          </NonUserRoute>
-        ),
+        children: [
+          {
+            path: '',
+            element: <Navigate to='login' replace={true} />, // Default redirect to /auth/login
+          },
+          {
+            path: 'register',
+            element: <RegisterForm />,
+          },
+          {
+            path: 'login',
+            element: <LoginForm />,
+          },
+          {
+            path: 'reset-password/:token',
+            element: <PasswordResetForm />,
+          },
+        ],
       },
       {
         path: 'user',
         element: (
-          <ProtectedRoute authRedirectTo='/login'>
-            <NavigationLayout />
+          <ProtectedRoute authRedirectTo='/auth/login'>
+            <ManagementLayout />
           </ProtectedRoute>
         ),
         children: [
@@ -94,11 +99,11 @@ const router = createBrowserRouter([
         path: 'admin',
         element: (
           <ProtectedRoute
-            authRedirectTo='/login'
+            authRedirectTo='/auth/login'
             roleRedirectTo='/'
             roles={['admin']}
           >
-            <NavigationLayout />
+            <ManagementLayout />
           </ProtectedRoute>
         ),
         children: [
@@ -138,23 +143,32 @@ const router = createBrowserRouter([
       },
       {
         path: 'product/:productId',
-        element: <ProductDetailed />,
+        element: <ShopLayout />,
+        children: [{ path: '', element: <ProductDetailed /> }],
       },
       {
         path: 'category/:categoryId',
-        element: <CategoryProducts />,
+        element: <ShopLayout />,
+        children: [{ path: '', element: <CategoryProducts /> }],
       },
       {
         path: 'subcategory/:subcategoryId',
-        element: <SubcategoryProducts />,
+        element: <ShopLayout />,
+        children: [{ path: '', element: <SubcategoryProducts /> }],
       },
       {
         path: 'checkout',
-        element: (
-          <ProtectedRoute authRedirectTo='/login'>
-            <Checkout />
-          </ProtectedRoute>
-        ),
+        element: <ShopLayout />,
+        children: [
+          {
+            path: '',
+            element: (
+              <ProtectedRoute authRedirectTo='/auth/login'>
+                <Checkout />
+              </ProtectedRoute>
+            ),
+          },
+        ],
       },
     ],
   },

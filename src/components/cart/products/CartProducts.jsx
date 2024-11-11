@@ -53,7 +53,9 @@ const CartProducts = () => {
                 navigate('/checkout');
               } else {
                 // if the user was trying to buy products from cart while not logged in, redirect it back to the cart page after login
-                navigate('/login', { state: { customNavigateTo: '/cart' } });
+                navigate('/auth/login', {
+                  state: { customNavigateTo: '/cart' },
+                });
               }
             }}
             size='small'

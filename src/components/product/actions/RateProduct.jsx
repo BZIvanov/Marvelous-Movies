@@ -37,7 +37,7 @@ const RateProduct = ({ productId, onRateProduct, productRatings }) => {
             setShowRatingModal(true);
           } else {
             // if the user was trying to rate a product while not logged in, redirect him back to the product page after login
-            navigate('/login', {
+            navigate('/auth/login', {
               state: {
                 customNavigateTo: `/product/${productId}`,
               },
