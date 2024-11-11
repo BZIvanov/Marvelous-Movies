@@ -1,7 +1,7 @@
+import { Outlet } from 'react-router-dom';
 import Container from '@mui/material/Container';
 
 import Header from '@/components/header/Header';
-import AppRoutes from '@/providers/router/AppRoutes';
 import { useGetCurrentUserQuery } from '@/providers/store/services/users';
 import CartDrawer from '@/components/cart/CartDrawer';
 import Notification from '@/components/common/feedback/Notification';
@@ -15,7 +15,7 @@ const App = () => {
     <Container maxWidth='xl'>
       <Header />
 
-      <AppRoutes />
+      <Outlet />
 
       <CartDrawer />
 

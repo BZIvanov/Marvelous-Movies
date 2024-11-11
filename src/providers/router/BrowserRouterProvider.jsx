@@ -1,12 +1,15 @@
-import PropTypes from 'prop-types';
-import { BrowserRouter } from 'react-router-dom';
+import { Suspense } from 'react';
+import { RouterProvider } from 'react-router-dom';
 
-const BrowserRouterProvider = ({ children }) => {
-  return <BrowserRouter>{children}</BrowserRouter>;
-};
+import router from './AppRoutes';
+import LoadingFallback from './LoadingFallback';
 
-BrowserRouterProvider.propTypes = {
-  children: PropTypes.node,
+const BrowserRouterProvider = () => {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <RouterProvider router={router} />
+    </Suspense>
+  );
 };
 
 export default BrowserRouterProvider;
