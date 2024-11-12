@@ -51,7 +51,7 @@ const ProductDetailed = () => {
     const result = await addToWishlist(product._id);
 
     if ('error' in result) {
-      navigate('/user/wishlist');
+      navigate('/buyer/wishlist');
     } else {
       dispatch(
         showNotification({ type: 'success', message: 'Added to the wishlist' })

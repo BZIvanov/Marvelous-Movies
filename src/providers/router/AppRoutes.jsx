@@ -74,28 +74,6 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: 'user',
-        element: (
-          <ProtectedRoute authRedirectTo='/auth/login'>
-            <ManagementLayout />
-          </ProtectedRoute>
-        ),
-        children: [
-          {
-            path: 'orders',
-            element: <OrdersList />,
-          },
-          {
-            path: 'wishlist',
-            element: <WishList />,
-          },
-          {
-            path: 'profile',
-            element: <UserProfile />,
-          },
-        ],
-      },
-      {
         path: 'admin',
         element: (
           <ProtectedRoute
@@ -134,6 +112,58 @@ const router = createBrowserRouter([
           {
             path: 'coupon',
             element: <ManageCoupon />,
+          },
+          {
+            path: 'profile',
+            element: <UserProfile />,
+          },
+        ],
+      },
+      {
+        path: 'seller',
+        element: (
+          <ProtectedRoute
+            authRedirectTo='/auth/login'
+            roleRedirectTo='/'
+            roles={['seller']}
+          >
+            <ManagementLayout />
+          </ProtectedRoute>
+        ),
+        children: [
+          {
+            path: 'orders',
+            element: <OrdersList />,
+          },
+          {
+            path: 'wishlist',
+            element: <WishList />,
+          },
+          {
+            path: 'profile',
+            element: <UserProfile />,
+          },
+        ],
+      },
+      {
+        path: 'buyer',
+        element: (
+          <ProtectedRoute
+            authRedirectTo='/auth/login'
+            roleRedirectTo='/'
+            roles={['buyer']}
+          >
+            <ManagementLayout />
+          </ProtectedRoute>
+        ),
+        children: [
+          {
+            path: 'orders',
+            element: <OrdersList />,
+          },
+          {
+            path: 'wishlist',
+            element: <WishList />,
           },
           {
             path: 'profile',

@@ -46,7 +46,7 @@ const Header = () => {
 
   const handleOpenDashboard = () => {
     handleCloseUserMenu();
-    navigate(`/${user.role === 'admin' ? 'admin' : 'user'}/orders`);
+    navigate(`/${user.role}/orders`);
   };
 
   const [logout] = useLogoutMutation();
