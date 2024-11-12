@@ -14,24 +14,6 @@ import {
 } from '@/components/mui/Icons';
 import ManagementSidebarLink from './ManagementSidebarLink';
 
-const userLinks = [
-  {
-    toLink: 'orders',
-    icon: <DashboardIcon fontSize='small' />,
-    linkText: 'Orders',
-  },
-  {
-    toLink: 'wishlist',
-    icon: <ListAltIcon fontSize='small' />,
-    linkText: 'Wishlist',
-  },
-  {
-    toLink: 'profile',
-    icon: <PasswordIcon fontSize='small' />,
-    linkText: 'Update Profile',
-  },
-];
-
 const adminLinks = [
   {
     toLink: 'orders',
@@ -70,10 +52,53 @@ const adminLinks = [
   },
 ];
 
+const sellerLinks = [
+  {
+    toLink: 'orders',
+    icon: <DashboardIcon fontSize='small' />,
+    linkText: 'Orders',
+  },
+  {
+    toLink: 'wishlist',
+    icon: <ListAltIcon fontSize='small' />,
+    linkText: 'Wishlist',
+  },
+  {
+    toLink: 'profile',
+    icon: <PasswordIcon fontSize='small' />,
+    linkText: 'Update Profile',
+  },
+];
+
+const buyerLinks = [
+  {
+    toLink: 'orders',
+    icon: <DashboardIcon fontSize='small' />,
+    linkText: 'Orders',
+  },
+  {
+    toLink: 'wishlist',
+    icon: <ListAltIcon fontSize='small' />,
+    linkText: 'Wishlist',
+  },
+  {
+    toLink: 'profile',
+    icon: <PasswordIcon fontSize='small' />,
+    linkText: 'Update Profile',
+  },
+];
+
+const roleLinks = {
+  admin: adminLinks,
+  seller: sellerLinks,
+  buyer: buyerLinks,
+};
+
 const ManagementSidebar = () => {
   const user = useSelector(selectUser);
+  const userRole = user?.role || 'buyer';
 
-  const links = user.role === 'admin' ? adminLinks : userLinks;
+  const links = roleLinks[userRole];
 
   return (
     <MenuList sx={{ width: 240, maxWidth: '100%', marginRight: 1 }}>

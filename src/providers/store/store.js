@@ -6,6 +6,7 @@ import {
 
 import { api } from './services/api';
 import userSlice from './features/user/userSlice';
+import shopSlice from './features/shop/shopSlice';
 import notificationSlice from './features/notification/notificationSlice';
 import productsFiltersSlice from './features/productsFilters/productsFiltersSlice';
 import cartSlice from './features/cart/cartSlice';
@@ -16,6 +17,7 @@ export const createStore = (options = {}) => {
     reducer: {
       [api.reducerPath]: api.reducer,
       user: userSlice,
+      shop: shopSlice,
       notification: notificationSlice,
       productsFilters: productsFiltersSlice,
       cart: cartSlice,

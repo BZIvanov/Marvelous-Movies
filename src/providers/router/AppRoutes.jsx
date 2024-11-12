@@ -3,13 +3,11 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import App from '@/App';
 import ErrorBoundary from './ErrorBoundary';
 import NotFound from './NotFound';
-import ProtectedRoute from '@/components/user/route/ProtectedRoute';
 import ShopLayout from '@/components/layouts/ShopLayout';
 import ManagementLayout from '@/components/layouts/ManagementLayout';
 import Home from '@/components/home/Home';
 import Shop from '@/components/shop/Shop';
 import CartProducts from '@/components/cart/products/CartProducts';
-import NonUserRoute from '@/components/user/route/NonUserRoute';
 import RegisterForm from '@/components/user/auth/register/RegisterForm';
 import LoginForm from '@/components/user/auth/login/LoginForm';
 import PasswordResetForm from '@/components/user/auth/PasswordResetForm';
@@ -25,6 +23,8 @@ import ProductDetailed from '@/components/product/detailed/ProductDetailed';
 import CategoryProducts from '@/components/category/CategoryProducts';
 import SubcategoryProducts from '@/components/subcategory/SubcategoryProducts';
 import Checkout from '@/components/checkout/Checkout';
+import NonUserRoute from './auth/NonUserRoute';
+import ProtectedRoute from './auth/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
