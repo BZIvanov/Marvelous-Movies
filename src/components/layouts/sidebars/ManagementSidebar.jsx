@@ -59,9 +59,9 @@ const sellerLinks = [
     linkText: 'Orders',
   },
   {
-    toLink: 'wishlist',
+    toLink: 'shop',
     icon: <ListAltIcon fontSize='small' />,
-    linkText: 'Wishlist',
+    linkText: 'Shop',
   },
   {
     toLink: 'profile',

@@ -19,6 +19,7 @@ import ManageSubcategory from '@/components/manage/admin/subcategories/ManageSub
 import ManageProduct from '@/components/product/ManageProduct';
 import ManageProducts from '@/components/product/ManageProducts';
 import ManageCoupon from '@/components/manage/admin/coupons/ManageCoupon';
+import ManageShop from '@/components/manage/seller/shop/ManageShop';
 import ProductDetailed from '@/components/product/detailed/ProductDetailed';
 import CategoryProducts from '@/components/category/CategoryProducts';
 import SubcategoryProducts from '@/components/subcategory/SubcategoryProducts';
@@ -136,8 +137,8 @@ const router = createBrowserRouter([
             element: <OrdersList />,
           },
           {
-            path: 'wishlist',
-            element: <WishList />,
+            path: 'shop',
+            element: <ManageShop />,
           },
           {
             path: 'profile',
