@@ -31,16 +31,6 @@ const adminLinks = [
     linkText: 'Manage Subcategories',
   },
   {
-    toLink: 'product',
-    icon: <GradientIcon fontSize='small' />,
-    linkText: 'Manage Product',
-  },
-  {
-    toLink: 'products',
-    icon: <PhoneAndroidIcon fontSize='small' />,
-    linkText: 'Manage Products',
-  },
-  {
     toLink: 'coupon',
     icon: <DiscountIcon fontSize='small' />,
     linkText: 'Manage Coupons',
@@ -48,7 +38,7 @@ const adminLinks = [
   {
     toLink: 'profile',
     icon: <PasswordIcon fontSize='small' />,
-    linkText: 'Update Profile',
+    linkText: 'Manage Profile',
   },
 ];
 
@@ -64,9 +54,19 @@ const sellerLinks = [
     linkText: 'Shop',
   },
   {
+    toLink: 'product',
+    icon: <GradientIcon fontSize='small' />,
+    linkText: 'Manage Product',
+  },
+  {
+    toLink: 'products',
+    icon: <PhoneAndroidIcon fontSize='small' />,
+    linkText: 'Manage Products',
+  },
+  {
     toLink: 'profile',
     icon: <PasswordIcon fontSize='small' />,
-    linkText: 'Update Profile',
+    linkText: 'Manage Profile',
   },
 ];
 
@@ -79,12 +79,12 @@ const buyerLinks = [
   {
     toLink: 'wishlist',
     icon: <ListAltIcon fontSize='small' />,
-    linkText: 'Wishlist',
+    linkText: 'Manage Wishlist',
   },
   {
     toLink: 'profile',
     icon: <PasswordIcon fontSize='small' />,
-    linkText: 'Update Profile',
+    linkText: 'Manage Profile',
   },
 ];
 

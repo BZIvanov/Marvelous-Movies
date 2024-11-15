@@ -19,7 +19,7 @@ import { useConfirmDialog } from '@/contexts/useConfirmDialogContext';
 import { currencyFormatter } from '@/utils/currencyFormatter';
 import { DeleteIcon } from '@/components/mui/Icons';
 
-const WishList = () => {
+const ManageWishList = () => {
   const { data } = useGetWishlistProductsQuery();
   const products = data?.products || [];
 
@@ -104,4 +104,4 @@ const WishList = () => {
   );
 };
 
-export default WishList;
+export default ManageWishList;

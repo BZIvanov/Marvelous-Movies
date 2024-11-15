@@ -12,20 +12,21 @@ import RegisterForm from '@/components/user/auth/register/RegisterForm';
 import LoginForm from '@/components/user/auth/login/LoginForm';
 import PasswordResetForm from '@/components/user/auth/PasswordResetForm';
 import OrdersList from '@/components/order/OrdersList';
-import WishList from '@/components/wishlist/WishList';
 import UserProfile from '@/components/manage/common/profile/UserProfile';
 import ManageCategory from '@/components/manage/admin/categories/ManageCategory';
 import ManageSubcategory from '@/components/manage/admin/subcategories/ManageSubcategory';
-import ManageProduct from '@/components/product/ManageProduct';
-import ManageProducts from '@/components/product/ManageProducts';
 import ManageCoupon from '@/components/manage/admin/coupons/ManageCoupon';
 import ManageShop from '@/components/manage/seller/shop/ManageShop';
+import ManageProduct from '@/components/manage/seller/products/ManageProduct';
+import ManageProducts from '@/components/manage/seller/products/ManageProducts';
+import ManageWishList from '@/components/manage/buyer/wishlist/ManageWishList';
 import ProductDetailed from '@/components/product/detailed/ProductDetailed';
 import CategoryProducts from '@/components/category/CategoryProducts';
 import SubcategoryProducts from '@/components/subcategory/SubcategoryProducts';
 import Checkout from '@/components/checkout/Checkout';
 import NonUserRoute from './auth/NonUserRoute';
 import ProtectedRoute from './auth/ProtectedRoute';
+import ShopStatus from './auth/ShopStatus';
 
 const router = createBrowserRouter([
   {
@@ -99,18 +100,6 @@ const router = createBrowserRouter([
             element: <ManageSubcategory />,
           },
           {
-            path: 'product',
-            element: <ManageProduct />,
-          },
-          {
-            path: 'product/:productId',
-            element: <ManageProduct />,
-          },
-          {
-            path: 'products',
-            element: <ManageProducts />,
-          },
-          {
             path: 'coupon',
             element: <ManageCoupon />,
           },
@@ -141,6 +130,34 @@ const router = createBrowserRouter([
             element: <ManageShop />,
           },
           {
+            path: 'product',
+            element: (
+              <ShopStatus
+                statusRedirectTo='/seller/orders' // TODO: update this route
+                activityStatuses={['active']}
+                paymentStatuses={['paid']}
+              >
+                <ManageProduct />
+              </ShopStatus>
+            ),
+          },
+          {
+            path: 'product/:productId',
+            element: (
+              <ShopStatus
+                statusRedirectTo='/seller/orders' // TODO: update this route
+                activityStatuses={['active']}
+                paymentStatuses={['paid']}
+              >
+                <ManageProduct />
+              </ShopStatus>
+            ),
+          },
+          {
+            path: 'products',
+            element: <ManageProducts />,
+          },
+          {
             path: 'profile',
             element: <UserProfile />,
           },
@@ -164,7 +181,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'wishlist',
-            element: <WishList />,
+            element: <ManageWishList />,
           },
           {
             path: 'profile',

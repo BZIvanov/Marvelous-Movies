@@ -7,7 +7,12 @@ import {
   selectShopInitialLoadingCompleted,
 } from '@/providers/store/features/shop/shopSlice';
 
-const ShopStatus = ({ children, statusRedirectTo, statuses }) => {
+const ShopStatus = ({
+  children,
+  statusRedirectTo,
+  activityStatuses,
+  paymentStatuses,
+}) => {
   const shop = useSelector(selectShop);
   const shopInitialLoadingCompleted = useSelector(
     selectShopInitialLoadingCompleted
@@ -17,7 +22,10 @@ const ShopStatus = ({ children, statusRedirectTo, statuses }) => {
     return <div>Loading</div>;
   }
 
-  if (!statuses.includes(shop.activitystatus)) {
+  if (
+    !activityStatuses.includes(shop.activityStatus) ||
+    !paymentStatuses.includes(shop.paymentStatus)
+  ) {
     return <Navigate to={statusRedirectTo} replace={true} />;
   }
 
@@ -27,7 +35,8 @@ const ShopStatus = ({ children, statusRedirectTo, statuses }) => {
 ShopStatus.propTypes = {
   children: PropTypes.node,
   statusRedirectTo: PropTypes.string,
-  statuses: PropTypes.array,
+  activityStatuses: PropTypes.array,
+  paymentStatuses: PropTypes.array,
 };
 
 export default ShopStatus;

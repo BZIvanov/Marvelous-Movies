@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useGetProductsQuery } from '@/providers/store/services/products';
-import ProductsList from './ProductsList';
+import ProductsList from '@/components/product/ProductsList';
 
 const PRODUCTS_PER_PAGE = 12;
 
