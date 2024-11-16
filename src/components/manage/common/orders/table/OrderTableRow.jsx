@@ -24,8 +24,8 @@ import {
   DownloadIcon,
   DownloadingIcon,
 } from '@/components/mui/Icons';
-import PdfCell from './cell/PdfCell';
 import { currencyFormatter } from '@/utils/currencyFormatter';
+import PdfCell from './cell/PdfCell';
 import { orderStatuses } from '../constants';
 
 const OrderTableRow = ({ order, isAdminCell }) => {

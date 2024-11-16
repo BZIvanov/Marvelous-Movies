@@ -11,7 +11,7 @@ import CartProducts from '@/components/cart/products/CartProducts';
 import RegisterForm from '@/components/user/auth/register/RegisterForm';
 import LoginForm from '@/components/user/auth/login/LoginForm';
 import PasswordResetForm from '@/components/user/auth/PasswordResetForm';
-import OrdersList from '@/components/order/OrdersList';
+import OrdersList from '@/components/manage/common/orders/OrdersList';
 import UserProfile from '@/components/manage/common/profile/UserProfile';
 import ManageCategory from '@/components/manage/admin/categories/ManageCategory';
 import ManageSubcategory from '@/components/manage/admin/subcategories/ManageSubcategory';
@@ -133,7 +133,7 @@ const router = createBrowserRouter([
             path: 'product',
             element: (
               <ShopStatus
-                statusRedirectTo='/seller/orders' // TODO: update this route
+                statusRedirectTo='/seller/shop'
                 activityStatuses={['active']}
                 paymentStatuses={['paid']}
               >
@@ -145,7 +145,7 @@ const router = createBrowserRouter([
             path: 'product/:productId',
             element: (
               <ShopStatus
-                statusRedirectTo='/seller/orders' // TODO: update this route
+                statusRedirectTo='/seller/shop'
                 activityStatuses={['active']}
                 paymentStatuses={['paid']}
               >

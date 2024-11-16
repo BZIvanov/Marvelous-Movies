@@ -127,6 +127,10 @@ const ProductDetailed = () => {
                   itemValue={product.quantity}
                 />
                 <InfoTextListItem itemKey='Sold' itemValue={product.sold} />
+                <InfoTextListItem
+                  itemKey='Shop'
+                  itemValue={product.shop.shopInfo.name}
+                />
               </CardContent>
 
               <CardActions>

@@ -18,11 +18,13 @@ const InfoTabs = ({ description }) => {
           }}
         >
           <Tab label='Description' value={'0'} />
-          <Tab label='Contact us' value={'1'} />
+          <Tab label='Reviews' value={'1'} />
+          <Tab label='Contact us' value={'2'} />
         </TabList>
       </Box>
       <TabPanel value={'0'}>{description}</TabPanel>
-      <TabPanel value={'1'}>
+      <TabPanel value={'1'}>Product reviews</TabPanel>
+      <TabPanel value={'2'}>
         Contact us on +359899 000 111 or on email: info@test.com
       </TabPanel>
     </TabContext>

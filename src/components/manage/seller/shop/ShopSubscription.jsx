@@ -42,7 +42,7 @@ const ShopSubscription = () => {
       {shop?.paymentStatus !== 'paid' && (
         <Typography variant='body2' gutterBottom={true}>
           Click to pay your monthly subscription tax to activate your shop and
-          start selling products
+          start posting products
         </Typography>
       )}
 
@@ -60,14 +60,18 @@ const ShopSubscription = () => {
           </Button>
         </Box>
       ) : (
-        <Button
-          variant='contained'
-          color='primary'
-          onClick={() => handleUpdatePaymentStatus('paid')}
-          disabled={isLoading}
-        >
-          Subscribe
-        </Button>
+        <Box sx={{ mt: 2 }}>
+          <Chip label='Not subscribed' color='error' />
+          <Button
+            sx={{ ml: 2 }}
+            variant='contained'
+            color='primary'
+            onClick={() => handleUpdatePaymentStatus('paid')}
+            disabled={isLoading}
+          >
+            Subscribe
+          </Button>
+        </Box>
       )}
     </Box>
   );
