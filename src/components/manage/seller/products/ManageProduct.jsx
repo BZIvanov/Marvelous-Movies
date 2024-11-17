@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -8,7 +8,6 @@ import {
   useCreateProductMutation,
   useUpdateProductMutation,
 } from '@/providers/store/services/products';
-import { useUploadImageMutation } from '@/providers/store/services/images';
 import {
   useGetCategoriesQuery,
   useGetCategorySubcategoriesQuery,
@@ -16,7 +15,6 @@ import {
 import { useDispatch } from '@/providers/store/store';
 import { showNotification } from '@/providers/store/features/notification/notificationSlice';
 import { useForm } from '@/providers/form/hooks/useForm';
-import { resizeImage } from '@/utils/resizeImage';
 import { formConfig } from './manageProductForm.schema';
 import ProductForm from './ProductForm';
 
@@ -26,12 +24,8 @@ const ManageProduct = () => {
   // if product id is found in the url, we are editing a product
   const { productId } = useParams();
 
-  const [newImages, setNewImages] = useState([]);
-  const [existingImages, setExistingImages] = useState([]); // we will have these, when editing a product
-
   const [createProduct] = useCreateProductMutation();
   const [updateProduct] = useUpdateProductMutation();
-  const [uploadImage] = useUploadImageMutation();
 
   const form = useForm(formConfig);
 
@@ -50,73 +44,40 @@ const ManageProduct = () => {
     const product = productData?.product;
 
     if (productId && product) {
-      form.setValue('title', product.title);
-      form.setValue('description', product.description);
-      form.setValue('price', product.price);
-      form.setValue('shipping', product.shipping);
-      form.setValue('quantity', product.quantity);
-      form.setValue('color', product.color);
-      form.setValue('brand', product.brand);
-      form.setValue('category', product.category._id);
-      form.setValue(
-        'subcategories',
-        product.subcategories.map((subcategory) => subcategory._id)
-      );
-      setExistingImages(product.images);
+      form.reset({
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        shipping: product.shipping,
+        quantity: product.quantity,
+        color: product.color,
+        brand: product.brand,
+        category: product.category._id,
+        subcategories: product.subcategories.map(
+          (subcategory) => subcategory._id
+        ),
+        images: product.images,
+      });
     }
-
-    return () => {
-      form.reset();
-    };
   }, [form, productId, productData]);
 
-  const handleCreateProduct = async (values) => {
-    const formImages = [...values.images];
-
-    const resizedImageFiles = await Promise.all(
-      formImages.map((image) => resizeImage(image))
-    );
-    const imagePromises = resizedImageFiles.map((image) => {
-      return uploadImage({ image });
-    });
-    const uploadedImagesData = await Promise.allSettled(imagePromises);
-    // replace the values images with the response for each uploaded image, which is what will be stored in the database
-    const uploadedImages = uploadedImagesData
-      .filter((uploadedImage) => {
-        return uploadedImage.status === 'fulfilled';
-      })
-      .map((uploadedImage) => {
-        return {
-          publicId: uploadedImage.value.data.publicId,
-          imageUrl: uploadedImage.value.data.imageUrl,
-        };
-      });
-
+  const handleCreateProduct = async (formData) => {
     let result;
     if (productId) {
-      // concat the previous images with the new uploads, because when editing we can upload even more images
-      const allImages = uploadedImages.concat(existingImages);
-
-      result = await updateProduct({
-        id: productId,
-        ...values,
-        images: allImages,
-      });
+      result = await updateProduct({ id: productId, formData });
     } else {
-      result = await createProduct({ ...values, images: uploadedImages });
+      result = await createProduct(formData);
     }
 
     if (!('error' in result)) {
-      form.reset();
-      setNewImages([]);
-      setExistingImages([]);
-
       dispatch(
         showNotification({
           type: 'success',
           message: `Product ${productId ? 'updated' : 'created'} successfully`,
         })
       );
+
+      form.reset();
     }
   };
 
@@ -130,10 +91,6 @@ const ManageProduct = () => {
         createProduct={handleCreateProduct}
         categories={categoriesData?.categories}
         categorySubcategories={categorySubcategoriesData?.subcategories}
-        newImages={newImages}
-        setNewImages={setNewImages}
-        existingImages={existingImages}
-        setExistingImages={setExistingImages}
       />
     </Box>
   );

@@ -9,17 +9,27 @@ import FormHelperText from '@mui/material/FormHelperText';
 import { useFormContext } from '../hooks/useFormContext';
 import { CloudUploadIcon } from '@/components/mui/Icons';
 
-const ImagesFieldAdapter = ({ name, maxFiles = 0 }) => {
+const ImagesFieldAdapter = ({
+  name,
+  maxFiles = 0,
+  keepPreviousUploads = false,
+}) => {
   const { control, setError, clearErrors } = useFormContext();
 
   return (
     <Controller
       control={control}
       name={name}
-      render={({ field: { name, onChange, onBlur }, fieldState }) => {
+      render={({ field: { name, value, onChange, onBlur }, fieldState }) => {
         const onChangeDroppedImages = (files) => {
           clearErrors(name);
-          onChange(files);
+
+          if (keepPreviousUploads) {
+            const valueArray = Array.isArray(value) ? value : [value];
+            onChange([...valueArray, ...files]);
+          } else {
+            onChange(files);
+          }
         };
 
         const onErrorDroppedImages = (rejectedFiles) => {
@@ -86,6 +96,7 @@ const ImagesFieldAdapter = ({ name, maxFiles = 0 }) => {
 ImagesFieldAdapter.propTypes = {
   name: PropTypes.string,
   maxFiles: PropTypes.number,
+  keepPreviousUploads: PropTypes.bool,
 };
 
 export default ImagesFieldAdapter;

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -10,9 +9,9 @@ import TextFieldAdapter from '@/providers/form/formFields/TextFieldAdapter';
 import SelectDropdownAdapter from '@/providers/form/formFields/SelectDropdownAdapter';
 import SelectDropdownMultichipAdapter from '@/providers/form/formFields/SelectDropdownMultichipAdapter';
 import ImagesFieldAdapter from '@/providers/form/formFields/ImagesFieldAdapter';
-import PreviewNewImageAvatar from '@/components/common/imagePreview/PreviewNewImageAvatar';
-import PreviewExistingImageAvatar from '@/components/common/imagePreview/PreviewExistingImageAvatar';
+import PreviewImageAvatar from '@/components/common/imagePreview/PreviewImageAvatar';
 import { useIsApiRequestPending } from '@/hooks/useIsApiRequestPending';
+import { resizeImage } from '@/utils/resizeImage';
 
 const ProductForm = ({
   form,
@@ -20,34 +19,58 @@ const ProductForm = ({
   createProduct,
   categories = [],
   categorySubcategories = [],
-  newImages,
-  setNewImages,
-  existingImages,
-  setExistingImages,
 }) => {
   const selectedFormImages = form.watch('images');
-  useEffect(() => {
-    setNewImages(selectedFormImages);
-  }, [selectedFormImages, setNewImages]);
 
   const isLoading = useIsApiRequestPending();
 
+  const removeImage = (imageToRemove) => {
+    let filteredImages = [];
+
+    // if the image has publicId, it is previosuly uploaded image, otherwise is newly uploaded file
+    if (imageToRemove.publicId) {
+      filteredImages = selectedFormImages.filter(
+        (formImage) => formImage.publicId !== imageToRemove.publicId
+      );
+    } else {
+      filteredImages = selectedFormImages.filter(
+        (formImage) => formImage.name !== imageToRemove.name
+      );
+    }
+
+    form.setValue('images', filteredImages);
+  };
+
   const handleProductSubmit = async (values) => {
-    createProduct(values);
-  };
+    const formData = new FormData();
+    formData.append('title', values.title);
+    formData.append('description', values.description);
+    formData.append('price', values.price);
+    formData.append('shipping', values.shipping);
+    formData.append('quantity', values.quantity);
+    formData.append('color', values.color);
+    formData.append('brand', values.brand);
+    formData.append('category', values.category);
 
-  const removeNewImage = (imageName) => {
-    form.setValue(
-      'images',
-      newImages.filter((previewImage) => previewImage.name !== imageName)
+    values.subcategories.forEach((subcategory) =>
+      formData.append('subcategories', subcategory)
     );
-  };
 
-  const removeExistingImage = (imageId) => {
-    const filteredImages = existingImages.filter((existingImage) => {
-      return existingImage.publicId !== imageId;
-    });
-    setExistingImages(filteredImages);
+    for (const image of values.images) {
+      if (image instanceof File) {
+        const resizedFile = await resizeImage(image, {
+          maxWidth: 450,
+          maxHeight: 450,
+          compressFormat: 'png',
+          outputType: 'file',
+        });
+        formData.append('newImages', resizedFile);
+      } else {
+        formData.append('existingImages', image.publicId);
+      }
+    }
+
+    createProduct(formData);
   };
 
   return (
@@ -81,26 +104,20 @@ const ProductForm = ({
 
         <Divider sx={{ margin: '8px 0' }} />
 
-        <ImagesFieldAdapter name='images' />
+        <ImagesFieldAdapter
+          name='images'
+          maxFiles={10}
+          keepPreviousUploads={true}
+        />
 
         <Stack sx={{ marginTop: 3 }} spacing={2} direction='row'>
-          {/* Newly uploaded images */}
-          {newImages.map((previewImage) => {
+          {selectedFormImages.map((formImage) => {
             return (
-              <PreviewNewImageAvatar
-                key={previewImage.path}
-                image={previewImage}
-                handleRemoveImage={removeNewImage}
-              />
-            );
-          })}
-          {/* Previosuly uploaded images, when editing a product */}
-          {existingImages.map((previewImage) => {
-            return (
-              <PreviewExistingImageAvatar
-                key={previewImage.publicId}
-                image={previewImage}
-                handleRemoveImage={removeExistingImage}
+              <PreviewImageAvatar
+                // for exisiting images we will have publicId, for newly uploaded files, we will use the path
+                key={formImage.publicId || formImage.path}
+                image={formImage}
+                removeImage={removeImage}
               />
             );
           })}
@@ -138,10 +155,6 @@ ProductForm.propTypes = {
   createProduct: PropTypes.func,
   categories: PropTypes.array,
   categorySubcategories: PropTypes.array,
-  newImages: PropTypes.array,
-  setNewImages: PropTypes.func,
-  existingImages: PropTypes.array,
-  setExistingImages: PropTypes.func,
 };
 
 export default ProductForm;

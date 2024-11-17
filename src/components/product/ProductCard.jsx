@@ -42,7 +42,7 @@ const ProductCard = ({ product }) => {
     dispatch(setDrawerOpen(true));
   };
 
-  const isUserAdmin = user?.role === 'admin';
+  const isUserSeller = user?.role === 'seller';
 
   const isApiLoading = useIsApiRequestPending();
 
@@ -81,7 +81,7 @@ const ProductCard = ({ product }) => {
       </CardActionArea>
 
       <CardActions>
-        {isUserAdmin ? (
+        {isUserSeller ? (
           <>
             <EditProduct productId={product._id} />
             <DeleteProduct onDeleteProduct={handleProductDelete} />

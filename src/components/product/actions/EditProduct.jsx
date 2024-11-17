@@ -9,7 +9,7 @@ const EditProduct = ({ productId }) => {
   return (
     <Button
       component={Link}
-      to={`/admin/product/${productId}`}
+      to={`/seller/product/${productId}`}
       sx={{ display: 'flex', flexDirection: 'column', textAlign: 'center' }}
     >
       <EditIcon />

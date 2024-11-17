@@ -44,24 +44,26 @@ export const productsApi = api.injectEndpoints({
       },
     }),
     createProduct: build.mutation({
-      query: (data) => ({
-        url: '/products',
-        method: 'POST',
-        body: data,
-        credentials: 'include',
-      }),
+      query: (data) => {
+        return {
+          url: '/products',
+          method: 'POST',
+          body: data,
+          credentials: 'include',
+        };
+      },
       invalidatesTags: () => {
         return [{ type: 'Products', id: 'LIST' }];
       },
     }),
     updateProduct: build.mutation({
       query: (data) => {
-        const { id, ...body } = data;
+        const { id, formData } = data;
 
         return {
           url: `/products/${id}`,
           method: 'PATCH',
-          body,
+          body: formData,
           credentials: 'include',
         };
       },
