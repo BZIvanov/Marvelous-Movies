@@ -6,7 +6,9 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 
-const InfoTabs = ({ description }) => {
+import ProductReviews from './ProductReviews';
+
+const InfoTabs = ({ productId, description }) => {
   const [tabValue, setTabValue] = useState('0');
 
   return (
@@ -23,7 +25,9 @@ const InfoTabs = ({ description }) => {
         </TabList>
       </Box>
       <TabPanel value={'0'}>{description}</TabPanel>
-      <TabPanel value={'1'}>Product reviews</TabPanel>
+      <TabPanel value={'1'}>
+        <ProductReviews productId={productId} />
+      </TabPanel>
       <TabPanel value={'2'}>
         Contact us on +359899 000 111 or on email: info@test.com
       </TabPanel>
@@ -32,6 +36,7 @@ const InfoTabs = ({ description }) => {
 };
 
 InfoTabs.propTypes = {
+  productId: PropTypes.string,
   description: PropTypes.string,
 };
 

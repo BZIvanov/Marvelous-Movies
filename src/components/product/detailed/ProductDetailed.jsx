@@ -157,7 +157,10 @@ const ProductDetailed = () => {
           </Box>
 
           <Grid item={true} xs={12}>
-            <InfoTabs description={product.description} />
+            <InfoTabs
+              productId={product._id}
+              description={product.description}
+            />
           </Grid>
 
           <Box sx={{ width: '100%', marginBlock: 3 }}>
