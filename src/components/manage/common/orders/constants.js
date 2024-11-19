@@ -1,6 +1,6 @@
-export const orderStatuses = {
-  NOT_PROCESSED: 'Not Processed',
-  PROCESSING: 'Processing',
-  CANCELLED: 'Cancelled',
-  COMPLETED: 'Completed',
+export const orderDeliveryStatuses = {
+  PENDING: 'pending',
+  PARTIALLY_SHIPPED: 'partiallyShipped', // before all sellers ship their products
+  SHIPPED: 'shipped',
+  CANCELED: 'canceled',
 };

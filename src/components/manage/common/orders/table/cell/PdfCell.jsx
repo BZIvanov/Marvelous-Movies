@@ -29,9 +29,9 @@ const PdfCell = ({ order }) => {
   const {
     _id,
     createdAt,
-    totalAmount,
+    totalPrice,
     deliveryAddress,
-    orderStatus,
+    deliveryStatus,
     coupon,
     products,
   } = order;
@@ -44,10 +44,10 @@ const PdfCell = ({ order }) => {
           <Text style={styles.header}>Order Details</Text>
           <Text>ID: {_id}</Text>
           <Text>Created At: {format(parseISO(createdAt), 'dd-MMM-yyyy')}</Text>
-          <Text>Total Amount: {currencyFormatter.format(totalAmount)}</Text>
+          <Text>Total Amount: {currencyFormatter.format(totalPrice)}</Text>
           <Text>Delivery Address: {deliveryAddress}</Text>
           <Text>Coupon: {couponName || '-'}</Text>
-          <Text>Order Status: {orderStatus}</Text>
+          <Text>Order Status: {deliveryStatus}</Text>
         </View>
 
         <View style={styles.section}>

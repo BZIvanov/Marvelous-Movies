@@ -26,7 +26,7 @@ import {
 } from '@/components/mui/Icons';
 import { currencyFormatter } from '@/utils/currencyFormatter';
 import PdfCell from './cell/PdfCell';
-import { orderStatuses } from '../constants';
+import { orderDeliveryStatuses } from '../constants';
 
 const OrderTableRow = ({ order, isAdminCell }) => {
   const dispatch = useDispatch();
@@ -36,10 +36,10 @@ const OrderTableRow = ({ order, isAdminCell }) => {
   const {
     _id,
     createdAt,
-    orderedBy: { username },
-    totalAmount,
+    buyer: { username },
+    totalPrice,
     deliveryAddress,
-    orderStatus,
+    deliveryStatus,
     coupon,
     products,
   } = order;
@@ -80,7 +80,7 @@ const OrderTableRow = ({ order, isAdminCell }) => {
         </TableCell>
         {isAdminCell && <TableCell align='center'>{username}</TableCell>}
         <TableCell align='center'>
-          {currencyFormatter.format(totalAmount)}
+          {currencyFormatter.format(totalPrice)}
         </TableCell>
         <TableCell align='center'>{deliveryAddress}</TableCell>
         <TableCell align='center'>{couponName || '-'}</TableCell>
@@ -93,29 +93,31 @@ const OrderTableRow = ({ order, isAdminCell }) => {
             >
               <Select
                 variant='standard'
-                value={orderStatus}
+                value={deliveryStatus}
                 onChange={(event) => {
                   updateOrderStatus({
                     id: _id,
-                    orderStatus: event.target.value,
+                    deliveryStatus: event.target.value,
                   });
                 }}
                 disabled={isLoading}
               >
-                {Object.keys(orderStatuses).map((orderStatusKey) => {
-                  return (
-                    <MenuItem
-                      key={orderStatusKey}
-                      value={orderStatuses[orderStatusKey]}
-                    >
-                      {orderStatuses[orderStatusKey]}
-                    </MenuItem>
-                  );
-                })}
+                {Object.keys(orderDeliveryStatuses).map(
+                  (orderDeliveryStatusKey) => {
+                    return (
+                      <MenuItem
+                        key={orderDeliveryStatusKey}
+                        value={orderDeliveryStatuses[orderDeliveryStatusKey]}
+                      >
+                        {orderDeliveryStatuses[orderDeliveryStatusKey]}
+                      </MenuItem>
+                    );
+                  }
+                )}
               </Select>
             </FormControl>
           ) : (
-            orderStatus
+            deliveryStatus
           )}
         </TableCell>
         <TableCell align='center'>
