@@ -7,11 +7,16 @@ import CardActions from '@mui/material/CardActions';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
+import { useSelector } from '@/providers/store/store';
+import { selectUser } from '@/providers/store/features/user/userSlice';
 import {
   useGetProductQuery,
   useGetSimilarProductsQuery,
-  useRateProductMutation,
 } from '@/providers/store/services/products';
+import {
+  useGetMyProductReviewQuery,
+  useReviewProductMutation,
+} from '@/providers/store/services/reviews';
 import { useDispatch } from '@/providers/store/store';
 import {
   addToCart,
@@ -33,13 +38,18 @@ const ProductDetailed = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const user = useSelector(selectUser);
+
   const { productId } = useParams();
 
   const { data: productData } = useGetProductQuery(productId);
   const product = productData?.product;
   const { data: similarProductsData } = useGetSimilarProductsQuery(productId);
+  const { data: myReviewData } = useGetMyProductReviewQuery(productId, {
+    skip: !user || user.role !== 'buyer',
+  });
 
-  const [rateProduct] = useRateProductMutation();
+  const [reviewProduct] = useReviewProductMutation();
   const [addToWishlist] = useAddToWishlistMutation();
 
   const handleAddToCart = () => {
@@ -60,7 +70,7 @@ const ProductDetailed = () => {
   };
 
   const handleRateProduct = async (rating) => {
-    const result = await rateProduct({ id: product._id, rating });
+    const result = await reviewProduct({ id: product._id, rating });
 
     if (!('error' in result)) {
       dispatch(
@@ -132,26 +142,28 @@ const ProductDetailed = () => {
                 <InfoTextListItem itemKey='Sold' itemValue={product.sold} />
                 <InfoTextListItem
                   itemKey='Shop'
-                  itemValue={product.shop.shopInfo.name}
+                  itemValue={product.shop.shopInfo?.name || ''}
                 />
               </CardContent>
 
-              <CardActions>
-                <AddToCart
-                  productId={product._id}
-                  productQuantity={product.quantity}
-                  onAddToCart={handleAddToCart}
-                />
-                <AddToWishlist
-                  productId={product._id}
-                  onAddToWishlist={handleAddToWishlist}
-                />
-                <RateProduct
-                  productId={product._id}
-                  onRateProduct={handleRateProduct}
-                  productRatings={product.ratings}
-                />
-              </CardActions>
+              {user && user.role === 'buyer' && (
+                <CardActions>
+                  <AddToCart
+                    productId={product._id}
+                    productQuantity={product.quantity}
+                    onAddToCart={handleAddToCart}
+                  />
+                  <AddToWishlist
+                    productId={product._id}
+                    onAddToWishlist={handleAddToWishlist}
+                  />
+                  <RateProduct
+                    productId={product._id}
+                    onRateProduct={handleRateProduct}
+                    review={myReviewData?.review}
+                  />
+                </CardActions>
+              )}
             </Card>
           </Grid>
 

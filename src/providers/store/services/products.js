@@ -83,21 +83,6 @@ export const productsApi = api.injectEndpoints({
         return [{ type: 'Products', id: payload }];
       },
     }),
-    rateProduct: build.mutation({
-      query: (data) => {
-        const { id, ...body } = data;
-
-        return {
-          url: `/products/${id}/rate`,
-          method: 'PATCH',
-          body,
-          credentials: 'include',
-        };
-      },
-      invalidatesTags: (_result, _error, payload) => {
-        return [{ type: 'Products', id: payload.id }];
-      },
-    }),
     getProductsBrands: build.query({
       query: () => {
         return {
@@ -127,6 +112,5 @@ export const {
   useCreateProductMutation,
   useUpdateProductMutation,
   useDeleteProductMutation,
-  useRateProductMutation,
   useGetProductsBrandsQuery,
 } = productsApi;

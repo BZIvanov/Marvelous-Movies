@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
 
 const ChipsList = ({ title, parameter, chipsList = [] }) => {
   const navigate = useNavigate();
@@ -22,6 +23,11 @@ const ChipsList = ({ title, parameter, chipsList = [] }) => {
           key={chipItem._id}
           label={chipItem.name}
           variant='outlined'
+          avatar={
+            chipItem.image && (
+              <Avatar alt='Category preview' src={chipItem.image.imageUrl} />
+            )
+          }
           onClick={() => handleClick(chipItem._id)}
           sx={{ margin: 0.5 }}
         />

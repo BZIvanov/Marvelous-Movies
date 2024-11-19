@@ -23,6 +23,18 @@ export const reviewsApi = api.injectEndpoints({
           ];
         },
       }),
+      getMyProductReview: build.query({
+        query: (productId) => {
+          return {
+            url: `/reviews/${productId}/my-review`,
+            method: 'GET',
+            credentials: 'include',
+          };
+        },
+        providesTags: () => {
+          return [{ type: 'MyReview' }];
+        },
+      }),
       reviewProduct: build.mutation({
         query: (data) => {
           const { id, ...body } = data;
@@ -38,6 +50,7 @@ export const reviewsApi = api.injectEndpoints({
           return [
             { type: 'Reviews', id: result.review._id },
             { type: 'ReviewsSummary' },
+            { type: 'MyReview' },
           ];
         },
       }),
@@ -58,6 +71,7 @@ export const reviewsApi = api.injectEndpoints({
 
 export const {
   useGetProductReviewsQuery,
+  useGetMyProductReviewQuery,
   useReviewProductMutation,
   useGetProductReviewsSummaryQuery,
 } = reviewsApi;

@@ -9,7 +9,7 @@ import { selectUser } from '@/providers/store/features/user/userSlice';
 import RatingDialog from '@/components/common/dialogs/RatingDialog';
 import { StarIcon, StarBorderOutlinedIcon } from '@/components/mui/Icons';
 
-const RateProduct = ({ productId, onRateProduct, productRatings }) => {
+const RateProduct = ({ productId, onRateProduct, review }) => {
   const navigate = useNavigate();
 
   const user = useSelector(selectUser);
@@ -19,15 +19,12 @@ const RateProduct = ({ productId, onRateProduct, productRatings }) => {
 
   useEffect(() => {
     // if the user previously rated the product use its rating
-    if (user) {
-      const userRating = productRatings.find(
-        (rating) => rating.postedBy === user._id
-      );
-      userRating && setRating(userRating.stars);
+    if (review) {
+      setRating(review.rating);
     }
 
     return () => setRating(0);
-  }, [user, productRatings]);
+  }, [review]);
 
   return (
     <>
@@ -66,7 +63,7 @@ const RateProduct = ({ productId, onRateProduct, productRatings }) => {
 RateProduct.propTypes = {
   productId: PropTypes.string.isRequired,
   onRateProduct: PropTypes.func.isRequired,
-  productRatings: PropTypes.array.isRequired,
+  review: PropTypes.object,
 };
 
 export default RateProduct;
