@@ -19,7 +19,7 @@ import {
 } from '@/providers/store/features/cart/cartSlice';
 import { useAddToWishlistMutation } from '@/providers/store/services/wishlists';
 import { showNotification } from '@/providers/store/features/notification/notificationSlice';
-import AverageRating from '@/components/common/rating/AverageRating';
+import ProductRating from '../ProductRating';
 import ProductsList from '../ProductsList';
 import ImagesCarousel from '@/components/common/imagePreview/carousel/ImagesCarousel';
 import InfoTextListItem from './InfoTextListItem';
@@ -98,7 +98,10 @@ const ProductDetailed = () => {
               {product.title}
             </Typography>
 
-            <AverageRating ratings={product.ratings} />
+            <ProductRating
+              rating={product.averageRating}
+              reviews={product.reviewCount}
+            />
 
             <Card sx={{ width: '100%', bgcolor: 'background.paper' }}>
               <CardContent>

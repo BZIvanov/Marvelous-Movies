@@ -16,7 +16,7 @@ import {
   setDrawerOpen,
 } from '@/providers/store/features/cart/cartSlice';
 import { useIsApiRequestPending } from '@/hooks/useIsApiRequestPending';
-import AverageRating from '@/components/common/rating/AverageRating';
+import ProductRating from './ProductRating';
 import EditProduct from './actions/EditProduct';
 import DeleteProduct from './actions/DeleteProduct';
 import AddToCart from './actions/AddToCart';
@@ -24,7 +24,8 @@ import ViewDetailed from './actions/ViewDetailed';
 import LoadingCard from './LoadingCard';
 
 const ProductCard = ({ product }) => {
-  const { _id, title, price, description, images, ratings } = product;
+  const { _id, title, price, description, images, averageRating, reviewCount } =
+    product;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -61,7 +62,11 @@ const ProductCard = ({ product }) => {
         />
 
         <CardContent sx={{ paddingBlock: '8px' }}>
-          <AverageRating ratings={ratings} size='small' />
+          <ProductRating
+            rating={averageRating}
+            reviews={reviewCount}
+            size='small'
+          />
 
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography gutterBottom={true} variant='body1' noWrap={true}>

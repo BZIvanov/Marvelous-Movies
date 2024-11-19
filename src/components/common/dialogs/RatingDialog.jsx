@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Rating from '@mui/material/Rating';
 
-import { MAX_RATING_VALUE } from '../rating/constants';
+import { MAX_RATING_VALUE } from '@/components/product/constants';
 
 const RatingDialog = ({
   showRatingModal,

@@ -5,13 +5,7 @@ import Typography from '@mui/material/Typography';
 
 import { MAX_RATING_VALUE } from './constants';
 
-const AverageRating = ({ ratings = [], size = 'large' }) => {
-  const allStarsSum = ratings
-    .map((rating) => rating.stars)
-    .reduce((total, stars) => total + stars, 0);
-
-  const averageRating = allStarsSum / ratings.length;
-
+const ProductRating = ({ rating, reviews, size = 'large' }) => {
   return (
     <Box
       sx={{
@@ -22,17 +16,17 @@ const AverageRating = ({ ratings = [], size = 'large' }) => {
         paddingBottom: { xs: 0.5, md: 1 },
       }}
     >
-      {ratings.length > 0 ? (
+      {rating > 0 ? (
         <>
           <Rating
-            value={averageRating}
+            value={rating}
             precision={1}
             size={size}
             max={MAX_RATING_VALUE}
             disabled={true}
           />
           <Typography variant='body2' ml={1}>
-            ({ratings.length})
+            ({reviews})
           </Typography>
         </>
       ) : (
@@ -42,9 +36,10 @@ const AverageRating = ({ ratings = [], size = 'large' }) => {
   );
 };
 
-AverageRating.propTypes = {
-  ratings: PropTypes.array,
+ProductRating.propTypes = {
+  rating: PropTypes.number,
+  reviews: PropTypes.number,
   size: PropTypes.string,
 };
 
-export default AverageRating;
+export default ProductRating;

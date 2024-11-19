@@ -8,7 +8,7 @@ import {
 } from '@/providers/store/features/productsFilters/productsFiltersSlice';
 import FilterListItem from './FilterListItem';
 import { StarIcon } from '@/components/mui/Icons';
-import { MAX_RATING_VALUE } from '@/components/common/rating/constants';
+import { MAX_RATING_VALUE } from '@/components/product/constants';
 
 const RatingFilter = () => {
   const dispatch = useDispatch();
