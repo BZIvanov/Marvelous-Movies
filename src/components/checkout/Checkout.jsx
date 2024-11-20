@@ -29,14 +29,14 @@ const Checkout = () => {
 
   const handleFormSubmit = async (values) => {
     const { address, coupon } = values;
-    const cartItems = Object.keys(cart).map((cartProductId) => {
+    const cartProducts = Object.keys(cart).map((cartProductId) => {
       return {
         count: cart[cartProductId].count,
         product: cart[cartProductId].product._id,
       };
     });
 
-    const result = await createOrder({ address, coupon, cart: cartItems });
+    const result = await createOrder({ address, coupon, cart: cartProducts });
 
     if (!('error' in result)) {
       dispatch(clearCart());

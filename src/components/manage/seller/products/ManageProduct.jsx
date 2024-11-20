@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
@@ -20,6 +20,7 @@ import ProductForm from './ProductForm';
 
 const ManageProduct = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // if product id is found in the url, we are editing a product
   const { productId } = useParams();
@@ -48,6 +49,7 @@ const ManageProduct = () => {
         title: product.title,
         description: product.description,
         price: product.price,
+        discount: product.discount,
         shipping: product.shipping,
         quantity: product.quantity,
         color: product.color,
@@ -78,6 +80,7 @@ const ManageProduct = () => {
       );
 
       form.reset();
+      navigate('/seller/products');
     }
   };
 

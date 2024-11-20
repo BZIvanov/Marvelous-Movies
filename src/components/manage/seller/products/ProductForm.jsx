@@ -46,6 +46,7 @@ const ProductForm = ({
     formData.append('title', values.title);
     formData.append('description', values.description);
     formData.append('price', values.price);
+    formData.append('discount', values.discount);
     formData.append('shipping', values.shipping);
     formData.append('quantity', values.quantity);
     formData.append('color', values.color);
@@ -79,6 +80,7 @@ const ProductForm = ({
         <TextFieldAdapter name='title' label='Title' />
         <TextFieldAdapter name='description' label='Description' />
         <TextFieldAdapter name='price' label='Price' type='number' />
+        <TextFieldAdapter name='discount' label='Discount' type='number' />
         <SelectDropdownAdapter
           name='shipping'
           label='Shipping'

@@ -63,7 +63,7 @@ const ManageWishList = () => {
                             <Link to={`/product/${_id}`}>{title}</Link>
                           </TableCell>
                           <TableCell align='center'>
-                            {currencyFormatter.format(price)}
+                            {currencyFormatter(price)}
                           </TableCell>
                           <TableCell align='center'>{brand}</TableCell>
                           <TableCell align='center'>{color}</TableCell>

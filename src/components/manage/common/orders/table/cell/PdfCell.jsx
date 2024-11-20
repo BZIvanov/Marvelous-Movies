@@ -44,7 +44,7 @@ const PdfCell = ({ order }) => {
           <Text style={styles.header}>Order Details</Text>
           <Text>ID: {_id}</Text>
           <Text>Created At: {format(parseISO(createdAt), 'dd-MMM-yyyy')}</Text>
-          <Text>Total Amount: {currencyFormatter.format(totalPrice)}</Text>
+          <Text>Total Amount: {currencyFormatter(totalPrice)}</Text>
           <Text>Delivery Address: {deliveryAddress}</Text>
           <Text>Coupon: {couponName || '-'}</Text>
           <Text>Order Status: {deliveryStatus}</Text>
@@ -66,12 +66,10 @@ const PdfCell = ({ order }) => {
             return (
               <View key={product._id} style={styles.product}>
                 <Text>Product name: {product.title}</Text>
-                <Text>
-                  Product price: {currencyFormatter.format(product.price)}
-                </Text>
+                <Text>Product price: {currencyFormatter(product.price)}</Text>
                 <Text>Quantity: {count}</Text>
                 <Text>
-                  Total Price: {currencyFormatter.format(product.price * count)}
+                  Total Price: {currencyFormatter(product.price * count)}
                 </Text>
               </View>
             );

@@ -79,9 +79,7 @@ const OrderTableRow = ({ order, isAdminCell }) => {
           {format(parseISO(createdAt), 'dd-MMM-yyyy')}
         </TableCell>
         {isAdminCell && <TableCell align='center'>{username}</TableCell>}
-        <TableCell align='center'>
-          {currencyFormatter.format(totalPrice)}
-        </TableCell>
+        <TableCell align='center'>{currencyFormatter(totalPrice)}</TableCell>
         <TableCell align='center'>{deliveryAddress}</TableCell>
         <TableCell align='center'>{couponName || '-'}</TableCell>
         <TableCell align='center'>
@@ -180,11 +178,11 @@ const OrderTableRow = ({ order, isAdminCell }) => {
                       <TableRow key={product._id}>
                         <TableCell align='center'>{product.title}</TableCell>
                         <TableCell align='center'>
-                          {currencyFormatter.format(product.price)}
+                          {currencyFormatter(product.price)}
                         </TableCell>
                         <TableCell align='center'>{count}</TableCell>
                         <TableCell align='center'>
-                          {currencyFormatter.format(product.price * count)}
+                          {currencyFormatter(product.price * count)}
                         </TableCell>
                       </TableRow>
                     );

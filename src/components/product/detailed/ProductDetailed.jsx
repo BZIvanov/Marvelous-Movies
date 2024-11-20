@@ -24,6 +24,7 @@ import {
 } from '@/providers/store/features/cart/cartSlice';
 import { useAddToWishlistMutation } from '@/providers/store/services/wishlists';
 import { showNotification } from '@/providers/store/features/notification/notificationSlice';
+import { currencyFormatter, percentFormatter } from '@/utils/currencyFormatter';
 import ProductRating from '../ProductRating';
 import ProductsList from '../ProductsList';
 import ImagesCarousel from '@/components/common/imagePreview/carousel/ImagesCarousel';
@@ -82,6 +83,9 @@ const ProductDetailed = () => {
     }
   };
 
+  const discountedPrice =
+    product?.price - (product?.price * product?.discount) / 100;
+
   return (
     <>
       {product && (
@@ -115,10 +119,29 @@ const ProductDetailed = () => {
 
             <Card sx={{ width: '100%', bgcolor: 'background.paper' }}>
               <CardContent>
-                <InfoTextListItem
-                  itemKey='Price'
-                  itemValue={`$ ${product.price.toFixed(2)}`}
-                />
+                <InfoTextListItem itemKey='Price'>
+                  <Box display='flex' gap={3} alignItems='center'>
+                    {product?.discount !== 0 ? (
+                      <Typography variant='h6' color='error' fontWeight='bold'>
+                        <Typography
+                          component='span'
+                          sx={{
+                            textDecoration: 'line-through',
+                            marginRight: 1,
+                          }}
+                        >
+                          {currencyFormatter(product?.price)}
+                        </Typography>
+                        {currencyFormatter(discountedPrice)} (-
+                        {percentFormatter(product.discount / 100)})
+                      </Typography>
+                    ) : (
+                      <Typography variant='h6' color='error' fontWeight='bold'>
+                        {currencyFormatter(product?.price)}
+                      </Typography>
+                    )}
+                  </Box>
+                </InfoTextListItem>
                 <InfoChipsListItem
                   linkType='category'
                   itemKey='Category'
@@ -129,21 +152,26 @@ const ProductDetailed = () => {
                   itemKey='Subcategories'
                   itemValues={product.subcategories}
                 />
-                <InfoTextListItem
-                  itemKey='Shipping'
-                  itemValue={product.shipping}
-                />
-                <InfoTextListItem itemKey='Color' itemValue={product.color} />
-                <InfoTextListItem itemKey='Brand' itemValue={product.brand} />
-                <InfoTextListItem
-                  itemKey='Quantity'
-                  itemValue={product.quantity}
-                />
-                <InfoTextListItem itemKey='Sold' itemValue={product.sold} />
-                <InfoTextListItem
-                  itemKey='Shop'
-                  itemValue={product.shop.shopInfo?.name || ''}
-                />
+                <InfoTextListItem itemKey='Shipping'>
+                  <Typography variant='body1'>{product.shipping}</Typography>
+                </InfoTextListItem>
+                <InfoTextListItem itemKey='Color'>
+                  <Typography variant='body1'>{product.color}</Typography>
+                </InfoTextListItem>
+                <InfoTextListItem itemKey='Brand'>
+                  <Typography variant='body1'>{product.brand}</Typography>
+                </InfoTextListItem>
+                <InfoTextListItem itemKey='Quantity'>
+                  <Typography variant='body1'>{product.quantity}</Typography>
+                </InfoTextListItem>
+                <InfoTextListItem itemKey='Sold' itemValue={product.sold}>
+                  <Typography variant='body1'>{product.sold}</Typography>
+                </InfoTextListItem>
+                <InfoTextListItem itemKey='Shop'>
+                  <Typography variant='body1'>
+                    {product.shop.shopInfo?.name || ''}
+                  </Typography>
+                </InfoTextListItem>
               </CardContent>
 
               {user && user.role === 'buyer' && (

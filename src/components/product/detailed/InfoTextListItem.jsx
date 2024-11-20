@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-const InfoTextListItem = ({ itemKey, itemValue }) => {
+const InfoTextListItem = ({ itemKey, children }) => {
   return (
     <Box
       sx={{
@@ -13,15 +13,14 @@ const InfoTextListItem = ({ itemKey, itemValue }) => {
       }}
     >
       <Typography variant='body1'>{itemKey}:</Typography>
-      <Typography variant='body1'>{itemValue}</Typography>
+      {children}
     </Box>
   );
 };
 
 InfoTextListItem.propTypes = {
-  itemKey: PropTypes.string.isRequired,
-  itemValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-    .isRequired,
+  itemKey: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default InfoTextListItem;
