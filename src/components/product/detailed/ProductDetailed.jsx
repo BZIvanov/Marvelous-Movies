@@ -24,7 +24,7 @@ import {
 } from '@/providers/store/features/cart/cartSlice';
 import { useAddToWishlistMutation } from '@/providers/store/services/wishlists';
 import { showNotification } from '@/providers/store/features/notification/notificationSlice';
-import { currencyFormatter, percentFormatter } from '@/utils/currencyFormatter';
+import { currencyFormatter, percentFormatter } from '@/utils/formatting';
 import ProductRating from '../ProductRating';
 import ProductsList from '../ProductsList';
 import ImagesCarousel from '@/components/common/imagePreview/carousel/ImagesCarousel';

@@ -24,7 +24,7 @@ import {
   DownloadIcon,
   DownloadingIcon,
 } from '@/components/mui/Icons';
-import { currencyFormatter } from '@/utils/currencyFormatter';
+import { currencyFormatter } from '@/utils/formatting';
 import PdfCell from './cell/PdfCell';
 import { orderDeliveryStatuses } from '../constants';
 
@@ -151,6 +151,7 @@ const OrderTableRow = ({ order, isAdminCell }) => {
                     <TableCell align='center'>Price</TableCell>
                     <TableCell align='center'>Quantity</TableCell>
                     <TableCell align='center'>Total Price</TableCell>
+                    <TableCell align='center'>Shop</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody
@@ -162,7 +163,7 @@ const OrderTableRow = ({ order, isAdminCell }) => {
                   }}
                 >
                   {products.map((orderProduct) => {
-                    const { product, count } = orderProduct;
+                    const { product, count, shop } = orderProduct;
 
                     if (!product) {
                       return (
@@ -183,6 +184,9 @@ const OrderTableRow = ({ order, isAdminCell }) => {
                         <TableCell align='center'>{count}</TableCell>
                         <TableCell align='center'>
                           {currencyFormatter(product.price * count)}
+                        </TableCell>
+                        <TableCell align='center'>
+                          {shop.shopInfo.name}
                         </TableCell>
                       </TableRow>
                     );

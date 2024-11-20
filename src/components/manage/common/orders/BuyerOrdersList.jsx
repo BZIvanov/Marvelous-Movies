@@ -18,7 +18,7 @@ import OrderTableRow from './table/OrderTableRow';
 
 const ROWS_PER_PAGE_OPTIONS = [10, 25, 50];
 
-const OrdersList = () => {
+const BuyerOrdersList = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(ROWS_PER_PAGE_OPTIONS[1]);
 
@@ -50,10 +50,10 @@ const OrdersList = () => {
                   {isUserAdmin && (
                     <TableCell align='center'>Ordered By</TableCell>
                   )}
-                  <TableCell align='center'>Total Amount</TableCell>
+                  <TableCell align='center'>Total Price</TableCell>
                   <TableCell align='center'>Delivery Address</TableCell>
                   <TableCell align='center'>Coupon</TableCell>
-                  <TableCell align='center'>Order Status</TableCell>
+                  <TableCell align='center'>Delivery Status</TableCell>
                   <TableCell align='center'>Download</TableCell>
                 </TableRow>
               </TableHead>
@@ -107,4 +107,4 @@ const OrdersList = () => {
   );
 };
 
-export default OrdersList;
+export default BuyerOrdersList;

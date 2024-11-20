@@ -47,7 +47,7 @@ const Checkout = () => {
           message: 'Order created successfully',
         })
       );
-      navigate('/shop');
+      navigate('/buyer/orders');
     }
   };
 
