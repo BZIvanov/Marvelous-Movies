@@ -2,7 +2,7 @@ import { api } from './api';
 
 export const ordersApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getOrders: build.query({
+    getBuyerOrders: build.query({
       query: (params = {}) => {
         return {
           url: '/orders',
@@ -13,8 +13,27 @@ export const ordersApi = api.injectEndpoints({
       },
       providesTags: (result) => {
         return [
-          ...result.orders.map(({ _id }) => ({ type: 'Orders', id: _id })),
-          { type: 'Orders', id: 'LIST' },
+          ...result.orders.map(({ _id }) => ({ type: 'BuyerOrders', id: _id })),
+          { type: 'BuyerOrders', id: 'PARTIAL-LIST' },
+        ];
+      },
+    }),
+    getSellerOrders: build.query({
+      query: (params = {}) => {
+        return {
+          url: '/orders/seller',
+          method: 'GET',
+          params,
+          credentials: 'include',
+        };
+      },
+      providesTags: (result) => {
+        return [
+          ...result.orders.map(({ _id }) => ({
+            type: 'SellerOrders',
+            id: _id,
+          })),
+          { type: 'SellerOrders', id: 'PARTIAL-LIST' },
         ];
       },
     }),
@@ -26,29 +45,36 @@ export const ordersApi = api.injectEndpoints({
         credentials: 'include',
       }),
       invalidatesTags: () => {
-        return [{ type: 'Orders', id: 'LIST' }];
+        return [
+          { type: 'BuyerOrders', id: 'PARTIAL-LIST' },
+          { type: 'SellerOrders', id: 'PARTIAL-LIST' },
+        ];
       },
     }),
-    updateOrderStatus: build.mutation({
+    updateOrderDeliveryStatus: build.mutation({
       query: (data) => {
         const { id, ...body } = data;
 
         return {
-          url: `/orders/${id}`,
+          url: `/orders/seller/${id}`,
           method: 'PATCH',
           body,
           credentials: 'include',
         };
       },
-      invalidatesTags: (_result, _error, payload) => {
-        return [{ type: 'Orders', id: payload.id }];
+      invalidatesTags: () => {
+        return [
+          { type: 'BuyerOrders', id: 'PARTIAL-LIST' },
+          { type: 'SellerOrders', id: 'PARTIAL-LIST' },
+        ];
       },
     }),
   }),
 });
 
 export const {
-  useGetOrdersQuery,
+  useGetBuyerOrdersQuery,
+  useGetSellerOrdersQuery,
   useCreateOrderMutation,
-  useUpdateOrderStatusMutation,
+  useUpdateOrderDeliveryStatusMutation,
 } = ordersApi;

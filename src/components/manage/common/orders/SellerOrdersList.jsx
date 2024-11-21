@@ -11,26 +11,20 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TablePagination from '@mui/material/TablePagination';
 
-import { useSelector } from '@/providers/store/store';
-import { selectUser } from '@/providers/store/features/user/userSlice';
-import { useGetBuyerOrdersQuery } from '@/providers/store/services/orders';
-import BuyerOrderTableRow from './table/BuyerOrderTableRow';
+import { useGetSellerOrdersQuery } from '@/providers/store/services/orders';
+import SellerOrderTableRow from './table/SellerOrderTableRow';
 
 const ROWS_PER_PAGE_OPTIONS = [10, 25, 50];
 
-const BuyerOrdersList = () => {
+const SellerOrdersList = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(ROWS_PER_PAGE_OPTIONS[1]);
 
-  const user = useSelector(selectUser);
-
-  const { data } = useGetBuyerOrdersQuery({
+  const { data } = useGetSellerOrdersQuery({
     page,
     perPage: rowsPerPage,
   });
   const { orders = [], totalCount = 0 } = data || {};
-
-  const isUserAdmin = user && user.role === 'admin';
 
   return (
     <Box sx={{ padding: (theme) => theme.spacing(1) }}>
@@ -47,9 +41,6 @@ const BuyerOrdersList = () => {
                   <TableCell />
                   <TableCell align='center'>Order ID</TableCell>
                   <TableCell align='center'>Created At</TableCell>
-                  {isUserAdmin && (
-                    <TableCell align='center'>Ordered By</TableCell>
-                  )}
                   <TableCell align='center'>Total Price</TableCell>
                   <TableCell align='center'>Delivery Address</TableCell>
                   <TableCell align='center'>Coupon</TableCell>
@@ -68,7 +59,7 @@ const BuyerOrdersList = () => {
               >
                 {orders.length === 0 && (
                   <TableRow>
-                    <TableCell colSpan={isUserAdmin ? 9 : 8} align='center'>
+                    <TableCell colSpan={8} align='center'>
                       <Typography variant='body2'>
                         <strong>No orders found</strong>
                       </Typography>
@@ -77,13 +68,7 @@ const BuyerOrdersList = () => {
                 )}
 
                 {orders.map((order) => {
-                  return (
-                    <BuyerOrderTableRow
-                      key={order._id}
-                      order={order}
-                      isAdminCell={isUserAdmin}
-                    />
-                  );
+                  return <SellerOrderTableRow key={order._id} order={order} />;
                 })}
               </TableBody>
             </Table>
@@ -107,4 +92,4 @@ const BuyerOrdersList = () => {
   );
 };
 
-export default BuyerOrdersList;
+export default SellerOrdersList;

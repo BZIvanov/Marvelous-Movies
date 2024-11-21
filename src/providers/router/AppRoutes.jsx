@@ -11,6 +11,7 @@ import CartProducts from '@/components/cart/products/CartProducts';
 import RegisterForm from '@/components/user/auth/register/RegisterForm';
 import LoginForm from '@/components/user/auth/login/LoginForm';
 import PasswordResetForm from '@/components/user/auth/PasswordResetForm';
+import SellerOrdersList from '@/components/manage/common/orders/SellerOrdersList';
 import BuyerOrdersList from '@/components/manage/common/orders/BuyerOrdersList';
 import UserProfile from '@/components/manage/common/profile/UserProfile';
 import ManageCategory from '@/components/manage/admin/categories/ManageCategory';
@@ -123,7 +124,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'orders',
-            element: <BuyerOrdersList />,
+            element: <SellerOrdersList />,
           },
           {
             path: 'shop',

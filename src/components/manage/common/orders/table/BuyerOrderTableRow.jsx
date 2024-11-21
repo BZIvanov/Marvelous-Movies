@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
@@ -9,15 +9,9 @@ import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import { format, parseISO } from 'date-fns';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 
-import { useDispatch } from '@/providers/store/store';
-import { useUpdateOrderStatusMutation } from '@/providers/store/services/orders';
-import { showNotification } from '@/providers/store/features/notification/notificationSlice';
 import {
   KeyboardArrowDownIcon,
   KeyboardArrowUpIcon,
@@ -26,11 +20,8 @@ import {
 } from '@/components/mui/Icons';
 import { currencyFormatter } from '@/utils/formatting';
 import PdfCell from './cell/PdfCell';
-import { orderDeliveryStatuses } from '../constants';
 
-const OrderTableRow = ({ order, isAdminCell }) => {
-  const dispatch = useDispatch();
-
+const BuyerOrderTableRow = ({ order, isAdminCell }) => {
   const [isRowExpanded, setIsRowExpanded] = useState(false);
 
   const {
@@ -44,20 +35,6 @@ const OrderTableRow = ({ order, isAdminCell }) => {
     products,
   } = order;
   const { name: couponName } = coupon || {};
-
-  const [updateOrderStatus, { isLoading, isSuccess }] =
-    useUpdateOrderStatusMutation();
-
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(
-        showNotification({
-          type: 'success',
-          message: 'Order status updated successfully',
-        })
-      );
-    }
-  }, [dispatch, isSuccess]);
 
   return (
     <>
@@ -82,42 +59,7 @@ const OrderTableRow = ({ order, isAdminCell }) => {
         <TableCell align='center'>{currencyFormatter(totalPrice)}</TableCell>
         <TableCell align='center'>{deliveryAddress}</TableCell>
         <TableCell align='center'>{couponName || '-'}</TableCell>
-        <TableCell align='center'>
-          {isAdminCell ? (
-            <FormControl
-              sx={{
-                width: '100%',
-              }}
-            >
-              <Select
-                variant='standard'
-                value={deliveryStatus}
-                onChange={(event) => {
-                  updateOrderStatus({
-                    id: _id,
-                    deliveryStatus: event.target.value,
-                  });
-                }}
-                disabled={isLoading}
-              >
-                {Object.keys(orderDeliveryStatuses).map(
-                  (orderDeliveryStatusKey) => {
-                    return (
-                      <MenuItem
-                        key={orderDeliveryStatusKey}
-                        value={orderDeliveryStatuses[orderDeliveryStatusKey]}
-                      >
-                        {orderDeliveryStatuses[orderDeliveryStatusKey]}
-                      </MenuItem>
-                    );
-                  }
-                )}
-              </Select>
-            </FormControl>
-          ) : (
-            deliveryStatus
-          )}
-        </TableCell>
+        <TableCell align='center'>{deliveryStatus}</TableCell>
         <TableCell align='center'>
           <PDFDownloadLink
             document={<PdfCell order={order} />}
@@ -201,9 +143,9 @@ const OrderTableRow = ({ order, isAdminCell }) => {
   );
 };
 
-OrderTableRow.propTypes = {
+BuyerOrderTableRow.propTypes = {
   order: PropTypes.object,
   isAdminCell: PropTypes.bool,
 };
 
-export default OrderTableRow;
+export default BuyerOrderTableRow;
