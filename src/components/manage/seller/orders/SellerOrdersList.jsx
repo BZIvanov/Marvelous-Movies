@@ -12,7 +12,7 @@ import TableCell from '@mui/material/TableCell';
 import TablePagination from '@mui/material/TablePagination';
 
 import { useGetSellerOrdersQuery } from '@/providers/store/services/orders';
-import SellerOrderTableRow from './table/SellerOrderTableRow';
+import SellerOrderTableRow from './SellerOrderTableRow';
 
 const ROWS_PER_PAGE_OPTIONS = [10, 25, 50];
 

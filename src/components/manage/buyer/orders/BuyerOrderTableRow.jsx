@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
@@ -9,15 +9,9 @@ import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import { format, parseISO } from 'date-fns';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 
-import { useDispatch } from '@/providers/store/store';
-import { useUpdateOrderDeliveryStatusMutation } from '@/providers/store/services/orders';
-import { showNotification } from '@/providers/store/features/notification/notificationSlice';
 import {
   KeyboardArrowDownIcon,
   KeyboardArrowUpIcon,
@@ -25,17 +19,15 @@ import {
   DownloadingIcon,
 } from '@/components/mui/Icons';
 import { currencyFormatter } from '@/utils/formatting';
-import PdfCell from './cell/PdfCell';
-import { orderDeliveryStatuses } from '../constants';
+import PdfCell from './PdfCell';
 
-const SellerOrderTableRow = ({ order }) => {
-  const dispatch = useDispatch();
-
+const BuyerOrderTableRow = ({ order, isAdminCell }) => {
   const [isRowExpanded, setIsRowExpanded] = useState(false);
 
   const {
     _id,
     createdAt,
+    buyer: { username },
     totalPrice,
     deliveryAddress,
     deliveryStatus,
@@ -43,20 +35,6 @@ const SellerOrderTableRow = ({ order }) => {
     products,
   } = order;
   const { name: couponName } = coupon || {};
-
-  const [updateOrderDeliveryStatus, { isLoading, isSuccess }] =
-    useUpdateOrderDeliveryStatusMutation();
-
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(
-        showNotification({
-          type: 'success',
-          message: 'Order status updated successfully',
-        })
-      );
-    }
-  }, [dispatch, isSuccess]);
 
   return (
     <>
@@ -77,41 +55,11 @@ const SellerOrderTableRow = ({ order }) => {
         <TableCell align='center'>
           {format(parseISO(createdAt), 'dd-MMM-yyyy')}
         </TableCell>
+        {isAdminCell && <TableCell align='center'>{username}</TableCell>}
         <TableCell align='center'>{currencyFormatter(totalPrice)}</TableCell>
         <TableCell align='center'>{deliveryAddress}</TableCell>
         <TableCell align='center'>{couponName || '-'}</TableCell>
-        <TableCell align='center'>
-          <FormControl
-            sx={{
-              width: '100%',
-            }}
-          >
-            <Select
-              variant='standard'
-              value={deliveryStatus}
-              onChange={(event) => {
-                updateOrderDeliveryStatus({
-                  id: _id,
-                  deliveryStatus: event.target.value,
-                });
-              }}
-              disabled={isLoading}
-            >
-              {Object.keys(orderDeliveryStatuses).map(
-                (orderDeliveryStatusKey) => {
-                  return (
-                    <MenuItem
-                      key={orderDeliveryStatusKey}
-                      value={orderDeliveryStatuses[orderDeliveryStatusKey]}
-                    >
-                      {orderDeliveryStatuses[orderDeliveryStatusKey]}
-                    </MenuItem>
-                  );
-                }
-              )}
-            </Select>
-          </FormControl>
-        </TableCell>
+        <TableCell align='center'>{deliveryStatus}</TableCell>
         <TableCell align='center'>
           <PDFDownloadLink
             document={<PdfCell order={order} />}
@@ -129,7 +77,10 @@ const SellerOrderTableRow = ({ order }) => {
       </TableRow>
 
       <TableRow sx={{ '& > *': { borderBottom: 'unset', borderTop: 'unset' } }}>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
+        <TableCell
+          style={{ paddingBottom: 0, paddingTop: 0 }}
+          colSpan={isAdminCell ? 9 : 8}
+        >
           <Collapse in={isRowExpanded} timeout='auto' unmountOnExit={true}>
             <Box sx={{ margin: 1 }}>
               <Typography variant='body1' gutterBottom={true}>
@@ -142,6 +93,7 @@ const SellerOrderTableRow = ({ order }) => {
                     <TableCell align='center'>Price</TableCell>
                     <TableCell align='center'>Quantity</TableCell>
                     <TableCell align='center'>Total Price</TableCell>
+                    <TableCell align='center'>Shop</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody
@@ -153,7 +105,7 @@ const SellerOrderTableRow = ({ order }) => {
                   }}
                 >
                   {products.map((orderProduct) => {
-                    const { product, count } = orderProduct;
+                    const { product, count, shop } = orderProduct;
 
                     if (!product) {
                       return (
@@ -175,6 +127,9 @@ const SellerOrderTableRow = ({ order }) => {
                         <TableCell align='center'>
                           {currencyFormatter(product.price * count)}
                         </TableCell>
+                        <TableCell align='center'>
+                          {shop.shopInfo.name}
+                        </TableCell>
                       </TableRow>
                     );
                   })}
@@ -188,8 +143,9 @@ const SellerOrderTableRow = ({ order }) => {
   );
 };
 
-SellerOrderTableRow.propTypes = {
+BuyerOrderTableRow.propTypes = {
   order: PropTypes.object,
+  isAdminCell: PropTypes.bool,
 };
 
-export default SellerOrderTableRow;
+export default BuyerOrderTableRow;

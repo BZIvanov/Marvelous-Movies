@@ -14,7 +14,7 @@ import TablePagination from '@mui/material/TablePagination';
 import { useSelector } from '@/providers/store/store';
 import { selectUser } from '@/providers/store/features/user/userSlice';
 import { useGetBuyerOrdersQuery } from '@/providers/store/services/orders';
-import BuyerOrderTableRow from './table/BuyerOrderTableRow';
+import BuyerOrderTableRow from './BuyerOrderTableRow';
 
 const ROWS_PER_PAGE_OPTIONS = [10, 25, 50];
 

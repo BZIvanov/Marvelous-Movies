@@ -19,22 +19,21 @@ import {
   DownloadingIcon,
 } from '@/components/mui/Icons';
 import { currencyFormatter } from '@/utils/formatting';
-import PdfCell from './cell/PdfCell';
+import PdfCell from './PdfCell';
 
-const BuyerOrderTableRow = ({ order, isAdminCell }) => {
+const AdminOrderTableRow = ({ order }) => {
   const [isRowExpanded, setIsRowExpanded] = useState(false);
 
   const {
     _id,
     createdAt,
-    buyer: { username },
+    buyer,
     totalPrice,
     deliveryAddress,
     deliveryStatus,
-    coupon,
-    products,
+    couponDetails,
+    orderItems,
   } = order;
-  const { name: couponName } = coupon || {};
 
   return (
     <>
@@ -55,10 +54,10 @@ const BuyerOrderTableRow = ({ order, isAdminCell }) => {
         <TableCell align='center'>
           {format(parseISO(createdAt), 'dd-MMM-yyyy')}
         </TableCell>
-        {isAdminCell && <TableCell align='center'>{username}</TableCell>}
+        <TableCell align='center'>{buyer.username}</TableCell>
         <TableCell align='center'>{currencyFormatter(totalPrice)}</TableCell>
         <TableCell align='center'>{deliveryAddress}</TableCell>
-        <TableCell align='center'>{couponName || '-'}</TableCell>
+        <TableCell align='center'>{couponDetails[0]?.name || '-'}</TableCell>
         <TableCell align='center'>{deliveryStatus}</TableCell>
         <TableCell align='center'>
           <PDFDownloadLink
@@ -77,23 +76,20 @@ const BuyerOrderTableRow = ({ order, isAdminCell }) => {
       </TableRow>
 
       <TableRow sx={{ '& > *': { borderBottom: 'unset', borderTop: 'unset' } }}>
-        <TableCell
-          style={{ paddingBottom: 0, paddingTop: 0 }}
-          colSpan={isAdminCell ? 9 : 8}
-        >
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={9}>
           <Collapse in={isRowExpanded} timeout='auto' unmountOnExit={true}>
             <Box sx={{ margin: 1 }}>
               <Typography variant='body1' gutterBottom={true}>
-                Products
+                Order Items
               </Typography>
               <Table size='small'>
                 <TableHead>
                   <TableRow>
-                    <TableCell align='center'>Product Name</TableCell>
-                    <TableCell align='center'>Price</TableCell>
-                    <TableCell align='center'>Quantity</TableCell>
-                    <TableCell align='center'>Total Price</TableCell>
-                    <TableCell align='center'>Shop</TableCell>
+                    <TableCell align='center'>Order Item ID</TableCell>
+                    <TableCell align='center'>Order Item Total Price</TableCell>
+                    <TableCell align='center'>Delivery Status</TableCell>
+                    <TableCell align='center'>Payment Status</TableCell>
+                    <TableCell align='center'>Shop Name</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody
@@ -104,31 +100,21 @@ const BuyerOrderTableRow = ({ order, isAdminCell }) => {
                     },
                   }}
                 >
-                  {products.map((orderProduct) => {
-                    const { product, count, shop } = orderProduct;
-
-                    if (!product) {
-                      return (
-                        <TableRow key={orderProduct._id}>
-                          <TableCell colSpan={4} align='center'>
-                            <em>No longer available product</em>
-                          </TableCell>
-                        </TableRow>
-                      );
-                    }
-
+                  {orderItems.map((orderItem) => {
                     return (
-                      <TableRow key={product._id}>
-                        <TableCell align='center'>{product.title}</TableCell>
+                      <TableRow key={orderItem._id}>
+                        <TableCell align='center'>{orderItem._id}</TableCell>
                         <TableCell align='center'>
-                          {currencyFormatter(product.price)}
-                        </TableCell>
-                        <TableCell align='center'>{count}</TableCell>
-                        <TableCell align='center'>
-                          {currencyFormatter(product.price * count)}
+                          {currencyFormatter(orderItem.totalPrice)}
                         </TableCell>
                         <TableCell align='center'>
-                          {shop.shopInfo.name}
+                          {orderItem.deliveryStatus}
+                        </TableCell>
+                        <TableCell align='center'>
+                          {orderItem.paymentStatus}
+                        </TableCell>
+                        <TableCell align='center'>
+                          {orderItem.shop.shopInfo.name}
                         </TableCell>
                       </TableRow>
                     );
@@ -143,9 +129,8 @@ const BuyerOrderTableRow = ({ order, isAdminCell }) => {
   );
 };
 
-BuyerOrderTableRow.propTypes = {
+AdminOrderTableRow.propTypes = {
   order: PropTypes.object,
-  isAdminCell: PropTypes.bool,
 };
 
-export default BuyerOrderTableRow;
+export default AdminOrderTableRow;
