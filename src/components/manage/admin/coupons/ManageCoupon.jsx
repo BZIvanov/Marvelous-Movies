@@ -26,9 +26,12 @@ const ManageCoupon = () => {
 
   const form = useForm(formConfig);
 
-  const handleCreateCoupon = (values) => {
-    createCoupon(values);
-    form.reset();
+  const handleCreateCoupon = async (values) => {
+    const result = await createCoupon(values);
+
+    if (!('error' in result)) {
+      form.reset();
+    }
   };
 
   const handleDeleteCoupon = (couponId) => {
