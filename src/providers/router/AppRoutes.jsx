@@ -13,6 +13,8 @@ import LoginForm from '@/components/user/auth/login/LoginForm';
 import PasswordResetForm from '@/components/user/auth/PasswordResetForm';
 import UserProfile from '@/components/manage/common/profile/UserProfile';
 import AdminOrdersList from '@/components/manage/admin/orders/AdminOrdersList';
+import ManageShops from '@/components/manage/admin/shops/ManageShops';
+import ShopDetails from '@/components/manage/admin/shops/ShopDetails';
 import ManageCategory from '@/components/manage/admin/categories/ManageCategory';
 import ManageSubcategory from '@/components/manage/admin/subcategories/ManageSubcategory';
 import ManageCoupon from '@/components/manage/admin/coupons/ManageCoupon';
@@ -92,6 +94,14 @@ const router = createBrowserRouter([
           {
             path: 'orders',
             element: <AdminOrdersList />,
+          },
+          {
+            path: 'shops',
+            element: <ManageShops />,
+          },
+          {
+            path: 'shops/:shopId',
+            element: <ShopDetails />,
           },
           {
             path: 'category',

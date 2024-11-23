@@ -26,8 +26,6 @@ const AdminOrdersList = () => {
   });
   const { orders = [], totalCount = 0 } = data || {};
 
-  console.log(orders);
-
   return (
     <Box sx={{ padding: (theme) => theme.spacing(1) }}>
       <Typography variant='h5'>Orders</Typography>

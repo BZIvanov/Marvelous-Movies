@@ -21,6 +21,11 @@ const adminLinks = [
     linkText: 'Manage Orders',
   },
   {
+    toLink: 'shops',
+    icon: <DashboardIcon fontSize='small' />,
+    linkText: 'Manage Shops',
+  },
+  {
     toLink: 'category',
     icon: <CategoryIcon fontSize='small' />,
     linkText: 'Manage Categories',

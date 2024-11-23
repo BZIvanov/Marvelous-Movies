@@ -22,6 +22,10 @@ export const percentFormatter = (
 };
 
 export const dateFormatter = (value, { locale = 'en-US', ...options } = {}) => {
+  if (!value) {
+    return '';
+  }
+
   const date = new Date(value);
 
   return new Intl.DateTimeFormat(locale, options).format(date);
