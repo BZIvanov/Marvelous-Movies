@@ -9,10 +9,10 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
-import { format, parseISO } from 'date-fns';
 
 import { useConfirmDialog } from '@/contexts/useConfirmDialogContext';
 import { DeleteIcon } from '@/components/mui/Icons';
+import { dateFormatter } from '@/utils/formatting';
 
 const CouponsList = ({ coupons = [], deleteCoupon, paginationComponent }) => {
   const { openDialog, closeDialog } = useConfirmDialog();
@@ -49,10 +49,18 @@ const CouponsList = ({ coupons = [], deleteCoupon, paginationComponent }) => {
                         - {discount.toFixed(2)} %
                       </TableCell>
                       <TableCell align='center'>
-                        {format(parseISO(expirationDate), 'dd-MMM-yyyy')}
+                        {dateFormatter(expirationDate, {
+                          day: '2-digit',
+                          month: 'short',
+                          year: 'numeric',
+                        })}
                       </TableCell>
                       <TableCell align='center'>
-                        {format(parseISO(createdAt), 'dd-MMM-yyyy')}
+                        {dateFormatter(createdAt, {
+                          day: '2-digit',
+                          month: 'short',
+                          year: 'numeric',
+                        })}
                       </TableCell>
                       <TableCell align='center'>
                         <IconButton

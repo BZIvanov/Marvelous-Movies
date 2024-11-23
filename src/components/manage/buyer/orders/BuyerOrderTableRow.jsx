@@ -9,7 +9,6 @@ import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import { format, parseISO } from 'date-fns';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 
 import {
@@ -18,7 +17,7 @@ import {
   DownloadIcon,
   DownloadingIcon,
 } from '@/components/mui/Icons';
-import { currencyFormatter } from '@/utils/formatting';
+import { currencyFormatter, dateFormatter } from '@/utils/formatting';
 import PdfCell from './PdfCell';
 
 const BuyerOrderTableRow = ({ order, isAdminCell }) => {
@@ -53,7 +52,11 @@ const BuyerOrderTableRow = ({ order, isAdminCell }) => {
         </TableCell>
         <TableCell align='center'>{_id}</TableCell>
         <TableCell align='center'>
-          {format(parseISO(createdAt), 'dd-MMM-yyyy')}
+          {dateFormatter(createdAt, {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+          })}
         </TableCell>
         {isAdminCell && <TableCell align='center'>{username}</TableCell>}
         <TableCell align='center'>{currencyFormatter(totalPrice)}</TableCell>

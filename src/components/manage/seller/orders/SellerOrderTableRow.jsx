@@ -12,7 +12,6 @@ import IconButton from '@mui/material/IconButton';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { format, parseISO } from 'date-fns';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 
 import { useDispatch } from '@/providers/store/store';
@@ -24,7 +23,7 @@ import {
   DownloadIcon,
   DownloadingIcon,
 } from '@/components/mui/Icons';
-import { currencyFormatter } from '@/utils/formatting';
+import { currencyFormatter, dateFormatter } from '@/utils/formatting';
 import PdfCell from './PdfCell';
 import { orderDeliveryStatuses } from './constants';
 
@@ -75,7 +74,11 @@ const SellerOrderTableRow = ({ order }) => {
         </TableCell>
         <TableCell align='center'>{_id}</TableCell>
         <TableCell align='center'>
-          {format(parseISO(createdAt), 'dd-MMM-yyyy')}
+          {dateFormatter(createdAt, {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+          })}
         </TableCell>
         <TableCell align='center'>{currencyFormatter(totalPrice)}</TableCell>
         <TableCell align='center'>{deliveryAddress}</TableCell>

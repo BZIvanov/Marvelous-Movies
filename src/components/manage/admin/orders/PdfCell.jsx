@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
-import { format, parseISO } from 'date-fns';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
-import { currencyFormatter } from '@/utils/formatting';
+import { currencyFormatter, dateFormatter } from '@/utils/formatting';
 
 const styles = StyleSheet.create({
   page: {
@@ -42,7 +41,14 @@ const PdfCell = ({ order }) => {
         <View style={styles.section}>
           <Text style={styles.header}>Order Details</Text>
           <Text>ID: {_id}</Text>
-          <Text>Created At: {format(parseISO(createdAt), 'dd-MMM-yyyy')}</Text>
+          <Text>
+            Created At:{' '}
+            {dateFormatter(createdAt, {
+              day: '2-digit',
+              month: 'short',
+              year: 'numeric',
+            })}
+          </Text>
           <Text>Total Amount: {currencyFormatter(totalPrice)}</Text>
           <Text>Delivery Address: {deliveryAddress}</Text>
           <Text>Coupon: {coupon?.name || '-'}</Text>
