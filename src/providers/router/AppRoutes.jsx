@@ -11,19 +11,6 @@ import CartProducts from '@/components/cart/products/CartProducts';
 import RegisterForm from '@/components/user/auth/register/RegisterForm';
 import LoginForm from '@/components/user/auth/login/LoginForm';
 import PasswordResetForm from '@/components/user/auth/PasswordResetForm';
-import UserProfile from '@/components/manage/common/profile/UserProfile';
-import AdminOrdersList from '@/components/manage/admin/orders/AdminOrdersList';
-import ManageShops from '@/components/manage/admin/shops/ManageShops';
-import ShopDetails from '@/components/manage/admin/shops/ShopDetails';
-import ManageCategory from '@/components/manage/admin/categories/ManageCategory';
-import ManageSubcategory from '@/components/manage/admin/subcategories/ManageSubcategory';
-import ManageCoupon from '@/components/manage/admin/coupons/ManageCoupon';
-import SellerOrdersList from '@/components/manage/seller/orders/SellerOrdersList';
-import ManageShop from '@/components/manage/seller/shop/ManageShop';
-import ManageProduct from '@/components/manage/seller/products/ManageProduct';
-import ManageProducts from '@/components/manage/seller/products/ManageProducts';
-import BuyerOrdersList from '@/components/manage/buyer/orders/BuyerOrdersList';
-import ManageWishList from '@/components/manage/buyer/wishlist/ManageWishList';
 import ProductDetailed from '@/components/product/detailed/ProductDetailed';
 import CategoryProducts from '@/components/category/CategoryProducts';
 import SubcategoryProducts from '@/components/subcategory/SubcategoryProducts';
@@ -31,6 +18,21 @@ import Checkout from '@/components/checkout/Checkout';
 import NonUserRoute from './auth/NonUserRoute';
 import ProtectedRoute from './auth/ProtectedRoute';
 import ShopStatus from './auth/ShopStatus';
+import {
+  AdminOrdersList,
+  ManageShops,
+  ShopDetails,
+  ManageCategory,
+  ManageSubcategory,
+  ManageCoupon,
+  SellerOrdersList,
+  ManageShop,
+  ManageProduct,
+  ManageProducts,
+  BuyerOrdersList,
+  ManageWishList,
+  UserProfile,
+} from './lazy-routes';
 
 const router = createBrowserRouter([
   {

@@ -10,19 +10,33 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TablePagination from '@mui/material/TablePagination';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
 
 import { useGetBuyerOrdersQuery } from '@/providers/store/services/orders';
 import AdminOrderTableRow from './AdminOrderTableRow';
 
 const ROWS_PER_PAGE_OPTIONS = [10, 25, 50];
 
+const orderDeliveryStatuses = {
+  pending: 'pending',
+  delivered: 'delivered',
+  canceled: 'canceled',
+};
+
 const AdminOrdersList = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(ROWS_PER_PAGE_OPTIONS[1]);
+  const [deliveryStatus, setDeliveryStatus] = useState(
+    orderDeliveryStatuses.pending
+  );
 
-  const { data } = useGetBuyerOrdersQuery({
+  const { data, isLoading } = useGetBuyerOrdersQuery({
     page,
     perPage: rowsPerPage,
+    deliveryStatus,
   });
   const { orders = [], totalCount = 0 } = data || {};
 
@@ -31,6 +45,31 @@ const AdminOrdersList = () => {
       <Typography variant='h5'>Orders</Typography>
 
       <Divider sx={{ marginBlock: 2 }} />
+
+      <Box sx={{ marginBlock: 2 }}>
+        <FormControl sx={{ m: 1, minWidth: 200 }} size='small'>
+          <InputLabel id='activity-status-label'>Activity Status</InputLabel>
+          <Select
+            labelId='activity-status-label'
+            id='activity-status'
+            value={deliveryStatus}
+            label='Activity Status'
+            onChange={(event) => {
+              setDeliveryStatus(event.target.value);
+            }}
+            disabled={isLoading}
+          >
+            <MenuItem value=''>all</MenuItem>
+            {Object.keys(orderDeliveryStatuses).map((orderDeliveryStatus) => {
+              return (
+                <MenuItem key={orderDeliveryStatus} value={orderDeliveryStatus}>
+                  {orderDeliveryStatus}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
+      </Box>
 
       <Box>
         <Paper sx={{ margin: 1 }}>
