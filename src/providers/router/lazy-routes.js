@@ -24,6 +24,9 @@ export const ManageSubcategory = lazy(() =>
 export const ManageCoupon = lazy(() =>
   import('@/components/manage/admin/coupons/ManageCoupon')
 );
+export const AdminSellerChat = lazy(() =>
+  import('@/components/manage/admin/chat/AdminSellerChat')
+);
 
 // seller routes
 export const SellerDashboard = lazy(() =>
@@ -40,6 +43,9 @@ export const ManageProduct = lazy(() =>
 );
 export const ManageProducts = lazy(() =>
   import('@/components/manage/seller/products/ManageProducts')
+);
+export const SellerAdminChat = lazy(() =>
+  import('@/components/manage/seller/chat/SellerAdminChat')
 );
 
 // buyer routes

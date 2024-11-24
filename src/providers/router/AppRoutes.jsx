@@ -26,11 +26,13 @@ import {
   ManageCategory,
   ManageSubcategory,
   ManageCoupon,
+  AdminSellerChat,
   SellerDashboard,
   SellerOrdersList,
   ManageShop,
   ManageProduct,
   ManageProducts,
+  SellerAdminChat,
   BuyerDashboard,
   BuyerOrdersList,
   ManageWishList,
@@ -128,6 +130,14 @@ const router = createBrowserRouter([
             path: 'profile',
             element: <UserProfile />,
           },
+          {
+            path: 'chat',
+            element: <AdminSellerChat />,
+          },
+          {
+            path: 'chat/:receiverId',
+            element: <AdminSellerChat />,
+          },
         ],
       },
       {
@@ -181,6 +191,10 @@ const router = createBrowserRouter([
           {
             path: 'products',
             element: <ManageProducts />,
+          },
+          {
+            path: 'chat-admin',
+            element: <SellerAdminChat />,
           },
           {
             path: 'profile',

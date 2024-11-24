@@ -3,8 +3,11 @@ import MenuList from '@mui/material/MenuList';
 import { useSelector } from '@/providers/store/store';
 import { selectUser } from '@/providers/store/features/user/userSlice';
 import {
+  ArticleIcon,
   AutoAwesomeMosaicIcon,
+  BusinessIcon,
   CategoryIcon,
+  ChatIcon,
   DashboardIcon,
   DiscountIcon,
   GradientIcon,
@@ -22,12 +25,12 @@ const adminLinks = [
   },
   {
     toLink: 'orders',
-    icon: <DashboardIcon fontSize='small' />,
+    icon: <ArticleIcon fontSize='small' />,
     linkText: 'Manage Orders',
   },
   {
     toLink: 'shops',
-    icon: <DashboardIcon fontSize='small' />,
+    icon: <BusinessIcon fontSize='small' />,
     linkText: 'Manage Shops',
   },
   {
@@ -46,6 +49,11 @@ const adminLinks = [
     linkText: 'Manage Coupons',
   },
   {
+    toLink: 'chat',
+    icon: <ChatIcon fontSize='small' />,
+    linkText: 'Sellers Chat',
+  },
+  {
     toLink: 'profile',
     icon: <PasswordIcon fontSize='small' />,
     linkText: 'Manage Profile',
@@ -60,7 +68,7 @@ const sellerLinks = [
   },
   {
     toLink: 'orders',
-    icon: <DashboardIcon fontSize='small' />,
+    icon: <ArticleIcon fontSize='small' />,
     linkText: 'Orders',
   },
   {
@@ -79,6 +87,11 @@ const sellerLinks = [
     linkText: 'Manage Products',
   },
   {
+    toLink: 'chat-admin',
+    icon: <ChatIcon fontSize='small' />,
+    linkText: 'Admin Chat',
+  },
+  {
     toLink: 'profile',
     icon: <PasswordIcon fontSize='small' />,
     linkText: 'Manage Profile',
@@ -93,7 +106,7 @@ const buyerLinks = [
   },
   {
     toLink: 'orders',
-    icon: <DashboardIcon fontSize='small' />,
+    icon: <ArticleIcon fontSize='small' />,
     linkText: 'Orders',
   },
   {
