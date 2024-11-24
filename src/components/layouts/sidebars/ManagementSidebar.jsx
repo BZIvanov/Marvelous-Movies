@@ -16,6 +16,11 @@ import ManagementSidebarLink from './ManagementSidebarLink';
 
 const adminLinks = [
   {
+    toLink: 'dashboard',
+    icon: <DashboardIcon fontSize='small' />,
+    linkText: 'Dashboard',
+  },
+  {
     toLink: 'orders',
     icon: <DashboardIcon fontSize='small' />,
     linkText: 'Manage Orders',
@@ -49,6 +54,11 @@ const adminLinks = [
 
 const sellerLinks = [
   {
+    toLink: 'dashboard',
+    icon: <DashboardIcon fontSize='small' />,
+    linkText: 'Dashboard',
+  },
+  {
     toLink: 'orders',
     icon: <DashboardIcon fontSize='small' />,
     linkText: 'Orders',
@@ -76,6 +86,11 @@ const sellerLinks = [
 ];
 
 const buyerLinks = [
+  {
+    toLink: 'dashboard',
+    icon: <DashboardIcon fontSize='small' />,
+    linkText: 'Dashboard',
+  },
   {
     toLink: 'orders',
     icon: <DashboardIcon fontSize='small' />,

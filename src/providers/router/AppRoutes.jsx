@@ -19,16 +19,19 @@ import NonUserRoute from './auth/NonUserRoute';
 import ProtectedRoute from './auth/ProtectedRoute';
 import ShopStatus from './auth/ShopStatus';
 import {
+  AdminDashboard,
   AdminOrdersList,
   ManageShops,
   ShopDetails,
   ManageCategory,
   ManageSubcategory,
   ManageCoupon,
+  SellerDashboard,
   SellerOrdersList,
   ManageShop,
   ManageProduct,
   ManageProducts,
+  BuyerDashboard,
   BuyerOrdersList,
   ManageWishList,
   UserProfile,
@@ -94,6 +97,10 @@ const router = createBrowserRouter([
         ),
         children: [
           {
+            path: 'dashboard',
+            element: <AdminDashboard />,
+          },
+          {
             path: 'orders',
             element: <AdminOrdersList />,
           },
@@ -135,6 +142,10 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
         children: [
+          {
+            path: 'dashboard',
+            element: <SellerDashboard />,
+          },
           {
             path: 'orders',
             element: <SellerOrdersList />,
@@ -189,6 +200,10 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
         children: [
+          {
+            path: 'dashboard',
+            element: <BuyerDashboard />,
+          },
           {
             path: 'orders',
             element: <BuyerOrdersList />,

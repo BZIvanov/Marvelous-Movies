@@ -3,6 +3,9 @@ import { lazy } from 'react';
 // use separate file for lazy imports to avoid lint warning 'eslint(react-refresh/only-export-components)'
 
 // admin routes
+export const AdminDashboard = lazy(() =>
+  import('@/components/manage/admin/dashboard/AdminDashboard')
+);
 export const AdminOrdersList = lazy(() =>
   import('@/components/manage/admin/orders/AdminOrdersList')
 );
@@ -23,6 +26,9 @@ export const ManageCoupon = lazy(() =>
 );
 
 // seller routes
+export const SellerDashboard = lazy(() =>
+  import('@/components/manage/seller/dashboard/SellerDashboard')
+);
 export const SellerOrdersList = lazy(() =>
   import('@/components/manage/seller/orders/SellerOrdersList')
 );
@@ -37,6 +43,9 @@ export const ManageProducts = lazy(() =>
 );
 
 // buyer routes
+export const BuyerDashboard = lazy(() =>
+  import('@/components/manage/buyer/dashboard/BuyerDashboard')
+);
 export const BuyerOrdersList = lazy(() =>
   import('@/components/manage/buyer/orders/BuyerOrdersList')
 );

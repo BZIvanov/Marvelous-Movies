@@ -69,6 +69,26 @@ export const ordersApi = api.injectEndpoints({
         ];
       },
     }),
+    getBuyerOrdersStats: build.query({
+      query: (params = {}) => {
+        return {
+          url: '/orders/stats',
+          method: 'GET',
+          params,
+          credentials: 'include',
+        };
+      },
+    }),
+    getSellerOrdersStats: build.query({
+      query: (params = {}) => {
+        return {
+          url: '/orders/seller/stats',
+          method: 'GET',
+          params,
+          credentials: 'include',
+        };
+      },
+    }),
   }),
 });
 
@@ -77,4 +97,6 @@ export const {
   useGetSellerOrdersQuery,
   useCreateOrderMutation,
   useUpdateOrderDeliveryStatusMutation,
+  useGetBuyerOrdersStatsQuery,
+  useGetSellerOrdersStatsQuery,
 } = ordersApi;
