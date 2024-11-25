@@ -29,13 +29,9 @@ const TextFieldAdapter = ({
         return (
           <FormControl sx={{ width: '100%', marginBlock: 1, ...styles }}>
             <TextField
-              inputProps={{ ...field, type }}
-              variant='standard'
-              label={label}
-              error={fieldState.isTouched && Boolean(fieldState.error)}
-              helperText={fieldState.isTouched && fieldState.error?.message}
-              InputProps={
-                icon
+              slotProps={{
+                htmlInput: { ...field, type },
+                input: icon
                   ? {
                       endAdornment: (
                         <InputAdornment position='end' sx={{ padding: '8px' }}>
@@ -43,8 +39,12 @@ const TextFieldAdapter = ({
                         </InputAdornment>
                       ),
                     }
-                  : {}
-              }
+                  : {},
+              }}
+              variant='standard'
+              label={label}
+              error={fieldState.isTouched && Boolean(fieldState.error)}
+              helperText={fieldState.isTouched && fieldState.error?.message}
               multiline={multiline} // textarea type
               minRows={multiline && minRows ? minRows : undefined}
               maxRows={multiline && maxRows ? maxRows : undefined}

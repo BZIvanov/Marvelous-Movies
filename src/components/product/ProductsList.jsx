@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Stack from '@mui/material/Stack';
 import Pagination from '@mui/material/Pagination';
 
@@ -40,17 +40,9 @@ const ProductsList = ({
 
       <Paper sx={{ width: '100%', padding: 2 }}>
         {products.length > 0 ? (
-          <Grid container={true} spacing={3}>
+          <Grid container={true} spacing={2} columns={12}>
             {products.map((product) => (
-              <Grid
-                key={product._id}
-                item={true}
-                xs={12}
-                sm={6}
-                md={4}
-                lg={3}
-                xl={2}
-              >
+              <Grid key={product._id} size={{ xs: 12, md: 6, lg: 4, xl: 3 }}>
                 <ProductCard product={product} />
               </Grid>
             ))}

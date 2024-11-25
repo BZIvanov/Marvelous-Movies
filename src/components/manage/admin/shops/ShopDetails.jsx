@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
@@ -37,8 +37,8 @@ const ShopDetails = () => {
         <Typography variant='h5' gutterBottom={true}>
           Shop Details
         </Typography>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
+        <Grid container={true} spacing={2} columns={1}>
+          <Grid size={1}>
             <Typography variant='subtitle1'>
               <strong>Shop Name:</strong> {shop.shopInfo?.name}
             </Typography>
@@ -50,15 +50,15 @@ const ShopDetails = () => {
             </Typography>
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid size={1}>
             <Typography variant='subtitle1'>
               <strong>Seller:</strong> {shop.user?.username} ({shop.user?.email}
               )
             </Typography>
           </Grid>
 
-          <Grid item xs={12}>
-            <Box display='flex' alignItems='center' gap={1}>
+          <Grid size={1}>
+            <Box display='flex' alignItems='center' gap={1} flexWrap='wrap'>
               <Chip
                 label={`Activity: ${shop.activityStatus}`}
                 color={shop.activityStatus === 'active' ? 'success' : 'warning'}
@@ -70,7 +70,7 @@ const ShopDetails = () => {
             </Box>
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid size={1}>
             <Typography variant='subtitle2' color='text.secondary'>
               Created At: {dateFormatter(shop.createdAt)}
             </Typography>

@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -90,17 +90,15 @@ const ProductDetailed = () => {
   return (
     <>
       {product && (
-        <Grid container={true} sx={{ padding: 2 }}>
+        <Grid container={true} columns={12} sx={{ padding: 2 }}>
           <Grid
-            item={true}
-            sm={12}
-            md={6}
+            size={{ xs: 12, md: 6 }}
             sx={{ '& .slide img': { maxHeight: '390px', objectFit: 'cover' } }}
           >
             <ImagesCarousel images={product.images} />
           </Grid>
 
-          <Grid item={true} xs={12} sm={12} md={6} sx={{ paddingLeft: 1 }}>
+          <Grid size={{ xs: 12, md: 6 }} sx={{ paddingLeft: 1 }}>
             <Typography
               gutterBottom={true}
               variant='h5'
@@ -204,7 +202,7 @@ const ProductDetailed = () => {
             <Divider />
           </Box>
 
-          <Grid item={true} xs={12}>
+          <Grid size={{ xs: 12 }}>
             <InfoTabs
               productId={product._id}
               description={product.description}
@@ -215,7 +213,7 @@ const ProductDetailed = () => {
             <Divider />
           </Box>
 
-          <Grid item={true} xs={12}>
+          <Grid size={{ xs: 12 }}>
             <ProductsList
               header='Similar Products'
               products={similarProductsData?.products}

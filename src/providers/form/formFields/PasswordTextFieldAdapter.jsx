@@ -26,25 +26,27 @@ const PasswordTextFieldAdapter = ({ name, label, styles }) => {
         return (
           <FormControl sx={{ width: '100%', marginBlock: 1, ...styles }}>
             <TextField
+              slotProps={{
+                htmlInput: { ...field },
+                input: {
+                  endAdornment: (
+                    <InputAdornment position='end'>
+                      <IconButton onClick={handleClickShowPassword}>
+                        {showPassword ? (
+                          <VisibilityIcon />
+                        ) : (
+                          <VisibilityOffIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                },
+              }}
               type={showPassword ? 'text' : 'password'}
-              inputProps={{ ...field }}
               label={label}
               variant='standard'
               error={fieldState.isTouched && Boolean(fieldState.error)}
               helperText={fieldState.isTouched && fieldState.error?.message}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position='end'>
-                    <IconButton onClick={handleClickShowPassword}>
-                      {showPassword ? (
-                        <VisibilityIcon />
-                      ) : (
-                        <VisibilityOffIcon />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
             />
           </FormControl>
         );
