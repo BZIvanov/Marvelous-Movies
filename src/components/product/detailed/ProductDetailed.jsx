@@ -34,6 +34,7 @@ import InfoTabs from './InfoTabs';
 import AddToCart from '../actions/AddToCart';
 import AddToWishlist from '../actions/AddToWishlist';
 import RateProduct from '../actions/RateProduct';
+import ChatWithSeller from '../actions/ChatWithSeller';
 
 const ProductDetailed = () => {
   const navigate = useNavigate();
@@ -189,6 +190,10 @@ const ProductDetailed = () => {
                     productId={product._id}
                     onRateProduct={handleRateProduct}
                     review={myReviewData?.review}
+                  />
+                  <ChatWithSeller
+                    productId={product._id}
+                    shopSellerId={product?.shop?.user}
                   />
                 </CardActions>
               )}

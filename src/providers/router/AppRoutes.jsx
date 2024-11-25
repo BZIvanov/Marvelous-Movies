@@ -33,9 +33,11 @@ import {
   ManageProduct,
   ManageProducts,
   SellerAdminChat,
+  SellerBuyerChat,
   BuyerDashboard,
   BuyerOrdersList,
   ManageWishList,
+  BuyerSellerChat,
   UserProfile,
 } from './lazy-routes';
 
@@ -197,6 +199,14 @@ const router = createBrowserRouter([
             element: <SellerAdminChat />,
           },
           {
+            path: 'chat',
+            element: <SellerBuyerChat />,
+          },
+          {
+            path: 'chat/:receiverId',
+            element: <SellerBuyerChat />,
+          },
+          {
             path: 'profile',
             element: <UserProfile />,
           },
@@ -225,6 +235,14 @@ const router = createBrowserRouter([
           {
             path: 'wishlist',
             element: <ManageWishList />,
+          },
+          {
+            path: 'chat',
+            element: <BuyerSellerChat />,
+          },
+          {
+            path: 'chat/:receiverId',
+            element: <BuyerSellerChat />,
           },
           {
             path: 'profile',

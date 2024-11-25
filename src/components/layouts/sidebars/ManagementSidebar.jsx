@@ -92,6 +92,11 @@ const sellerLinks = [
     linkText: 'Admin Chat',
   },
   {
+    toLink: 'chat',
+    icon: <ChatIcon fontSize='small' />,
+    linkText: 'Buyers Chat',
+  },
+  {
     toLink: 'profile',
     icon: <PasswordIcon fontSize='small' />,
     linkText: 'Manage Profile',
@@ -113,6 +118,11 @@ const buyerLinks = [
     toLink: 'wishlist',
     icon: <ListAltIcon fontSize='small' />,
     linkText: 'Manage Wishlist',
+  },
+  {
+    toLink: 'chat',
+    icon: <ChatIcon fontSize='small' />,
+    linkText: 'Sellers Chat',
   },
   {
     toLink: 'profile',

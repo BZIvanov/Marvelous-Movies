@@ -17,7 +17,7 @@ import ChatForm from '@/components/manage/common/chat/ChatForm';
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-const AdminSellerChat = () => {
+const BuyerSellerChat = () => {
   const user = useSelector(selectUser);
 
   const { receiverId } = useParams();
@@ -110,4 +110,4 @@ const AdminSellerChat = () => {
   );
 };
 
-export default AdminSellerChat;
+export default BuyerSellerChat;

@@ -16,8 +16,6 @@ const ChatForm = ({ socket, chatId }) => {
   const form = useForm(formConfig);
 
   const handleSubmitCoupon = (values) => {
-    console.log(socket);
-    console.log(chatId);
     if (socket && chatId) {
       socket.emit('sendMessage', {
         chatId,
@@ -35,9 +33,17 @@ const ChatForm = ({ socket, chatId }) => {
     <Box sx={{ margin: 1 }}>
       <FormProvider onSubmit={handleSubmitCoupon} methods={form}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <TextFieldAdapter name='message' label='Your message' />
+          <TextFieldAdapter
+            name='message'
+            label='Your message'
+            disabled={isApiLoading || !chatId}
+          />
           <Box>
-            <Button variant='contained' type='submit' disabled={isApiLoading}>
+            <Button
+              variant='contained'
+              type='submit'
+              disabled={isApiLoading || !chatId}
+            >
               Send
             </Button>
           </Box>

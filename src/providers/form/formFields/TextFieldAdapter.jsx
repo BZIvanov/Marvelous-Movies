@@ -16,6 +16,7 @@ const TextFieldAdapter = ({
   placeholder,
   icon,
   styles = {},
+  disabled = false,
 }) => {
   // After we provided the form methods to the FormProvider, we can now get them from the context
   const { control } = useFormContext();
@@ -48,6 +49,7 @@ const TextFieldAdapter = ({
               minRows={multiline && minRows ? minRows : undefined}
               maxRows={multiline && maxRows ? maxRows : undefined}
               placeholder={placeholder}
+              disabled={disabled}
             />
           </FormControl>
         );
@@ -66,6 +68,7 @@ TextFieldAdapter.propTypes = {
   placeholder: PropTypes.string,
   icon: PropTypes.element,
   styles: PropTypes.object,
+  disabled: PropTypes.bool,
 };
 
 export default TextFieldAdapter;
