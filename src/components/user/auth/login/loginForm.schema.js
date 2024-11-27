@@ -1,9 +1,11 @@
 import * as yup from 'yup';
 
+import { emailSchema, passwordSchema } from '../auth-fields.schema';
+
 const schema = yup
   .object({
-    email: yup.string().email().required('Email is required'),
-    password: yup.string().min(8).required('Password is required'),
+    email: emailSchema,
+    password: passwordSchema,
   })
   .required();
 

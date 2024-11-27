@@ -1,16 +1,20 @@
 import * as yup from 'yup';
 
+import {
+  usernameSchema,
+  emailSchema,
+  passwordSchema,
+  confirmPasswordSchema,
+  isSellerSchema,
+} from '../auth-fields.schema';
+
 const schema = yup
   .object({
-    username: yup.string().required('Username is required'),
-    email: yup.string().email().required('Email is required'),
-    password: yup.string().min(8).required('Password is required'),
-    confirmPassword: yup
-      .string()
-      .min(8)
-      .required('Confirm Password is required')
-      .oneOf([yup.ref('password'), null], 'Passwords should match'),
-    isSeller: yup.boolean(),
+    username: usernameSchema,
+    email: emailSchema,
+    password: passwordSchema,
+    confirmPassword: confirmPasswordSchema,
+    isSeller: isSellerSchema,
   })
   .required();
 

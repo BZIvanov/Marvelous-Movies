@@ -1,15 +1,15 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import App from '@/App';
-import ErrorBoundary from './ErrorBoundary';
-import NotFound from './NotFound';
+import ErrorBoundary from './feedback/ErrorBoundary';
+import NotFound from './feedback/NotFound';
 import ShopLayout from '@/components/layouts/ShopLayout';
 import ManagementLayout from '@/components/layouts/ManagementLayout';
 import Home from '@/components/home/Home';
 import Shop from '@/components/shop/Shop';
 import CartProducts from '@/components/cart/products/CartProducts';
 import RegisterForm from '@/components/user/auth/register/RegisterForm';
-import LoginForm from '@/components/user/auth/login/LoginForm';
+import UserLogin from '@/components/user/auth/login/UserLogin';
 import PasswordResetForm from '@/components/user/auth/PasswordResetForm';
 import ProductDetailed from '@/components/product/detailed/ProductDetailed';
 import CategoryProducts from '@/components/category/CategoryProducts';
@@ -41,7 +41,7 @@ import {
   UserProfile,
 } from './lazy-routes';
 
-const router = createBrowserRouter([
+const routes = [
   {
     path: '/',
     element: <App />,
@@ -80,7 +80,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'login',
-            element: <LoginForm />,
+            element: <UserLogin />,
           },
           {
             path: 'reset-password/:token',
@@ -285,6 +285,8 @@ const router = createBrowserRouter([
     path: '*',
     element: <NotFound />,
   },
-]);
+];
+
+const router = createBrowserRouter(routes);
 
 export default router;

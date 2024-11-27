@@ -4,7 +4,9 @@ import { Provider } from 'react-redux';
 import { createStore } from './store';
 
 const StoreProvider = ({ children, preloadedState }) => {
-  return <Provider store={createStore(preloadedState)}>{children}</Provider>;
+  const store = createStore(preloadedState);
+
+  return <Provider store={store}>{children}</Provider>;
 };
 
 StoreProvider.propTypes = {
