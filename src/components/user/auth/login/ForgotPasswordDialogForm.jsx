@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -16,21 +15,28 @@ import TextFieldAdapter from '@/providers/form/formFields/TextFieldAdapter';
 import { EmailIcon } from '@/components/mui/Icons';
 import { formConfig } from './forgotPasswordDialogForm.schema';
 
-const ForgotPasswordDialog = ({
-  showForgotPasswordModal,
-  handleShowForgotModal,
-}) => {
+const ForgotPasswordDialog = () => {
   const dispatch = useDispatch();
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const [forgotPassword, { data, isLoading, isSuccess }] =
     useForgotPasswordMutation();
 
   const formMethods = useForm(formConfig);
-  const { formState, reset } = formMethods;
+  const { reset } = formMethods;
 
-  const handleFormSubmit = (values) => {
-    forgotPassword(values);
-    handleShowForgotModal(false);
+  const handleCloseDialog = () => {
+    reset();
+    setIsDialogOpen(false);
+  };
+
+  const handleFormSubmit = async (values) => {
+    const result = forgotPassword(values);
+
+    if (!('error' in result)) {
+      handleCloseDialog();
+    }
   };
 
   useEffect(() => {
@@ -47,10 +53,15 @@ const ForgotPasswordDialog = ({
 
   return (
     <>
-      <Dialog
-        open={showForgotPasswordModal}
-        onClose={() => handleShowForgotModal(false)}
+      <Button
+        color='secondary'
+        size='small'
+        onClick={() => setIsDialogOpen(true)}
       >
+        Forgot Password?
+      </Button>
+
+      <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
         <FormProvider onSubmit={handleFormSubmit} methods={formMethods}>
           <DialogTitle>Forgot Password</DialogTitle>
           <DialogContent>
@@ -65,16 +76,12 @@ const ForgotPasswordDialog = ({
             <Button
               color='secondary'
               type='button'
-              onClick={() => handleShowForgotModal(false)}
-              disabled={formState.isSubmitting || isLoading}
+              onClick={handleCloseDialog}
+              disabled={isLoading}
             >
               Cancel
             </Button>
-            <Button
-              color='secondary'
-              type='submit'
-              disabled={formState.isSubmitting || isLoading}
-            >
+            <Button color='secondary' type='submit' disabled={isLoading}>
               Send
             </Button>
           </DialogActions>
@@ -82,11 +89,6 @@ const ForgotPasswordDialog = ({
       </Dialog>
     </>
   );
-};
-
-ForgotPasswordDialog.propTypes = {
-  showForgotPasswordModal: PropTypes.bool,
-  handleShowForgotModal: PropTypes.func,
 };
 
 export default ForgotPasswordDialog;

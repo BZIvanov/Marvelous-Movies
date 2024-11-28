@@ -2,16 +2,21 @@ import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-import { useLoginMutation } from '@/providers/store/services/users';
+import { useRegisterMutation } from '@/providers/store/services/users';
+import RegisterForm from './RegisterForm';
 
-import ForgotPasswordDialogForm from './ForgotPasswordDialogForm';
-import LoginForm from './LoginForm';
+const UserRegister = () => {
+  const [register, { isLoading }] = useRegisterMutation();
 
-const UserLogin = () => {
-  const [login, { isLoading }] = useLoginMutation();
+  const registerUser = (values) => {
+    const { username, email, password, isSeller } = values;
 
-  const loginUser = (values) => {
-    login(values);
+    register({
+      username,
+      email,
+      password,
+      role: isSeller ? 'seller' : 'buyer',
+    });
   };
 
   return (
@@ -35,7 +40,7 @@ const UserLogin = () => {
           color: 'primary.main',
         }}
       >
-        Welcome Back
+        Create Your Account
       </Typography>
 
       <Box
@@ -50,25 +55,21 @@ const UserLogin = () => {
           gap: 3,
         }}
       >
-        <LoginForm loginUser={loginUser} isSubmitting={isLoading} />
+        <RegisterForm registerUser={registerUser} isSubmitting={isLoading} />
 
         <Box sx={{ textAlign: 'center' }}>
           <Typography variant='body2'>
-            Don&apos;t have an account?{' '}
+            Already have an account?{' '}
             <Typography variant='body2' component='span' color='primary'>
-              <Link to='/auth/register' style={{ color: 'inherit' }}>
-                Register
+              <Link to='/auth/login' style={{ color: 'inherit' }}>
+                Login
               </Link>
             </Typography>
           </Typography>
-        </Box>
-
-        <Box sx={{ textAlign: 'right' }}>
-          <ForgotPasswordDialogForm />
         </Box>
       </Box>
     </Box>
   );
 };
 
-export default UserLogin;
+export default UserRegister;

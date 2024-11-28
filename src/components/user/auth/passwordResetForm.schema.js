@@ -7,13 +7,13 @@ const schema = yup
       .string()
       .min(8)
       .required('Confirm Password is required')
-      .oneOf([yup.ref('newPassword'), null], 'Passwords should match'),
+      .oneOf([yup.ref('password'), null], 'Passwords should match'),
   })
   .required();
 
 const defaultValues = {
-  newPassword: '',
-  confirmNewPassword: '',
+  password: '',
+  confirmPassword: '',
 };
 
 export const formConfig = { schema, defaultValues };

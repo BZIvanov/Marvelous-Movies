@@ -21,7 +21,7 @@ const PasswordResetForm = () => {
   const { formState, reset } = formMethods;
 
   const handleFormSubmit = (values) => {
-    resetPassword({ ...values, token });
+    resetPassword({ password: values.password, token });
   };
 
   useEffect(() => {
@@ -44,10 +44,10 @@ const PasswordResetForm = () => {
 
       <Box sx={{ width: { xs: '90%', sm: '290px' } }}>
         <FormProvider onSubmit={handleFormSubmit} methods={formMethods}>
-          <PasswordTextFieldAdapter name='newPassword' label='New Password' />
+          <PasswordTextFieldAdapter name='password' label='New Password' />
 
           <PasswordTextFieldAdapter
-            name='confirmNewPassword'
+            name='confirmPassword'
             label='Confirm New Password'
           />
 

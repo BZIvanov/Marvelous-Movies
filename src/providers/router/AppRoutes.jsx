@@ -8,7 +8,7 @@ import ManagementLayout from '@/components/layouts/ManagementLayout';
 import Home from '@/components/home/Home';
 import Shop from '@/components/shop/Shop';
 import CartProducts from '@/components/cart/products/CartProducts';
-import RegisterForm from '@/components/user/auth/register/RegisterForm';
+import UserRegister from '@/components/user/auth/register/UserRegister';
 import UserLogin from '@/components/user/auth/login/UserLogin';
 import PasswordResetForm from '@/components/user/auth/PasswordResetForm';
 import ProductDetailed from '@/components/product/detailed/ProductDetailed';
@@ -76,7 +76,7 @@ const routes = [
           },
           {
             path: 'register',
-            element: <RegisterForm />,
+            element: <UserRegister />,
           },
           {
             path: 'login',

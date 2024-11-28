@@ -1,9 +1,7 @@
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-import { useRegisterMutation } from '@/providers/store/services/users';
 import FormProvider from '@/providers/form/FormProvider';
 import { useForm } from '@/providers/form/hooks/useForm';
 import TextFieldAdapter from '@/providers/form/formFields/TextFieldAdapter';
@@ -12,88 +10,76 @@ import CheckboxAdapter from '@/providers/form/formFields/CheckboxAdapter';
 import { EmailIcon, FaceIcon } from '@/components/mui/Icons';
 import { formConfig } from './registerForm.schema';
 
-const RegisterForm = () => {
-  const [register, { isLoading }] = useRegisterMutation();
+const RegisterForm = ({ registerUser, isSubmitting }) => {
+  const form = useForm(formConfig);
 
-  const formMethods = useForm(formConfig);
-  const { formState, reset } = formMethods;
-
-  const handleFormSubmit = (values) => {
-    const { username, email, password, isSeller } = values;
-    register({
-      username,
-      email,
-      password,
-      role: isSeller ? 'seller' : 'buyer',
-    });
+  const onSubmit = (values) => {
+    registerUser(values);
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: { xs: '10px', sm: '20px', md: '40px' },
-      }}
-    >
-      <Typography variant='h5'>Register Form</Typography>
+    <FormProvider onSubmit={onSubmit} methods={form}>
+      <TextFieldAdapter name='username' label='Username' icon={<FaceIcon />} />
 
-      <Box sx={{ width: { xs: '90%', sm: '290px' } }}>
-        <FormProvider onSubmit={handleFormSubmit} methods={formMethods}>
-          <TextFieldAdapter
-            name='username'
-            label='Username'
-            icon={<FaceIcon />}
-          />
+      <TextFieldAdapter name='email' label='Email' icon={<EmailIcon />} />
 
-          <TextFieldAdapter name='email' label='Email' icon={<EmailIcon />} />
+      <PasswordTextFieldAdapter name='password' label='Password' />
 
-          <PasswordTextFieldAdapter name='password' label='Password' />
+      <PasswordTextFieldAdapter
+        name='confirmPassword'
+        label='Confirm Password'
+      />
 
-          <PasswordTextFieldAdapter
-            name='confirmPassword'
-            label='Confirm Password'
-          />
+      <CheckboxAdapter name='isSeller' label='Register as a seller?' />
 
-          <CheckboxAdapter name='isSeller' label='Register as a seller?' />
-
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-evenly',
-              marginTop: '20px',
-            }}
-          >
-            <Button
-              variant='contained'
-              color='secondary'
-              type='button'
-              onClick={() => reset()}
-              disabled={formState.isSubmitting || isLoading}
-            >
-              Reset Form
-            </Button>
-            <Button
-              variant='contained'
-              type='submit'
-              disabled={formState.isSubmitting || isLoading}
-              sx={{ flexGrow: 1, marginLeft: 1 }}
-            >
-              Register
-            </Button>
-          </Box>
-
-          <Box sx={{ marginTop: '20px', textAlign: 'center' }}>
-            <Typography variant='body2'>
-              Already have an account? <Link to='/auth/login'>Login</Link>
-            </Typography>
-          </Box>
-        </FormProvider>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          mt: 2,
+        }}
+      >
+        <Button
+          variant='outlined'
+          color='secondary'
+          type='button'
+          onClick={() => form.reset()}
+          disabled={isSubmitting}
+          sx={{
+            width: '45%',
+            backgroundColor: 'grey.100',
+            color: 'secondary.main',
+            '&:hover': {
+              backgroundColor: 'grey.300',
+              color: 'secondary.dark',
+            },
+          }}
+        >
+          Reset
+        </Button>
+        <Button
+          variant='contained'
+          color='primary'
+          type='submit'
+          disabled={isSubmitting}
+          sx={{
+            width: '45%',
+            backgroundColor: 'primary.main',
+            '&:hover': {
+              backgroundColor: 'primary.dark',
+            },
+          }}
+        >
+          Register
+        </Button>
       </Box>
-    </Box>
+    </FormProvider>
   );
+};
+
+RegisterForm.propTypes = {
+  registerUser: PropTypes.func,
+  isSubmitting: PropTypes.bool,
 };
 
 export default RegisterForm;
