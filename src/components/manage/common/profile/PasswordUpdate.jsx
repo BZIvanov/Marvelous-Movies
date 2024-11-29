@@ -41,16 +41,41 @@ const PasswordUpdate = () => {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: { xs: '10px', sm: '20px', md: '40px' },
+        bgcolor: 'background.paper',
+        py: 4,
+        px: 2,
       }}
     >
-      <Typography variant='h5'>Password Update Form</Typography>
+      <Typography
+        variant='h4'
+        component='h1'
+        sx={{
+          fontWeight: 'bold',
+          mb: 3,
+          color: 'primary.main',
+        }}
+      >
+        Update Your Password
+      </Typography>
 
-      <PasswordUpdateForm
-        form={form}
-        resetForm={resetForm}
-        updatePassword={handleUpdatePassword}
-      />
+      <Box
+        sx={{
+          width: { xs: '100%', sm: '400px' },
+          bgcolor: 'background.default',
+          p: 4,
+          borderRadius: 2,
+          boxShadow: 3,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 3,
+        }}
+      >
+        <PasswordUpdateForm
+          form={form}
+          resetForm={resetForm}
+          updatePassword={handleUpdatePassword}
+        />
+      </Box>
     </Box>
   );
 };

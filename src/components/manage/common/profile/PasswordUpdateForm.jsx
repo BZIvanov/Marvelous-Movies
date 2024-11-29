@@ -14,43 +14,58 @@ const PasswordUpdateForm = ({ form, resetForm, updatePassword }) => {
   };
 
   return (
-    <Box sx={{ width: { xs: '90%', sm: '290px' } }}>
-      <FormProvider onSubmit={handleUpdatePasswordSubmit} methods={form}>
-        <PasswordTextFieldAdapter name='oldPassword' label='Old Password' />
+    <FormProvider onSubmit={handleUpdatePasswordSubmit} methods={form}>
+      <PasswordTextFieldAdapter name='oldPassword' label='Old Password' />
 
-        <PasswordTextFieldAdapter name='newPassword' label='New Password' />
+      <PasswordTextFieldAdapter name='newPassword' label='New Password' />
 
-        <PasswordTextFieldAdapter
-          name='confirmNewPassword'
-          label='Confirm New Password'
-        />
+      <PasswordTextFieldAdapter
+        name='confirmNewPassword'
+        label='Confirm New Password'
+      />
 
-        <Box
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          mt: 2,
+        }}
+      >
+        <Button
+          variant='outlined'
+          color='secondary'
+          type='button'
+          onClick={resetForm}
+          disabled={isLoading}
           sx={{
-            display: 'flex',
-            justifyContent: 'space-evenly',
-            marginTop: '20px',
+            width: '40%',
+            backgroundColor: 'grey.100',
+            color: 'secondary.main',
+            '&:hover': {
+              backgroundColor: 'grey.300',
+              color: 'secondary.dark',
+            },
           }}
         >
-          <Button
-            variant='contained'
-            color='secondary'
-            type='button'
-            onClick={resetForm}
-            disabled={form.formState.isSubmitting || isLoading}
-          >
-            Reset Form
-          </Button>
-          <Button
-            variant='contained'
-            type='submit'
-            disabled={form.formState.isSubmitting || isLoading}
-          >
-            Update Password
-          </Button>
-        </Box>
-      </FormProvider>
-    </Box>
+          Reset
+        </Button>
+        <Button
+          variant='contained'
+          type='submit'
+          color='primary'
+          disabled={isLoading}
+          sx={{
+            width: '50%',
+            backgroundColor: 'primary.main',
+            '&:hover': {
+              backgroundColor: 'primary.dark',
+            },
+          }}
+        >
+          Update Password
+        </Button>
+      </Box>
+    </FormProvider>
   );
 };
 
