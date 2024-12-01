@@ -163,7 +163,7 @@ const ProductDetailed = () => {
                 <InfoTextListItem itemKey='Quantity'>
                   <Typography variant='body1'>{product.quantity}</Typography>
                 </InfoTextListItem>
-                <InfoTextListItem itemKey='Sold' itemValue={product.sold}>
+                <InfoTextListItem itemKey='Sold'>
                   <Typography variant='body1'>{product.sold}</Typography>
                 </InfoTextListItem>
                 <InfoTextListItem itemKey='Shop'>

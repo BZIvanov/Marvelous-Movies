@@ -1,12 +1,12 @@
-import { Outlet } from 'react-router-dom';
 import Box from '@mui/material/Box';
 
 import CartDrawer from '@/components/cart/CartDrawer';
+import Header from './header/Header';
 
 const ShopLayout = () => {
   return (
     <Box>
-      <Outlet />
+      <Header />
 
       <CartDrawer />
     </Box>

@@ -1,7 +1,3 @@
-import MenuList from '@mui/material/MenuList';
-
-import { useSelector } from '@/providers/store/store';
-import { selectUser } from '@/providers/store/features/user/userSlice';
 import {
   ArticleIcon,
   AutoAwesomeMosaicIcon,
@@ -15,7 +11,6 @@ import {
   PasswordIcon,
   PhoneAndroidIcon,
 } from '@/components/mui/Icons';
-import ManagementSidebarLink from './ManagementSidebarLink';
 
 const adminLinks = [
   {
@@ -131,25 +126,8 @@ const buyerLinks = [
   },
 ];
 
-const roleLinks = {
+export const roleLinks = {
   admin: adminLinks,
   seller: sellerLinks,
   buyer: buyerLinks,
 };
-
-const ManagementSidebar = () => {
-  const user = useSelector(selectUser);
-  const userRole = user?.role || 'buyer';
-
-  const links = roleLinks[userRole];
-
-  return (
-    <MenuList sx={{ width: 240, maxWidth: '100%', marginRight: 1 }}>
-      {links.map((link) => {
-        return <ManagementSidebarLink key={link.toLink} {...link} />;
-      })}
-    </MenuList>
-  );
-};
-
-export default ManagementSidebar;
