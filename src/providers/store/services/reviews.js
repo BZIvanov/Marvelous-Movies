@@ -51,6 +51,7 @@ export const reviewsApi = api.injectEndpoints({
             { type: 'Reviews', id: result.review._id },
             { type: 'ReviewsSummary' },
             { type: 'MyReview' },
+            { type: 'Products', id: result.review.product },
           ];
         },
       }),

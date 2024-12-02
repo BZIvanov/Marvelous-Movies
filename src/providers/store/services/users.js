@@ -12,7 +12,7 @@ export const usersApi = api.injectEndpoints({
             credentials: 'include',
           };
         },
-        providesTags: () => {
+        invalidatesTags: () => {
           return [{ type: 'User' }];
         },
       }),
@@ -25,7 +25,7 @@ export const usersApi = api.injectEndpoints({
             credentials: 'include',
           };
         },
-        providesTags: () => {
+        invalidatesTags: () => {
           return [{ type: 'User' }];
         },
       }),

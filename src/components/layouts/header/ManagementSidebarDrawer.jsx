@@ -11,6 +11,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import Tooltip from '@mui/material/Tooltip';
 
 import { useSelector } from '@/providers/store/store';
 import { selectUser } from '@/providers/store/features/user/userSlice';
@@ -111,27 +112,36 @@ const ManagementSidebarDrawer = ({ isSidebarDrawerOpen, closeDrawer }) => {
             to={sidebarMenuLink.toLink}
           >
             <ListItem disablePadding={true} sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={[
-                  { minHeight: 48, px: 2.5 },
-                  isSidebarDrawerOpen
-                    ? { justifyContent: 'initial' }
-                    : { justifyContent: 'center' },
-                ]}
+              <Tooltip
+                title={!isSidebarDrawerOpen ? sidebarMenuLink.linkText : ''}
+                placement='right'
               >
-                <ListItemIcon
+                <ListItemButton
                   sx={[
-                    { minWidth: 0, justifyContent: 'center', color: 'inherit' },
-                    isSidebarDrawerOpen ? { mr: 3 } : { mr: 'auto' },
+                    { minHeight: 48, px: 2.5 },
+                    isSidebarDrawerOpen
+                      ? { justifyContent: 'initial' }
+                      : { justifyContent: 'center' },
                   ]}
                 >
-                  {sidebarMenuLink.icon}
-                </ListItemIcon>
-                <ListItemText
-                  primary={sidebarMenuLink.linkText}
-                  sx={[isSidebarDrawerOpen ? { opacity: 1 } : { opacity: 0 }]}
-                />
-              </ListItemButton>
+                  <ListItemIcon
+                    sx={[
+                      {
+                        minWidth: 0,
+                        justifyContent: 'center',
+                        color: 'inherit',
+                      },
+                      isSidebarDrawerOpen ? { mr: 3 } : { mr: 'auto' },
+                    ]}
+                  >
+                    {sidebarMenuLink.icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={sidebarMenuLink.linkText}
+                    sx={[isSidebarDrawerOpen ? { opacity: 1 } : { opacity: 0 }]}
+                  />
+                </ListItemButton>
+              </Tooltip>
             </ListItem>
           </NavLink>
         ))}
