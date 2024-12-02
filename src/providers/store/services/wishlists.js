@@ -13,8 +13,8 @@ export const wishlistsApi = api.injectEndpoints({
       },
       providesTags: (result) => {
         return [
-          ...result.products.map(({ _id }) => ({ type: 'Wishlists', id: _id })),
-          { type: 'Wishlists', id: 'LIST' },
+          ...result.products.map(({ _id }) => ({ type: 'Wishlist', id: _id })),
+          { type: 'Wishlist', id: 'LIST' },
         ];
       },
     }),
@@ -28,7 +28,7 @@ export const wishlistsApi = api.injectEndpoints({
         };
       },
       invalidatesTags: () => {
-        return [{ type: 'Wishlists', id: 'LIST' }];
+        return [{ type: 'Wishlist', id: 'LIST' }];
       },
     }),
     removeFromWishlist: build.mutation({
@@ -40,7 +40,7 @@ export const wishlistsApi = api.injectEndpoints({
         };
       },
       invalidatesTags: (_result, _error, payload) => {
-        return [{ type: 'Wishlists', id: payload }];
+        return [{ type: 'Wishlist', id: payload }];
       },
     }),
   }),

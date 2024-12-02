@@ -15,7 +15,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 
-import { useGetBuyerOrdersQuery } from '@/providers/store/services/orders';
+import { useGetAdminOrdersQuery } from '@/providers/store/services/orders';
 import AdminOrderTableRow from './AdminOrderTableRow';
 
 const ROWS_PER_PAGE_OPTIONS = [10, 25, 50];
@@ -33,7 +33,7 @@ const AdminOrdersList = () => {
     orderDeliveryStatuses.pending
   );
 
-  const { data, isLoading } = useGetBuyerOrdersQuery({
+  const { data, isLoading } = useGetAdminOrdersQuery({
     page,
     perPage: rowsPerPage,
     deliveryStatus,

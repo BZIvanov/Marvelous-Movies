@@ -18,6 +18,22 @@ export const ordersApi = api.injectEndpoints({
         ];
       },
     }),
+    getAdminOrders: build.query({
+      query: (params = {}) => {
+        return {
+          url: '/orders/admin',
+          method: 'GET',
+          params,
+          credentials: 'include',
+        };
+      },
+      providesTags: (result) => {
+        return [
+          ...result.orders.map(({ _id }) => ({ type: 'AdminOrders', id: _id })),
+          { type: 'AdminOrders', id: 'PARTIAL-LIST' },
+        ];
+      },
+    }),
     getSellerOrders: build.query({
       query: (params = {}) => {
         return {
@@ -94,6 +110,7 @@ export const ordersApi = api.injectEndpoints({
 
 export const {
   useGetBuyerOrdersQuery,
+  useGetAdminOrdersQuery,
   useGetSellerOrdersQuery,
   useCreateOrderMutation,
   useUpdateOrderDeliveryStatusMutation,
