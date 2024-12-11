@@ -1,17 +1,17 @@
-import { useEffect, useMemo, useState } from 'react';
-import io from 'socket.io-client';
-import Box from '@mui/material/Box';
+import { useEffect, useMemo, useState } from "react";
+import io from "socket.io-client";
+import Box from "@mui/material/Box";
 
-import { useSelector } from '@/providers/store/store';
-import { selectUser } from '@/providers/store/features/user/userSlice';
-import { useGetChatsQuery } from '@/providers/store/services/chat';
-import ChatHeader from '@/components/manage/common/chat/ChatHeader';
-import ChatMessages from '@/components/manage/common/chat/ChatMessages';
-import ChatForm from '@/components/manage/common/chat/ChatForm';
+import { useSelector } from "@/providers/store/store";
+import { selectUser } from "@/providers/store/features/user/userSlice";
+import { useGetChatsQuery } from "@/providers/store/services/chat";
+import ChatHeader from "@/components/manage/common/chat/ChatHeader";
+import ChatMessages from "@/components/manage/common/chat/ChatMessages";
+import ChatForm from "@/components/manage/common/chat/ChatForm";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-const AdminSellerChat = () => {
+const SellerAdminChat = () => {
   const user = useSelector(selectUser);
 
   const [socket, setSocket] = useState(null);
@@ -19,7 +19,7 @@ const AdminSellerChat = () => {
 
   const { data: chatsData } = useGetChatsQuery();
   const chatData = useMemo(
-    () => chatsData?.chats.find((chat) => chat.chatType === 'seller-admin'),
+    () => chatsData?.chats.find((chat) => chat.chatType === "seller-admin"),
     [chatsData]
   );
   const chatId = useMemo(() => chatData?._id, [chatData]);
@@ -42,9 +42,9 @@ const AdminSellerChat = () => {
       });
       setSocket(newSocket);
 
-      newSocket.on('activeUsers', (activeUsersList) => {
+      newSocket.on("activeUsers", (activeUsersList) => {
         const activeUsersListStatuses = activeUsersList.reduce((acc, curr) => {
-          return { ...acc, [curr]: 'online' };
+          return { ...acc, [curr]: "online" };
         }, {});
 
         setUserStatuses((prevStatuses) => ({
@@ -53,7 +53,7 @@ const AdminSellerChat = () => {
         }));
       });
 
-      newSocket.on('userStatus', ({ userId, status }) => {
+      newSocket.on("userStatus", ({ userId, status }) => {
         setUserStatuses((prevStatuses) => ({
           ...prevStatuses,
           [userId]: status,
@@ -63,7 +63,7 @@ const AdminSellerChat = () => {
 
     return () => {
       if (newSocket) {
-        newSocket.off('userStatus');
+        newSocket.off("userStatus");
         return newSocket.disconnect();
       }
     };
@@ -71,13 +71,13 @@ const AdminSellerChat = () => {
 
   useEffect(() => {
     if (socket && chatId) {
-      socket.emit('joinChat', { chatId });
+      socket.emit("joinChat", { chatId });
     }
   }, [socket, chatId]);
 
   return (
     <Box sx={{ margin: 1 }}>
-      <Box sx={{ display: 'flex', gap: 1 }}>
+      <Box sx={{ display: "flex", gap: 1 }}>
         <Box sx={{ flexGrow: 1 }}>
           <Box>
             <ChatHeader
@@ -96,4 +96,4 @@ const AdminSellerChat = () => {
   );
 };
 
-export default AdminSellerChat;
+export default SellerAdminChat;

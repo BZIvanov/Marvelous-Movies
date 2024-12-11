@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import { useGetProductsQuery } from '@/providers/store/services/products';
-import ProductsList from '@/components/product/ProductsList';
+import { useGetProductsQuery } from "@/providers/store/services/products";
+import ProductsList from "@/components/product/ProductsList";
 
 const PRODUCTS_PER_PAGE = 12;
 
@@ -10,11 +10,14 @@ const ManageProducts = () => {
 
   const handlePageChange = (_, value) => setPage(value);
 
-  const { data } = useGetProductsQuery({ page, perPage: PRODUCTS_PER_PAGE });
+  const { data } = useGetProductsQuery({
+    page: page - 1,
+    perPage: PRODUCTS_PER_PAGE,
+  });
 
   return (
     <ProductsList
-      header='Products List'
+      header="Products List"
       products={data?.products}
       page={page}
       onPageChange={handlePageChange}

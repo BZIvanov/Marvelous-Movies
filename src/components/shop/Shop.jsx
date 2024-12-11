@@ -1,17 +1,17 @@
-import { useState, useEffect, useMemo } from 'react';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
+import { useState, useEffect, useMemo } from "react";
+import Box from "@mui/material/Box";
+import List from "@mui/material/List";
 
-import { useSelector } from '@/providers/store/store';
-import { useGetProductsQuery } from '@/providers/store/services/products';
-import { selectFilters } from '@/providers/store/features/productsFilters/productsFiltersSlice';
-import ProductsList from '../product/ProductsList';
-import PriceFilter from './filters/PriceFilter';
-import CategoryFilter from './filters/CategoryFilter';
-import SubcategoryFilter from './filters/SubcategoryFilter';
-import RatingFilter from './filters/RatingFilter';
-import ShippingFilter from './filters/ShippingFilter';
-import BrandsFilter from './filters/BrandsFilter';
+import { useSelector } from "@/providers/store/store";
+import { useGetProductsQuery } from "@/providers/store/services/products";
+import { selectFilters } from "@/providers/store/features/productsFilters/productsFiltersSlice";
+import ProductsList from "../product/ProductsList";
+import PriceFilter from "./filters/PriceFilter";
+import CategoryFilter from "./filters/CategoryFilter";
+import SubcategoryFilter from "./filters/SubcategoryFilter";
+import RatingFilter from "./filters/RatingFilter";
+import ShippingFilter from "./filters/ShippingFilter";
+import BrandsFilter from "./filters/BrandsFilter";
 
 const PRODUCTS_PER_PAGE = 12;
 
@@ -28,17 +28,17 @@ const Shop = () => {
 
   const params = useMemo(() => {
     return {
-      page,
+      page: page - 1,
       perPage: PRODUCTS_PER_PAGE,
       text,
-      price: price.join(','),
-      categories: categories.map((category) => category._id).join(','),
+      price: price.join(","),
+      categories: categories.map((category) => category._id).join(","),
       subcategories: subcategories
         .map((subcategory) => subcategory._id)
-        .join(','),
-      rating: rating || '',
+        .join(","),
+      rating: rating || "",
       shipping,
-      brands: brands.join(','),
+      brands: brands.join(","),
     };
   }, [page, text, price, categories, subcategories, rating, shipping, brands]);
 
@@ -63,10 +63,10 @@ const Shop = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <List
         dense={true}
-        sx={{ minWidth: '300px', width: '300px', bgcolor: 'background.paper' }}
+        sx={{ minWidth: "300px", width: "300px", bgcolor: "background.paper" }}
       >
         <PriceFilter />
         <CategoryFilter />
@@ -78,7 +78,7 @@ const Shop = () => {
 
       <Box sx={{ flexGrow: 1 }}>
         <ProductsList
-          header='Products'
+          header="Products"
           products={data?.products}
           totalCount={data?.totalCount}
           page={page}

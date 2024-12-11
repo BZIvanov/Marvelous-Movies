@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
-import { useState } from 'react';
+import PropTypes from "prop-types";
+import { useState } from "react";
 
-import { useGetProductsQuery } from '@/providers/store/services/products';
-import ProductsList from '../product/ProductsList';
+import { useGetProductsQuery } from "@/providers/store/services/products";
+import ProductsList from "../product/ProductsList";
 
 const PRODUCTS_PER_PAGE = 6;
 
@@ -10,7 +10,7 @@ const ProductsSection = ({ header, sortColumn }) => {
   const [page, setPage] = useState(1);
 
   const { data } = useGetProductsQuery({
-    page,
+    page: page - 1,
     perPage: PRODUCTS_PER_PAGE,
     sortColumn,
   });

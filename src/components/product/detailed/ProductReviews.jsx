@@ -1,26 +1,26 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Pagination from '@mui/material/Pagination';
-import Rating from '@mui/material/Rating';
-import LinearProgress from '@mui/material/LinearProgress';
+import { useState } from "react";
+import PropTypes from "prop-types";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Pagination from "@mui/material/Pagination";
+import Rating from "@mui/material/Rating";
+import LinearProgress from "@mui/material/LinearProgress";
 
-import { useDispatch } from '@/providers/store/store';
+import { useDispatch } from "@/providers/store/store";
 import {
   useGetProductReviewsQuery,
   useReviewProductMutation,
   useGetProductReviewsSummaryQuery,
-} from '@/providers/store/services/reviews';
-import { showNotification } from '@/providers/store/features/notification/notificationSlice';
-import { useForm } from '@/providers/form/hooks/useForm';
-import FormProvider from '@/providers/form/FormProvider';
-import RatingFieldAdapter from '@/providers/form/formFields/RatingFieldAdapter';
-import TextFieldAdapter from '@/providers/form/formFields/TextFieldAdapter';
-import { useIsApiRequestPending } from '@/hooks/useIsApiRequestPending';
-import { formConfig } from './reviewForm.schema';
+} from "@/providers/store/services/reviews";
+import { showNotification } from "@/providers/store/features/notification/notificationSlice";
+import { useForm } from "@/providers/form/hooks/useForm";
+import FormProvider from "@/providers/form/FormProvider";
+import RatingFieldAdapter from "@/providers/form/formFields/RatingFieldAdapter";
+import TextFieldAdapter from "@/providers/form/formFields/TextFieldAdapter";
+import { useIsApiRequestPending } from "@/hooks/useIsApiRequestPending";
+import { formConfig } from "./reviewForm.schema";
 
 const perPage = 10;
 
@@ -31,7 +31,7 @@ const ProductReviews = ({ productId }) => {
 
   const { data: reviewsData } = useGetProductReviewsQuery({
     productId,
-    page,
+    page: page - 1,
     perPage,
   });
   const reviews = reviewsData?.reviews || [];
@@ -54,10 +54,10 @@ const ProductReviews = ({ productId }) => {
       ...values,
     });
 
-    if (!('error' in result)) {
+    if (!("error" in result)) {
       dispatch(
         showNotification({
-          type: 'success',
+          type: "success",
           message: `Successfully rated with rating of ${values.rating} stars`,
         })
       );
@@ -75,28 +75,28 @@ const ProductReviews = ({ productId }) => {
 
   return (
     <Box>
-      <Box sx={{ mb: 2, display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+      <Box sx={{ mb: 2, display: "flex", gap: 2, flexWrap: "wrap" }}>
         <Box>
-          <Box sx={{ display: 'flex', alignItems: 'end' }}>
-            <Typography variant='h4'>
+          <Box sx={{ display: "flex", alignItems: "end" }}>
+            <Typography variant="h4">
               {reviewSummary.averageRating?.toFixed(1)}
             </Typography>
-            <Typography variant='h6' sx={{ color: 'grey' }}>
+            <Typography variant="h6" sx={{ color: "grey" }}>
               /5
             </Typography>
           </Box>
           <Rating
-            name='average-rating'
+            name="average-rating"
             value={Number(reviewSummary.averageRating)}
             disabled={true}
             precision={1}
           />
-          <Typography variant='body1' sx={{ color: 'grey' }}>
+          <Typography variant="body1" sx={{ color: "grey" }}>
             {reviews.length} reviews
           </Typography>
         </Box>
 
-        <Box display='flex' flexDirection='column'>
+        <Box display="flex" flexDirection="column">
           {Object.keys(ratings)
             .reverse()
             .map((rating) => {
@@ -107,8 +107,8 @@ const ProductReviews = ({ productId }) => {
                   : (starReviewCount / totalReviewCount) * 100;
 
               return (
-                <Box key={rating} display='flex' alignItems='center' gap={2}>
-                  <Box sx={{ minWidth: '93px' }}>
+                <Box key={rating} display="flex" alignItems="center" gap={2}>
+                  <Box sx={{ minWidth: "93px" }}>
                     <Rating
                       name={`rating-count-${rating}`}
                       value={Number(rating)}
@@ -120,22 +120,22 @@ const ProductReviews = ({ productId }) => {
                     sx={{
                       width: 200,
                       height: 14,
-                      bgcolor: 'grey.300',
-                      position: 'relative',
+                      bgcolor: "grey.300",
+                      position: "relative",
                     }}
                   >
                     <LinearProgress
-                      variant='determinate'
+                      variant="determinate"
                       value={barWidth}
                       sx={{
-                        height: '100%',
-                        '& .MuiLinearProgress-bar': {
-                          backgroundColor: '#Edbb0E',
+                        height: "100%",
+                        "& .MuiLinearProgress-bar": {
+                          backgroundColor: "#Edbb0E",
                         },
                       }}
                     />
                   </Box>
-                  <Typography variant='body2' color='text.secondary'>
+                  <Typography variant="body2" color="text.secondary">
                     {starReviewCount}
                   </Typography>
                 </Box>
@@ -148,7 +148,7 @@ const ProductReviews = ({ productId }) => {
 
       <Box sx={{ mt: 2 }}>
         <Box>
-          <Typography variant='h5' gutterBottom={true}>
+          <Typography variant="h5" gutterBottom={true}>
             Product reviews ({reviews.length})
           </Typography>
 
@@ -158,7 +158,7 @@ const ProductReviews = ({ productId }) => {
                 key={review._id}
                 sx={{
                   padding: 1,
-                  backgroundColor: index % 2 === 0 ? '#eeeeee' : 'white',
+                  backgroundColor: index % 2 === 0 ? "#eeeeee" : "white",
                 }}
               >
                 <Rating
@@ -167,16 +167,16 @@ const ProductReviews = ({ productId }) => {
                   disabled={true}
                   precision={1}
                 />
-                <Typography variant='subtitle2' gutterBottom={true}>
+                <Typography variant="subtitle2" gutterBottom={true}>
                   {review.user.username}
                 </Typography>
-                <Typography variant='body2'>{review.comment}</Typography>
+                <Typography variant="body2">{review.comment}</Typography>
               </Box>
             );
           })}
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'center', marginBlock: 1 }}>
+        <Box sx={{ display: "flex", justifyContent: "center", marginBlock: 1 }}>
           <Pagination
             count={pagesCount}
             page={page}
@@ -188,19 +188,19 @@ const ProductReviews = ({ productId }) => {
       <Divider />
 
       <Box sx={{ mt: 2 }}>
-        <Typography variant='h5' gutterBottom={true}>
+        <Typography variant="h5" gutterBottom={true}>
           Post a review
         </Typography>
 
         <FormProvider onSubmit={handleReviewSubmit} methods={form}>
-          <RatingFieldAdapter name='rating' label='Your rating' />
+          <RatingFieldAdapter name="rating" label="Your rating" />
           <TextFieldAdapter
-            name='comment'
-            label='Your comment'
+            name="comment"
+            label="Your comment"
             multiline={true}
           />
 
-          <Button variant='contained' type='submit' disabled={isLoading}>
+          <Button variant="contained" type="submit" disabled={isLoading}>
             Review
           </Button>
         </FormProvider>

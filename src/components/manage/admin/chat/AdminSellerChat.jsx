@@ -1,19 +1,19 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import io from 'socket.io-client';
-import Box from '@mui/material/Box';
+import { useEffect, useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
+import io from "socket.io-client";
+import Box from "@mui/material/Box";
 
-import { useSelector } from '@/providers/store/store';
-import { selectUser } from '@/providers/store/features/user/userSlice';
+import { useSelector } from "@/providers/store/store";
+import { selectUser } from "@/providers/store/features/user/userSlice";
 import {
   useGetChatsQuery,
   useGetChatQuery,
   useCreateChatMutation,
-} from '@/providers/store/services/chat';
-import UsersChatList from '@/components/manage/common/chat/UsersChatList';
-import ChatHeader from '@/components/manage/common/chat/ChatHeader';
-import ChatMessages from '@/components/manage/common/chat/ChatMessages';
-import ChatForm from '@/components/manage/common/chat/ChatForm';
+} from "@/providers/store/services/chat";
+import UsersChatList from "@/components/manage/common/chat/UsersChatList";
+import ChatHeader from "@/components/manage/common/chat/ChatHeader";
+import ChatMessages from "@/components/manage/common/chat/ChatMessages";
+import ChatForm from "@/components/manage/common/chat/ChatForm";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -50,9 +50,9 @@ const AdminSellerChat = () => {
       });
       setSocket(newSocket);
 
-      newSocket.on('activeUsers', (activeUsersList) => {
+      newSocket.on("activeUsers", (activeUsersList) => {
         const activeUsersListStatuses = activeUsersList.reduce((acc, curr) => {
-          return { ...acc, [curr]: 'online' };
+          return { ...acc, [curr]: "online" };
         }, {});
 
         setUserStatuses((prevStatuses) => ({
@@ -61,7 +61,7 @@ const AdminSellerChat = () => {
         }));
       });
 
-      newSocket.on('userStatus', ({ userId, status }) => {
+      newSocket.on("userStatus", ({ userId, status }) => {
         setUserStatuses((prevStatuses) => ({
           ...prevStatuses,
           [userId]: status,
@@ -71,25 +71,25 @@ const AdminSellerChat = () => {
 
     return () => {
       if (newSocket) {
-        newSocket.off('userStatus');
-        return newSocket.disconnect();
+        newSocket.off("userStatus");
+        newSocket.disconnect();
       }
     };
   }, [user]);
 
   useEffect(() => {
     if (socket && chatId) {
-      socket.emit('joinChat', { chatId });
+      socket.emit("joinChat", { chatId });
     }
   }, [socket, chatId]);
 
   return (
     <Box sx={{ margin: 1 }}>
-      <Box sx={{ display: 'flex', gap: 1 }}>
+      <Box sx={{ display: "flex", gap: 1 }}>
         <UsersChatList
           chats={chatsData?.chats}
           userStatuses={userStatuses}
-          title='Sellers'
+          title="Sellers"
         />
 
         <Box sx={{ flexGrow: 1 }}>

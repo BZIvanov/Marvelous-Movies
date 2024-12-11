@@ -1,22 +1,22 @@
-import { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 import {
   useGetProductQuery,
   useCreateProductMutation,
   useUpdateProductMutation,
-} from '@/providers/store/services/products';
+} from "@/providers/store/services/products";
 import {
   useGetCategoriesQuery,
   useGetCategorySubcategoriesQuery,
-} from '@/providers/store/services/categories';
-import { useDispatch } from '@/providers/store/store';
-import { showNotification } from '@/providers/store/features/notification/notificationSlice';
-import { useForm } from '@/providers/form/hooks/useForm';
-import { formConfig } from './manageProductForm.schema';
-import ProductForm from './ProductForm';
+} from "@/providers/store/services/categories";
+import { useDispatch } from "@/providers/store/store";
+import { showNotification } from "@/providers/store/features/notification/notificationSlice";
+import { useForm } from "@/providers/form/hooks/useForm";
+import { formConfig } from "./manageProductForm.schema";
+import ProductForm from "./ProductForm";
 
 const ManageProduct = () => {
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const ManageProduct = () => {
 
   const form = useForm(formConfig);
 
-  const selectedCategoryId = form.watch('category');
+  const selectedCategoryId = form.watch("category");
 
   const { data: categoriesData } = useGetCategoriesQuery();
   const { data: categorySubcategoriesData } = useGetCategorySubcategoriesQuery(
@@ -71,29 +71,29 @@ const ManageProduct = () => {
       result = await createProduct(formData);
     }
 
-    if (!('error' in result)) {
+    if (!("error" in result)) {
       dispatch(
         showNotification({
-          type: 'success',
-          message: `Product ${productId ? 'updated' : 'created'} successfully`,
+          type: "success",
+          message: `Product ${productId ? "updated" : "created"} successfully`,
         })
       );
 
       form.reset();
-      navigate('/seller/products');
+      navigate("/seller/products");
     }
   };
 
   return (
     <Box sx={{ padding: (theme) => theme.spacing(1) }}>
-      <Typography variant='h5'>Manage Product</Typography>
+      <Typography variant="h5">Manage Product</Typography>
 
       <ProductForm
         form={form}
-        productId={productId}
         createProduct={handleCreateProduct}
         categories={categoriesData?.categories}
         categorySubcategories={categorySubcategoriesData?.subcategories}
+        buttonLabel={productId ? "Update Product" : "Create Product"}
       />
     </Box>
   );

@@ -1,26 +1,26 @@
-import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import Stack from '@mui/material/Stack';
+import PropTypes from "prop-types";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import Stack from "@mui/material/Stack";
 
-import FormProvider from '@/providers/form/FormProvider';
-import TextFieldAdapter from '@/providers/form/formFields/TextFieldAdapter';
-import SelectDropdownAdapter from '@/providers/form/formFields/SelectDropdownAdapter';
-import SelectDropdownMultichipAdapter from '@/providers/form/formFields/SelectDropdownMultichipAdapter';
-import ImagesFieldAdapter from '@/providers/form/formFields/ImagesFieldAdapter';
-import PreviewImageAvatar from '@/components/common/imagePreview/PreviewImageAvatar';
-import { useIsApiRequestPending } from '@/hooks/useIsApiRequestPending';
-import { resizeImage } from '@/utils/resizeImage';
+import FormProvider from "@/providers/form/FormProvider";
+import TextFieldAdapter from "@/providers/form/formFields/TextFieldAdapter";
+import SelectDropdownAdapter from "@/providers/form/formFields/SelectDropdownAdapter";
+import SelectDropdownMultichipAdapter from "@/providers/form/formFields/SelectDropdownMultichipAdapter";
+import ImagesFieldAdapter from "@/providers/form/formFields/ImagesFieldAdapter";
+import PreviewImageAvatar from "@/components/common/imagePreview/PreviewImageAvatar";
+import { useIsApiRequestPending } from "@/hooks/useIsApiRequestPending";
+import { resizeImage } from "@/utils/resizeImage";
 
 const ProductForm = ({
   form,
-  productId,
   createProduct,
   categories = [],
   categorySubcategories = [],
+  buttonLabel,
 }) => {
-  const selectedFormImages = form.watch('images');
+  const selectedFormImages = form.watch("images");
 
   const isLoading = useIsApiRequestPending();
 
@@ -38,23 +38,23 @@ const ProductForm = ({
       );
     }
 
-    form.setValue('images', filteredImages);
+    form.setValue("images", filteredImages);
   };
 
   const handleProductSubmit = async (values) => {
     const formData = new FormData();
-    formData.append('title', values.title);
-    formData.append('description', values.description);
-    formData.append('price', values.price);
-    formData.append('discount', values.discount);
-    formData.append('shipping', values.shipping);
-    formData.append('quantity', values.quantity);
-    formData.append('color', values.color);
-    formData.append('brand', values.brand);
-    formData.append('category', values.category);
+    formData.append("title", values.title);
+    formData.append("description", values.description);
+    formData.append("price", values.price);
+    formData.append("discount", values.discount);
+    formData.append("shipping", values.shipping);
+    formData.append("quantity", values.quantity);
+    formData.append("color", values.color);
+    formData.append("brand", values.brand);
+    formData.append("category", values.category);
 
     values.subcategories.forEach((subcategory) =>
-      formData.append('subcategories', subcategory)
+      formData.append("subcategories", subcategory)
     );
 
     for (const image of values.images) {
@@ -62,12 +62,12 @@ const ProductForm = ({
         const resizedFile = await resizeImage(image, {
           maxWidth: 450,
           maxHeight: 450,
-          compressFormat: 'png',
-          outputType: 'file',
+          compressFormat: "png",
+          outputType: "file",
         });
-        formData.append('newImages', resizedFile);
+        formData.append("newImages", resizedFile);
       } else {
-        formData.append('existingImages', image.publicId);
+        formData.append("existingImages", image.publicId);
       }
     }
 
@@ -75,44 +75,44 @@ const ProductForm = ({
   };
 
   return (
-    <Box sx={{ width: '99%' }}>
+    <Box sx={{ width: "99%" }}>
       <FormProvider onSubmit={handleProductSubmit} methods={form}>
-        <TextFieldAdapter name='title' label='Title' />
-        <TextFieldAdapter name='description' label='Description' />
-        <TextFieldAdapter name='price' label='Price' type='number' />
-        <TextFieldAdapter name='discount' label='Discount' type='number' />
+        <TextFieldAdapter name="title" label="Title" />
+        <TextFieldAdapter name="description" label="Description" />
+        <TextFieldAdapter name="price" label="Price" type="number" />
+        <TextFieldAdapter name="discount" label="Discount" type="number" />
         <SelectDropdownAdapter
-          name='shipping'
-          label='Shipping'
-          options={['Yes', 'No']}
+          name="shipping"
+          label="Shipping"
+          options={["Yes", "No"]}
         />
-        <TextFieldAdapter name='quantity' label='Quantity' type='number' />
-        <TextFieldAdapter name='color' label='Color' />
-        <TextFieldAdapter name='brand' label='Brand' />
+        <TextFieldAdapter name="quantity" label="Quantity" type="number" />
+        <TextFieldAdapter name="color" label="Color" />
+        <TextFieldAdapter name="brand" label="Brand" />
         <SelectDropdownAdapter
-          name='category'
-          label='Category'
+          name="category"
+          label="Category"
           options={categories}
           extendedOnChange={() => {
             // reset subcategories whenever category is changed
-            form.setValue('subcategories', []);
+            form.setValue("subcategories", []);
           }}
         />
         <SelectDropdownMultichipAdapter
-          name='subcategories'
-          label='Subcategory'
+          name="subcategories"
+          label="Subcategory"
           options={categorySubcategories}
         />
 
-        <Divider sx={{ margin: '8px 0' }} />
+        <Divider sx={{ margin: "8px 0" }} />
 
         <ImagesFieldAdapter
-          name='images'
+          name="images"
           maxFiles={10}
           keepPreviousUploads={true}
         />
 
-        <Stack sx={{ marginTop: 3 }} spacing={2} direction='row'>
+        <Stack sx={{ marginTop: 3 }} spacing={2} direction="row">
           {selectedFormImages.map((formImage) => {
             return (
               <PreviewImageAvatar
@@ -127,9 +127,9 @@ const ProductForm = ({
 
         <Box mt={2} ml={1}>
           <Button
-            variant='contained'
-            color='secondary'
-            type='button'
+            variant="contained"
+            color="secondary"
+            type="button"
             onClick={() => {
               form.reset();
             }}
@@ -138,12 +138,12 @@ const ProductForm = ({
             Reset Form
           </Button>
           <Button
-            sx={{ marginLeft: '5px' }}
-            variant='contained'
-            type='submit'
+            sx={{ marginLeft: "5px" }}
+            variant="contained"
+            type="submit"
             disabled={isLoading}
           >
-            {productId ? 'Update Product' : 'Create Product'}
+            {buttonLabel}
           </Button>
         </Box>
       </FormProvider>
@@ -153,10 +153,10 @@ const ProductForm = ({
 
 ProductForm.propTypes = {
   form: PropTypes.object,
-  productId: PropTypes.string,
   createProduct: PropTypes.func,
   categories: PropTypes.array,
   categorySubcategories: PropTypes.array,
+  buttonLabel: PropTypes.string,
 };
 
 export default ProductForm;

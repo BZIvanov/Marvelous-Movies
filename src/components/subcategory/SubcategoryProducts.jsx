@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import Box from '@mui/material/Box';
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import Box from "@mui/material/Box";
 
 import {
   useGetSubcategoryQuery,
   useGetSubcategoryProductsQuery,
-} from '@/providers/store/services/subcategories';
-import ProductsList from '../product/ProductsList';
+} from "@/providers/store/services/subcategories";
+import ProductsList from "../product/ProductsList";
 
 const SubcategoryProducts = () => {
   const [page, setPage] = useState(1);
@@ -17,7 +17,7 @@ const SubcategoryProducts = () => {
   const subcategory = subcategoryData?.subcategory;
   const { data: subcategoryProductsData } = useGetSubcategoryProductsQuery({
     id: subcategoryId,
-    page,
+    page: page - 1,
   });
   const subcategoryProducts = subcategoryProductsData?.products;
   const categoryProductsTotalCount = subcategoryProductsData?.totalCount;
