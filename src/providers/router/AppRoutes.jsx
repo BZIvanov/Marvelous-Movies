@@ -1,23 +1,23 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
-import App from '@/App';
-import ErrorBoundary from './feedback/ErrorBoundary';
-import NotFound from './feedback/NotFound';
-import ShopLayout from '@/components/layouts/ShopLayout';
-import ManagementLayout from '@/components/layouts/ManagementLayout';
-import Home from '@/components/home/Home';
-import Shop from '@/components/shop/Shop';
-import CartProducts from '@/components/cart/products/CartProducts';
-import UserRegister from '@/components/user/auth/register/UserRegister';
-import UserLogin from '@/components/user/auth/login/UserLogin';
-import PasswordResetForm from '@/components/user/auth/PasswordResetForm';
-import ProductDetailed from '@/components/product/detailed/ProductDetailed';
-import CategoryProducts from '@/components/category/CategoryProducts';
-import SubcategoryProducts from '@/components/subcategory/SubcategoryProducts';
-import Checkout from '@/components/checkout/Checkout';
-import NonUserRoute from './auth/NonUserRoute';
-import ProtectedRoute from './auth/ProtectedRoute';
-import ShopStatus from './auth/ShopStatus';
+import App from "@/App";
+import ErrorBoundary from "./feedback/ErrorBoundary";
+import NotFound from "./feedback/NotFound";
+import ShopLayout from "@/components/layouts/ShopLayout";
+import ManagementLayout from "@/components/layouts/ManagementLayout";
+import Home from "@/components/home/Home";
+import Shop from "@/components/shop/Shop";
+import CartProducts from "@/components/cart/products/CartProducts";
+import UserRegister from "@/components/user/auth/register/UserRegister";
+import UserLogin from "@/components/user/auth/login/UserLogin";
+import PasswordResetForm from "@/components/user/auth/PasswordResetForm";
+import ProductDetailed from "@/components/product/detailed/ProductDetailed";
+import CategoryProducts from "@/components/category/CategoryProducts";
+import SubcategoryProducts from "@/components/subcategory/SubcategoryProducts";
+import Checkout from "@/components/checkout/Checkout";
+import NonUserRoute from "./auth/NonUserRoute";
+import ProtectedRoute from "./auth/ProtectedRoute";
+import ShopStatus from "./auth/ShopStatus";
 import {
   AdminDashboard,
   AdminOrdersList,
@@ -39,31 +39,31 @@ import {
   ManageWishList,
   BuyerSellerChat,
   UserProfile,
-} from './lazy-routes';
+} from "./lazy-routes";
 
 const routes = [
   {
-    path: '/',
+    path: "/",
     element: <App />,
     errorElement: <ErrorBoundary />,
     children: [
       {
-        path: '',
+        path: "",
         element: <ShopLayout />,
-        children: [{ path: '', element: <Home /> }],
+        children: [{ path: "", element: <Home /> }],
       },
       {
-        path: 'shop',
+        path: "shop",
         element: <ShopLayout />,
-        children: [{ path: '', element: <Shop /> }],
+        children: [{ path: "", element: <Shop /> }],
       },
       {
-        path: 'cart',
+        path: "cart",
         element: <ShopLayout />,
-        children: [{ path: '', element: <CartProducts /> }],
+        children: [{ path: "", element: <CartProducts /> }],
       },
       {
-        path: 'auth',
+        path: "auth",
         element: (
           <NonUserRoute>
             <ShopLayout />
@@ -71,208 +71,212 @@ const routes = [
         ),
         children: [
           {
-            path: '',
-            element: <Navigate to='login' replace={true} />, // Default redirect to /auth/login
+            path: "",
+            element: <Navigate to="login" replace={true} />, // Default redirect to /auth/login
           },
           {
-            path: 'register',
+            path: "register",
             element: <UserRegister />,
           },
           {
-            path: 'login',
+            path: "login",
             element: <UserLogin />,
           },
           {
-            path: 'reset-password/:token',
+            path: "reset-password/:token",
             element: <PasswordResetForm />,
           },
         ],
       },
       {
-        path: 'admin',
+        path: "admin",
         element: (
           <ProtectedRoute
-            authRedirectTo='/auth/login'
-            roleRedirectTo='/'
-            roles={['admin']}
+            authRedirectTo="/auth/login"
+            roleRedirectTo="/"
+            roles={["admin"]}
           >
             <ManagementLayout />
           </ProtectedRoute>
         ),
         children: [
           {
-            path: 'dashboard',
+            path: "dashboard",
             element: <AdminDashboard />,
           },
           {
-            path: 'orders',
+            path: "orders",
             element: <AdminOrdersList />,
           },
           {
-            path: 'shops',
+            path: "shops",
             element: <ManageShops />,
           },
           {
-            path: 'shops/:shopId',
+            path: "shops/:shopId",
             element: <ShopDetails />,
           },
           {
-            path: 'category',
+            path: "category",
             element: <ManageCategory />,
           },
           {
-            path: 'subcategory',
+            path: "subcategory",
             element: <ManageSubcategory />,
           },
           {
-            path: 'coupon',
+            path: "coupon",
             element: <ManageCoupon />,
           },
           {
-            path: 'profile',
+            path: "profile",
             element: <UserProfile />,
           },
           {
-            path: 'chat',
+            path: "chat",
             element: <AdminSellerChat />,
           },
           {
-            path: 'chat/:receiverId',
+            path: "chat/:receiverId",
             element: <AdminSellerChat />,
           },
         ],
       },
       {
-        path: 'seller',
+        path: "seller",
         element: (
           <ProtectedRoute
-            authRedirectTo='/auth/login'
-            roleRedirectTo='/'
-            roles={['seller']}
+            authRedirectTo="/auth/login"
+            roleRedirectTo="/"
+            roles={["seller"]}
           >
             <ManagementLayout />
           </ProtectedRoute>
         ),
         children: [
           {
-            path: 'dashboard',
+            path: "dashboard",
             element: <SellerDashboard />,
           },
           {
-            path: 'orders',
+            path: "orders",
             element: <SellerOrdersList />,
           },
           {
-            path: 'shop',
+            path: "shop",
             element: <ManageShop />,
           },
           {
-            path: 'product',
+            path: "product",
             element: (
               <ShopStatus
-                statusRedirectTo='/seller/shop'
-                activityStatuses={['active']}
-                paymentStatuses={['paid']}
+                statusRedirectTo="/seller/shop"
+                activityStatuses={["active"]}
+                paymentStatuses={["paid"]}
               >
                 <ManageProduct />
               </ShopStatus>
             ),
           },
           {
-            path: 'product/:productId',
+            path: "product/:productId",
             element: (
               <ShopStatus
-                statusRedirectTo='/seller/shop'
-                activityStatuses={['active']}
-                paymentStatuses={['paid']}
+                statusRedirectTo="/seller/shop"
+                activityStatuses={["active"]}
+                paymentStatuses={["paid"]}
               >
                 <ManageProduct />
               </ShopStatus>
             ),
           },
           {
-            path: 'products',
+            path: "products",
             element: <ManageProducts />,
           },
           {
-            path: 'chat-admin',
+            path: "chat-admin",
             element: <SellerAdminChat />,
           },
           {
-            path: 'chat',
+            path: "chat",
             element: <SellerBuyerChat />,
           },
           {
-            path: 'chat/:receiverId',
+            path: "chat/:receiverId",
             element: <SellerBuyerChat />,
           },
           {
-            path: 'profile',
+            path: "profile",
             element: <UserProfile />,
           },
         ],
       },
       {
-        path: 'buyer',
+        path: "buyer",
         element: (
           <ProtectedRoute
-            authRedirectTo='/auth/login'
-            roleRedirectTo='/'
-            roles={['buyer']}
+            authRedirectTo="/auth/login"
+            roleRedirectTo="/"
+            roles={["buyer"]}
           >
             <ManagementLayout />
           </ProtectedRoute>
         ),
         children: [
           {
-            path: 'dashboard',
+            path: "dashboard",
             element: <BuyerDashboard />,
           },
           {
-            path: 'orders',
+            path: "orders",
             element: <BuyerOrdersList />,
           },
           {
-            path: 'wishlist',
+            path: "wishlist",
             element: <ManageWishList />,
           },
           {
-            path: 'chat',
+            path: "chat",
             element: <BuyerSellerChat />,
           },
           {
-            path: 'chat/:receiverId',
+            path: "chat/:receiverId",
             element: <BuyerSellerChat />,
           },
           {
-            path: 'profile',
+            path: "profile",
             element: <UserProfile />,
           },
         ],
       },
       {
-        path: 'product/:productId',
+        path: "product/:productId",
         element: <ShopLayout />,
-        children: [{ path: '', element: <ProductDetailed /> }],
+        children: [{ path: "", element: <ProductDetailed /> }],
       },
       {
-        path: 'category/:categoryId',
+        path: "category/:categoryId",
         element: <ShopLayout />,
-        children: [{ path: '', element: <CategoryProducts /> }],
+        children: [{ path: "", element: <CategoryProducts /> }],
       },
       {
-        path: 'subcategory/:subcategoryId',
+        path: "subcategory/:subcategoryId",
         element: <ShopLayout />,
-        children: [{ path: '', element: <SubcategoryProducts /> }],
+        children: [{ path: "", element: <SubcategoryProducts /> }],
       },
       {
-        path: 'checkout',
+        path: "checkout",
         element: <ShopLayout />,
         children: [
           {
-            path: '',
+            path: "",
             element: (
-              <ProtectedRoute authRedirectTo='/auth/login'>
+              <ProtectedRoute
+                authRedirectTo="/auth/login"
+                roleRedirectTo="/"
+                roles={["buyer"]}
+              >
                 <Checkout />
               </ProtectedRoute>
             ),
@@ -282,7 +286,7 @@ const routes = [
     ],
   },
   {
-    path: '*',
+    path: "*",
     element: <NotFound />,
   },
 ];
